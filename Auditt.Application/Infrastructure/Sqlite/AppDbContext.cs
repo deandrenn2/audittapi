@@ -15,8 +15,20 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
-
-
+    public DbSet<Role> Roles => Set<Role>();
+    public DbSet<Functionary> Functionaries => Set<Functionary>();
+    public DbSet<Institution> Institutions => Set<Institution>();
+    public DbSet<DataCut> DataCuts => Set<DataCut>();
+    public DbSet<Guide> Guides => Set<Guide>();
+    public DbSet<Assessment> Assessments => Set<Assessment>();
+    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<Scale> Scales => Set<Scale>();
+    public DbSet<Equivalence> Equivalences => Set<Equivalence>();
+    public DbSet<Valuation> Valuations => Set<Valuation>();
+    public DbSet<Log> Logs => Set<Log>();
+    public DbSet<Setting> Settings => Set<Setting>();
+    public DbSet<SettingUser> SettingUsers => Set<SettingUser>();
+    public DbSet<Permission> Permissions => Set<Permission>();
 
 
 

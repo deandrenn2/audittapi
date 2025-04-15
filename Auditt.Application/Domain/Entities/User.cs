@@ -29,7 +29,7 @@ public class User : AggregateRoot
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
-    public int IdRol { get; private set; } = 2;
+    public Role Role { get; private set; }
     public string SecurePharse { get; private set; }
     public int StatusId { get; private set; } = 1;
     public int IdAvatar { get; private set; } = NumberRandom.Random(1, 14);
@@ -48,14 +48,14 @@ public class User : AggregateRoot
 
     public Result Login(string password)
     {
-        var isPasswordMatch = this.Password == password.EncryptPassword();
+        var isPasswordMatch = Password == password.EncryptPassword();
 
         if (!isPasswordMatch)
         {
             return Result.Failure(new Error("Autentication.NotMatchPassword", "Credenciales de acceso no validas"));
         }
 
-        var isActive = (UserStatus)this.StatusId == UserStatus.Active;
+        var isActive = (UserStatus)StatusId == UserStatus.Active;
 
         if (!isActive)
         {
@@ -69,24 +69,24 @@ public class User : AggregateRoot
 
     public bool ValidateSecurePharse(string securePharse)
     {
-        return this.SecurePharse.Trim().ToUpper() == securePharse.Trim().ToUpper();
+        return SecurePharse.Trim().ToUpper() == securePharse.Trim().ToUpper();
     }
 
     public void UpdatePassword(string password)
     {
-        this.Password = password.EncryptPassword();
+        Password = password.EncryptPassword();
     }
 
     public void Update(string firstName, string lastName, string email)
     {
-        this.FirstName = firstName;
-        this.LastName = lastName;
-        this.Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
     }
 
     public void SetAvatar(int id)
     {
-        this.IdAvatar = id;
+        IdAvatar = id;
     }
 }
 
