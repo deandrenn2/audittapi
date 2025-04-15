@@ -1,44 +1,51 @@
+﻿using Auditt.Application;
+using Carter;
+using Microsoft.AspNetCore.Builder;
+using Auditt.Application.Infrastructure.Sqlite;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApiDocument(c =>
+{
+    c.Title = "OPTIC Api";
+    c.Version = "v1";
+});
+
+// Configurar DbContext con MediatR
+builder.Services.AddApplicationCore();
+
+// Configurar DbContext con SQLite
+builder.Services.AddPersistence(builder.Configuration);
+
+// Autorizacion y autenticacion
+builder.AddAutenticationServices();
+builder.Services.ConfigureServices();
+
+// registro de servicios
+builder.AddInfraestructure();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// 🔄 Aplica las migraciones automáticamente si no estás en desarrollo
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    await app.MigrateDatabaseAsync(); // <- Esta línea es clave
 }
-
 app.UseHttpsRedirection();
-
-var summaries = new[]
+app.UseOpenApi();
+app.UseSwaggerUi(settings => { settings.Path = "/docs"; });
+app.UseReDoc(settings =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
+    settings.Path = "/redoc";
+    settings.DocumentPath = "/swagger/v1/swagger.json";
+});
+app.UseCors("AllowSpecificOrigin");
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
+app.MapCarter();
 app.Run();
-
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

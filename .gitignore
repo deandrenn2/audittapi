@@ -398,3 +398,33 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# ViteJs
+!**/glob-import/dir/node_modules
+.DS_Store
+.idea
+.pnpm-store
+.vite
+*.cpuprofile
+*.local
+*.log
+/.vscode/
+/docs/.vitepress/cache
+/packages/vite/LICENSE
+dist
+dist-ssr
+explorations
+node_modules
+playground-temp
+temp
+TODOs.md
+.eslintcache
+/Audit.Api/appsettings.Development.json
+/Audit.Api/App_Data
+/Audit.Api/wwwroot/static/logos
+/Audit.Api/wwwroot/assets
+/Audit.Api/wwwroot/images
+/Audit.Api/wwwroot/index.html
+/Audit.Api/wwwroot/initials-logo.svg
+/Audit.Api/wwwroot/vite.svg
+/Audit.Api/public
