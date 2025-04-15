@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { DashboardResponseModel } from "./DashboardModel";
-import { MoneyFormatter } from "../../shared/components/Numbers/MoneyFormatter";
 import { getDashboard } from "./DashboardServices";
 
 export const DashboradStatistcs = () => {
@@ -16,19 +15,46 @@ export const DashboradStatistcs = () => {
     }, []);
 
     return (
-        <div className="flex items-center justify-center ">
-            <div className="bg-white shadow-lg rounded-lg p-4 w-56 text-center border-b-4 border-purple-500 mr-2">
-                <p className="text-purple-500 text-ms font-bold ">Total Productos</p>
-                <p className="text-blue-500 text-3xl font-bold">{dashboarData?.productCount}</p>
+        <div className="flex-1 p-10 rounded-6xl">
+            <h1 className="text-8xl font-bold text-gray-800">
+                Bienvenido a <span className="text-pink-500 font-bold">Auditt</span><span className="text-gray-800">Api</span>
+            </h1>
+
+            <div className="mt-7 flex space-x-2 gap-3 ">
+                <button className="bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">Crear Clientes</button>
+                <button className="border border-indigo-900 text-gray-500 px-6 py-2 rounded-lg font-semibold">Crear
+                    Pacientes</button>
+                <button className="border border-indigo-900 text-gray-500 px-6 py-2 rounded-lg font-semibold">Crear
+                    Instrumentos</button>
             </div>
-            <div className="bg-white shadow-lg rounded-lg p-4 w-56 text-center border-b-4 border-blue-500 mr-2">
-                <p className="text-blue-500 text-ms font-bold">Total Recaudo (Hoy)</p>
-                <p className="text-blue-500 text-3xl font-bold"><MoneyFormatter abbreviation={true} amount={dashboarData?.dailyRevenue} /></p>
+
+            <div className="mt-10 grid grid-cols-3 gap-4 mr-4 scale-110">
+                <div className=" bg-pink-400 text-white rounded-2xl p-6 text-center mr-2">
+                    <p className=" font-bold">Total Valoraciones</p>
+                    <p className="text-5xl font-bold mt-2">250</p>
+                </div>
+                <div className="bg-pink-300 text-white rounded-2xl p-6 text-center mr-2">
+                    <p className="font-bold">Total Pacientes</p>
+                    <p className="text-5xl font-bold mt-2">157</p>
+                </div>
+                <div className="bg-pink-300 text-indigo-900 rounded-2xl p-6 text-center">
+                    <p className="font-bold">Total Profesionales</p>
+                    <p className="text-5xl font-bold mt-2">234</p>
+                </div>
             </div>
-            <div className="bg-white shadow-lg rounded-lg p-4 w-56 text-center border-b-4 border-red-500">
-                <p className="text-red-500 text-ms font-bold">Total Clientes</p>
-                <p className="text-blue-500 text-3xl font-bold">{dashboarData?.clientCount}</p>
+
+            <div className="mt-10">
+                <p className="font-bold">Evaluaciones</p>
+                <p className="text-sm mt-1 mb-2">Filtrar por ID Paciente</p>
+                <input type="text" value="1039094780" className="border border-gray-400 rounded-lg px-4 py-2" />
+            </div>
+
+            <div className="mt-6 space-y-3">
+                <div className="h-6 bg-gray-200 rounded"></div>
+                <div className="h-6 bg-gray-200 rounded"></div>
             </div>
         </div>
+
+
     )
 };
