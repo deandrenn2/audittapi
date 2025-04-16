@@ -1,21 +1,17 @@
-export const ClientsCreate = () => {
+export const PatientsCreate = () => {
     return (
         <div>
             <form className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium mb-1">Razón Social</label>
+                    <label className="block text-sm font-medium mb-1">Paciente</label>
                     <input type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-1">Abreviatura</label>
+                    <label className="block text-sm font-medium mb-1">Fecha</label>
                     <input type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-1">Nit</label>
-                    <input type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium mb-1">Ciudad</label>
+                    <label className="block text-sm font-medium mb-1">Eps</label>
                     <input type="text" className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
                 <div>

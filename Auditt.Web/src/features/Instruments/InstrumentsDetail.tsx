@@ -12,7 +12,6 @@ export const  InstrumentsDetail = () => {
                 </div>
 
             </div>
-
         </div>
     )
 

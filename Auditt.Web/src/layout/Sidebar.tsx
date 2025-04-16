@@ -7,9 +7,11 @@ export const Sidebar = () => {
          className=" w-64 bg-gray-800 text-white flex flex-col">
          <div>
             <div className="flex flex-col items-center p-6 justify-center">
-               <div className="w-16 h-16 bg-pink-300 rounded-full mb-2"></div>
-               <p className="text-center text-sm mb-6">Deimer Andrés...</p>
-               <p className='text-center text-sm '>NAVEGACIÓN</p>
+               <div className="">
+                  <img src="" alt="Logo" className="w-16 h-16 bg-pink-300 rounded-full mb-2" />
+               </div>
+               <p className="text-center text-sm mb-3">Deimer Andrés...</p>
+               <p className='text-center text-sm text-gray-600 '>NAVEGACIÓN</p>
             </div>
 
             <nav>

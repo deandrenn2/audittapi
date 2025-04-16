@@ -4,6 +4,7 @@ import { Direction } from "../../shared/components/OffCanvas/Models";
 import { ClientsCreate } from "./ClientsCreate";
 import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
 import { LinkClients } from "../Dashboard/LinkClients";
+import ButtonDelete from "../../shared/components/Buttons/ButtonDelete";
 export const Clients = () => {
     const [visible, setVisible] = useState(false);
 
@@ -43,12 +44,15 @@ export const Clients = () => {
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">ESE HOSPITAL</div>
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">232343434</div>
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">Necoclí</div>
-                            <div className=" flex justify-center"><ButtonDetail url={""}/></div>
+                            <div className=" flex justify-center">
+                            <ButtonDelete id={0} onDelete={undefined}/>    
+                            <ButtonDetail url={""}/>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <OffCanvas titlePrincipal='Registro de Cliente' visible={visible} xClose={handleClose} position={Direction.Right}  >
+                <OffCanvas titlePrincipal='Crear Cliente' visible={visible} xClose={handleClose} position={Direction.Right}  >
                     <ClientsCreate />
                 </OffCanvas>
             </div>

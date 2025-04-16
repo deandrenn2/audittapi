@@ -21,11 +21,16 @@ export const DashboradStatistcs = () => {
             </h1>
 
             <div className="mt-10 flex space-x-3 gap-3 ">
-                <button className="bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">Crear Clientes</button>
-                <button className="border border-indigo-900 text-gray-500 px-3 py-2 rounded-lg font-semibold">Crear
+                <button className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">
+                    Crear Clientes
+                </button>
+
+                <button className=" bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">Crear
                     Pacientes</button>
-                <button className="border border-indigo-900 text-gray-500 px-3 py-2 rounded-lg font-semibold">Crear
-                    Instrumentos</button>
+                
+                <button className=" bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">Crear
+                    Instrumentos
+                </button>
             </div>
 
             <div className="mt-4 grid grid-cols-3 scale-90">
