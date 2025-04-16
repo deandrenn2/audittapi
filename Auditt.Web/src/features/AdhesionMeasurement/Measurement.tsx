@@ -5,7 +5,7 @@ import { QuarterlyCreateForm } from "../QuarterlyCuts/QuarterlCreateForm";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
 
-export const Measuremen = () => {
+export const Measurement = () => {
         const [visible, setVisible] = useState(false);
     
         const hadbleClick = () => {

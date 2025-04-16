@@ -1,8 +1,8 @@
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
-import { MeasurementForm } from "./MeasuremenForm"
-export const MeasuremenDetail = () => {
+import { MeasurementForm } from "./MeasurementForm"
+export const MeasurementDetail = () => {
     return (
         <div className="w-full">
             <div className="flex space-x-4 mb-4 p-4">
