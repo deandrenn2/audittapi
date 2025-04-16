@@ -41,8 +41,12 @@ public class UpdateInstitucion : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
+                result.GetValidationProblems(),
+                new Error("Intitution.ErrorValidation", "Se presentaron errores de validación")
+            ));
             }
+
             var institucion = await context.Institutions.FindAsync(request.Id);
             if (institucion == null)
             {
@@ -53,7 +57,7 @@ public class UpdateInstitucion : ICarterModule
             if (resCount > 0)
             {
                 var resModel = new UpdateInstitucionResponse(institucion.Name, institucion.Abbreviation, institucion.Nit, institucion.City);
-                return Results.Ok(Result<Institution>.Success(institucion, "Institución actualizada correctamente"));
+                return Results.Ok(Result<UpdateInstitucionResponse>.Success(resModel, "Institución actualizada correctamente"));
             }
             else
             {
@@ -71,8 +75,7 @@ public class UpdateInstitucion : ICarterModule
                 .NotEmpty().WithMessage("El nombre de la institución es requerido")
                 .MaximumLength(100).WithMessage("El nombre de la institución no puede exceder los 100 caracteres");
             RuleFor(x => x.Abbreviation)
-                .NotEmpty().WithMessage("La abreviatura de la institución es requerida")
-                .MaximumLength(10).WithMessage("La abreviatura de la institución no puede exceder los 10 caracteres");
+                .NotEmpty().WithMessage("La abreviatura de la institución es requerida");
             RuleFor(x => x.Nit)
                 .NotEmpty().WithMessage("El NIT de la institución es requerido")
                 .MaximumLength(20).WithMessage("El NIT de la institución no puede exceder los 20 caracteres");
