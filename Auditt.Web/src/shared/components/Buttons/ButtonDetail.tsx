@@ -6,16 +6,22 @@ interface DetailButtonProps {
   url: string;
   state?: any;
   className?: string;
+  xClick?: () => void;
 }
 
-const ButtonDetail = ({ url, state, className }: DetailButtonProps) => {
+const ButtonDetail = ({ url, state, className, xClick }: DetailButtonProps) => {
+  const handleClick = () => {
+    if (xClick)
+      xClick();
+  };
   return (
     <Link
       to={url}
       state={state}
       className={className || "w-10 h-10 rounded-full bg-green-300  border-green-400 flex items-center justify-center hover:border-green-500 mr-2"}
+      onClick={handleClick}
     >
-      <FontAwesomeIcon icon={faPen}className='text-green-500' />
+      <FontAwesomeIcon icon={faPen} className='text-green-500' />
     </Link>
   );
 };

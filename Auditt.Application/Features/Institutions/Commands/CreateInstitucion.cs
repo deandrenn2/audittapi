@@ -12,7 +12,7 @@ using Auditt.Domain.Shared;
 
 namespace Auditt.Application.Features.Institutions;
 
-public class CreateInstitucion: ICarterModule
+public class CreateInstitucion : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -43,7 +43,10 @@ public class CreateInstitucion: ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
+                result.GetValidationProblems(),
+                new Error("Intitution.ErrorValidation", "Se presentaron errores de validación")
+            ));
             }
             var newInstitucion = Institution.Create(0, request.Name, request.Abbreviation, request.Nit, request.City);
             context.Add(newInstitucion);
@@ -71,8 +74,7 @@ public class CreateInstitucion: ICarterModule
                 .NotEmpty().WithMessage("La abreviatura de la institución es requerida")
                 .MinimumLength(2).WithMessage("La abreviatura de la institución debe tener al menos 2 caracteres");
             RuleFor(x => x.Nit)
-                .NotEmpty().WithMessage("El NIT de la institución es requerido")
-                .Matches(@"^\d{1,3}(\.\d{3}){2}-\d$").WithMessage("El NIT de la institución no es válido");
+                .NotEmpty().WithMessage("El NIT de la institución es requerido");
             RuleFor(x => x.City)
                 .NotEmpty().WithMessage("La ciudad de la institución es requerida")
                 .MinimumLength(3).WithMessage("La ciudad de la institución debe tener al menos 3 caracteres");
