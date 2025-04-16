@@ -23,17 +23,17 @@ public class GetPatients : ICarterModule
         .WithName(nameof(GetPatients))
         .WithTags(nameof(Patient))
         .ProducesValidationProblem()
-        .Produces<GetPatientsResponse>(StatusCodes.Status200OK);
+        .Produces<List<GetPatientsResponse>>(StatusCodes.Status200OK);
     }
     public record GetPatientsQuery() : IRequest<IResult>;
-    public record GetPatientsResponse(List<Patient> Patients);
+    public record GetPatientsResponse(int Id, string FirstName, string LastName, string Identification, DateTime BirthDate, string Eps);
     public class GetPatientsHandler(AppDbContext context) : IRequestHandler<GetPatientsQuery, IResult>
     {
         public async Task<IResult> Handle(GetPatientsQuery request, CancellationToken cancellationToken)
         {
             var patients = await context.Patients.ToListAsync();
-            var resModel = new GetPatientsResponse(patients);
-            return Results.Ok(Result<List<Patient>>.Success(patients, "Pacientes obtenidos correctamente"));
+            var resModel = patients.Select(patient => new GetPatientsResponse(patient.Id, patient.FirstName, patient.LastName, patient.Identification, patient.BirthDate, patient.Eps)).ToList();
+            return Results.Ok(Result<List<GetPatientsResponse>>.Success(resModel, "Pacientes obtenidos correctamente"));
         }
     }
 }

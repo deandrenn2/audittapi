@@ -26,8 +26,6 @@
   <ItemGroup>
     <Folder Include="Features\Permissions\Commands\" />
     <Folder Include="Features\Permissions\Queries\" />
-    <Folder Include="Features\Roles\Commands\" />
-    <Folder Include="Features\Roles\Queries\" />
   </ItemGroup>
 
 </Project>
