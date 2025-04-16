@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Auditt.Application.Infrastructure.Files;
-using Auditt.Application.Infrastructure.Report;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Authentications;
 using Auditt.Infrastructure.Authentications;
@@ -53,7 +52,6 @@ public static class DependencyConfig
     {
         builder.Services.AddScoped<IManagerToken, ManagerToken>();
         builder.Services.AddScoped<IFileManager, FileManager>();
-        builder.Services.AddScoped<IClosedXmlReportManager, ClosedXmlReportManager>();
     }
 
     public static IServiceCollection AddApplicationCore(this IServiceCollection services)

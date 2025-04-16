@@ -1,7 +1,7 @@
 ﻿using ClosedXML.Report;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Auditt.Application.Infrastructure.Report;
+namespace Auditt.Reports.Infrastructure.Report;
 public class ClosedXmlReportManager : IClosedXmlReportManager
 {
     private readonly IWebHostEnvironment _webHostEnvironment;

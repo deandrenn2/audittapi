@@ -1,5 +1,4 @@
 using Auditt.Application.Domain.Primitives;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Auditt.Application.Domain.Entities;
 

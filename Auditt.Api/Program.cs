@@ -1,7 +1,7 @@
 ﻿using Auditt.Application;
 using Carter;
-using Microsoft.AspNetCore.Builder;
 using Auditt.Application.Infrastructure.Sqlite;
+using Auditt.Reports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +26,7 @@ builder.Services.ConfigureServices();
 
 // registro de servicios
 builder.AddInfraestructure();
+builder.Services.AddInfraestructureReports();
 
 var app = builder.Build();
 
