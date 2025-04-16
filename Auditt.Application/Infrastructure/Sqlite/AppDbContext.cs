@@ -29,7 +29,7 @@ public class AppDbContext : DbContext
     public DbSet<Setting> Settings => Set<Setting>();
     public DbSet<SettingUser> SettingUsers => Set<SettingUser>();
     public DbSet<Permission> Permissions => Set<Permission>();
-
+    public DbSet<Patient> Patients => Set<Patient>();
 
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

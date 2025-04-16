@@ -10,7 +10,7 @@ public class Patient : AggregateRoot
         string firstName,
         string lastName,
         string identification,
-        string birthDate,
+        DateTime birthDate,
         string eps) : base(id)
     {
         FirstName = firstName;
@@ -23,15 +23,15 @@ public class Patient : AggregateRoot
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Identification { get; private set; }
-    public string BirthDate { get; private set; }
+    public DateTime BirthDate { get; private set; }
     public string Eps { get; private set; }
 
-    public static Patient Create(int id, string firstName, string lastName, string identification, string birthDate, string eps)
+    public static Patient Create(int id, string firstName, string lastName, string identification, DateTime birthDate, string eps)
     {
         return new Patient(id, firstName, lastName, identification, birthDate, eps);
     }
 
-    public void Update(string firstName, string lastName, string identification, string birthDate, string eps)
+    public void Update(string firstName, string lastName, string identification, DateTime birthDate, string eps)
     {
         FirstName = firstName;
         LastName = lastName;
