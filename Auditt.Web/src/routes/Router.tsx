@@ -5,13 +5,14 @@ import { Login } from './Login/Login.tsx';
 import { UserCreate } from './Login/UserCreate.tsx';
 import { BusinessCreate } from './Login/BusinessCreate.tsx';
 import { PasswordRecoverForm } from './Login/PasswordRecover.tsx';
-import { Clients } from '../features/Users/Clients.tsx';
-import { Patients } from '../features/Users/Patients/Patients.tsx';
-import { Professionals } from '../features/Users/Professionals/Professionals.tsx';
+import { Clients } from '../features/Clients/Clients.tsx';
+import { Patients } from '../features/Clients/Patients/Patients.tsx';
+import { Professionals } from '../features/Clients/Patients/Professionals/Professionals.tsx';
 import { Instruments } from '../features/Instruments/Instruments.tsx';
-import { QuarterlyCuts } from '../features/QuarterlyCuts/QuarterlyCuts.tsx';
-import { AdhesionMeasurement } from '../features/Home/AdhesionMeasurement/AdhesionMeasurement.tsx';
+import { Quarterly } from '../features/QuarterlyCuts/Quarterly.tsx';
+import { AdhesionMeasurement } from '../features/AdhesionMeasurement/Measurement.tsx';
 import { InstrumentsDetail } from '../features/Instruments/InstrumentsDetail.tsx';
+import {  QuarterlyDetail } from '../features/QuarterlyCuts/QuarterlyDetail.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -42,19 +43,30 @@ export const router = createBrowserRouter([
                 element: <Instruments/>,
             },
             {
-                path: 'Instruments /:id',
+                path: 'Instruments/:id',
                 element: <InstrumentsDetail/>,
             },
 
             {
-                path: '/QuarterlyCuts',
-                element: <QuarterlyCuts/>,
+                path: '/Quarterly',
+                element: <Quarterly/>,
+            },
+
+            {
+                path: 'Quarterly/:Id',
+                element: <QuarterlyDetail/>,
             },
 
             {
                 path: '/AdhesionMeasurement',
                 element: <AdhesionMeasurement/>,
             },
+
+            {
+                path: 'AdhesionMeasurement/:id',
+                element: <AdhesionMeasurement/>,
+            },
+
         ],
     },
     {

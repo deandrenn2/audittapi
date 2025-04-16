@@ -1,7 +1,6 @@
 import { DashboradStatistcs } from "../Dashboard/DashbordStatistcs";
 export const Home = () => {
-
-
+   
    return (
       <div>
          {/* <!-- Cards Section --> */}

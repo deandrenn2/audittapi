@@ -27,7 +27,7 @@ export const Instruments = () => {
                             <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">80</div>
                             <div className="flex justify-center">
                             <ButtonDelete id={0} onDelete={undefined} />
-                            <ButtonDetail url={"/InstrumentsDetail"} />
+                            <ButtonDetail url={"IntrumentsForm"} />
                             </div>
 
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2"> Instrumento DNT</div>
