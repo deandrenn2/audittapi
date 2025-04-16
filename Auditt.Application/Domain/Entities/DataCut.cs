@@ -4,6 +4,8 @@ namespace Auditt.Application.Domain.Entities;
 
 public class DataCut : AggregateRoot
 {
+    private DataCut(int id) : base(id) { }
+    // Constructor requerido por EF Core
     public DataCut(int id, string name, string cycle, DateTime initialDate, DateTime finalDate, int maxHistory, Institution institution) : base(id)
     {
         Name = name;

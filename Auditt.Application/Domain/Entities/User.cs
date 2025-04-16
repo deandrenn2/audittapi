@@ -16,19 +16,23 @@ public class User : AggregateRoot
             string lastName,
             string email,
             string passWord,
-            string securePharse) : base(id)
+            string securePharse,
+            int idRol
+            ) : base(id)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         Password = passWord;
         SecurePharse = securePharse;
+        IdRol = idRol;
     }
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
+    public int IdRol { get; private set; }
     public Role Role { get; private set; }
     public string SecurePharse { get; private set; }
     public int StatusId { get; private set; } = 1;
@@ -39,10 +43,12 @@ public class User : AggregateRoot
     string lastName,
     string email,
     string password,
-    string securePharse)
+    string securePharse,
+    int idRol
+    )
     {
         var passwordHash = password.EncryptPassword();
-        return new User(id, firstName, lastName, email, passwordHash, securePharse);
+        return new User(id, firstName, lastName, email, passwordHash, securePharse, idRol);
     }
 
 
@@ -82,6 +88,11 @@ public class User : AggregateRoot
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+    }
+
+    public void UpdateRole(int idRol)
+    {
+        IdRol = idRol;
     }
 
     public void SetAvatar(int id)

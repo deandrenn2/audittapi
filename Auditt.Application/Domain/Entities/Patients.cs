@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Patient : AggregateRoot
 {
+    private Patient(int id) : base(id) { }
     public Patient(
         int id,
         string firstName,

@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Assessment : AggregateRoot
 {
+    private Assessment(int id) : base(id) { }
     public Assessment(int id, int idInstitucion, int idDataCut, int idFunctionary, int idPatient, string yearOld, DateTime date, string eps, int idUser) : base(id)
     {
         IdInstitution = idInstitucion;

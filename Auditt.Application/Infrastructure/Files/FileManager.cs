@@ -1,6 +1,6 @@
+using Auditt.Domain.Shared;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Auditt.Domain.Shared;
 
 namespace Auditt.Application.Infrastructure.Files;
 

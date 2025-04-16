@@ -3,6 +3,7 @@
 namespace Auditt.Application.Domain.Entities;
 public class SettingUser : AggregateRoot
 {
+    private SettingUser(int id) : base(id) { }
     public SettingUser(int id, int idSetting, int idUser, string value) : base(id)
     {
         IdSetting = idSetting;

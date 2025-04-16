@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Guide : AggregateRoot
 {
+    private Guide(int id) : base(id) { }
     public Guide(int id, string name, int idInstitution, string description, int idScale) : base(id)
     {
         Name = name;

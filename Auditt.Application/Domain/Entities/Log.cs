@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Log : AggregateRoot
 {
+    private Log(int id) : base(id) { }
     public Log(int id, int idUser, string operation, string description, DateTime date, int? idInstitution) : base(id)
     {
         IdUser = idUser;

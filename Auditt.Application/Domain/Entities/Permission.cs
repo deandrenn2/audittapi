@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Permission : AggregateRoot
 {
+    private Permission(int id) : base(id) { }
     public Permission(int id, string name, string description) : base(id)
     {
         Name = name;

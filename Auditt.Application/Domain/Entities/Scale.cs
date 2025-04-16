@@ -5,6 +5,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Scale : AggregateRoot
 {
+    private Scale(int id) : base(id) { }
     public Scale(int id, string name) : base(id)
     {
         Name = name;

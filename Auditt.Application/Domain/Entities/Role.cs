@@ -5,6 +5,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Role : AggregateRoot
 {
+    private Role(int id) : base(id) { }
     public Role(int id, string name, string description) : base(id)
     {
         Name = name;

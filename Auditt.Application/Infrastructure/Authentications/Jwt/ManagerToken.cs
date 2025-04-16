@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Auditt.Application.Domain.Entities;
 using Auditt.Domain.Authentications;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SNET.Framework.Domain.Authentications.Jwt;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Auditt.Application.Domain.Entities;
 
 namespace Auditt.Infrastructure.Authentications;
 

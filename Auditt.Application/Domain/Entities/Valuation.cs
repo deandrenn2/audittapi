@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Valuation : AggregateRoot
 {
+    private Valuation(int id) : base(id) { }
     public Valuation(int id, int order, string text, int idEquivalence, int idAssessment, int idUser) : base(id)
     {
         Order = order;

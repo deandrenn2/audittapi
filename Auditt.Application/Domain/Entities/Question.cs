@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Question : AggregateRoot
 {
+    private Question(int id) : base(id) { }
     public Question(int id, string name, int order, int idGuide, int idUser) : base(id)
     {
         Name = name;

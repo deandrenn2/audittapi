@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Functionary : AggregateRoot
 {
+    private Functionary(int id) : base(id) { }
     public Functionary(int id, string firstName, string lastName, string identification) : base(id)
     {
         FirstName = firstName;

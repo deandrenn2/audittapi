@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Equivalence : AggregateRoot
 {
+    private Equivalence(int id) : base(id) { }
     public Equivalence(int id, int idScale, string name, decimal value) : base(id)
     {
         IdScale = idScale;
