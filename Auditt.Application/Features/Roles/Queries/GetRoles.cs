@@ -28,7 +28,7 @@ public class GetRoles : ICarterModule
     public record GetRolesCommand() : IRequest<IResult>;
     public record GetRolesResponse(int Id, string Name, string Description);
 
-    public class GetRolesHandler(AppDbContext context, IValidator<GetRolesCommand> validator) : IRequestHandler<GetRolesCommand, IResult>
+    public class GetRolesHandler(AppDbContext context) : IRequestHandler<GetRolesCommand, IResult>
     {
         public async Task<IResult> Handle(GetRolesCommand request, CancellationToken cancellationToken)
         {
