@@ -36,7 +36,7 @@ public class User : AggregateRoot
     public Role Role { get; private set; }
     public string SecurePharse { get; private set; }
     public int StatusId { get; private set; } = 1;
-    public int IdAvatar { get; private set; } = NumberRandom.Random(1, 14);
+    public int IdAvatar { get; private set; } = NumberRandom.Random(1, 20);
 
     public static User Create(int id,
     string firstName,
