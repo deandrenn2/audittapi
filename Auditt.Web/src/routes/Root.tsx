@@ -14,12 +14,12 @@ export default function Root() {
       <div  className=" bg-gray-100">   
          <div
             id="main"
-            className="flex bg-gray-900 "
+            className="flex bg-gray-900"
          >
             <Sidebar/>
             <div
                id="detail"
-               className="  w-full bg-gray-100 flex min-h-screen">
+               className="  w-full  bg-gray-100  min-h-screen">
 
                <Outlet />
             </div>

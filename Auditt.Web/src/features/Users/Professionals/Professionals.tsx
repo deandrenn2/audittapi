@@ -4,6 +4,7 @@ import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { ProfessionalsCreate } from "./ProfessionalsCreate";
 
 import { LinkClients } from "../../Dashboard/LinkClients";
+import ButtonDetail from "../../../shared/components/Buttons/ButtonDetail";
 
 export const Professionals = () => {
     const [visible, setVisible] = useState(false);
@@ -17,7 +18,6 @@ export const Professionals = () => {
     }
 
     return (
-
         <div className="flex">
             <div className="flex space-x-4 mb-4">
                 <div className="flex-1 p-8">
@@ -32,18 +32,21 @@ export const Professionals = () => {
 
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 rounded mr-2 mb-2">IdPaciente</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 rounded mr-2 mb-2 ">Fecha Nacimiento</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 rounded mr-2 mb-2 ">Eps</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 rounded mr-2 mb-2 ">Opciones</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 mb-2">Nombre</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 mb-2 ">Apellido</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 mb-2 ">Identificación</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 mb-2 text-center ">Opciones</div>
                         </div>
 
+                        <div className="bg-white px-2 py-2 border border-gray-200">
                         <div className="grid grid-cols-4">
-                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">1039094744</div>
-                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">02-02-1990</div>
-                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">Nueva EPS</div>
-                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2"></div>
+                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">Virtor</div>
+                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">Riva</div>
+                            <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">1000711758</div>
+                            <div className="flex justify-center"><ButtonDetail url={""}/></div>
                         </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

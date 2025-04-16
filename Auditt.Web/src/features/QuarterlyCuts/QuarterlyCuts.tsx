@@ -30,7 +30,7 @@ export const QuarterlyCuts = () => {
                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">220</div>
                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">01-01-2025</div>
                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">31-03-2025</div>
-                    <div> <ButtonDetail url={""} /></div>
+                    <div> <ButtonDetail url={"/InstrumentsDetail"} /></div>
                 </div>
             </div>
         </div>

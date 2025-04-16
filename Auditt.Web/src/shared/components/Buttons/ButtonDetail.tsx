@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
-
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 interface DetailButtonProps {
   url: string;
@@ -16,7 +15,7 @@ const ButtonDetail = ({ url, state, className }: DetailButtonProps) => {
       state={state}
       className={className || "w-10 h-10 rounded-full bg-green-300  border-green-400 flex items-center justify-center hover:border-green-500 mr-2"}
     >
-      <FontAwesomeIcon icon={faPencil}className='text-green-500' />
+      <FontAwesomeIcon icon={faPen}className='text-green-500' />
     </Link>
   );
 };

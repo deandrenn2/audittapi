@@ -8,7 +8,7 @@ export const Sidebar = () => {
          <div>
             <div className="flex flex-col items-center p-6 justify-center">
                <div className="w-16 h-16 bg-pink-300 rounded-full mb-2"></div>
-               <p className="text-center text-sm mb-4">Deimer Andrés...</p>
+               <p className="text-center text-sm mb-6">Deimer Andrés...</p>
                <p className='text-center text-sm '>NAVEGACIÓN</p>
             </div>
 
@@ -18,7 +18,7 @@ export const Sidebar = () => {
                   <MenuItem icon={faUser} path='/Clients' text='Clientes' />
                   <MenuItem icon={faUsers} path='/Instruments' text='Instrumentos' />
                   <MenuItem icon={faBoxesStacked} path='/QuarterlyCuts' text='Cortes Trimestrales' />
-                  <MenuItem icon={faClipboardCheck} path='/Formulas' text='Medición de Adherencia' />
+                  <MenuItem icon={faClipboardCheck} path='/AdhesionMeasurement' text='Medición de Adherencia' />
                   <MenuItem icon={faGear} path='/Settings' text='Configuraciones' />
                </ul>
             </nav>

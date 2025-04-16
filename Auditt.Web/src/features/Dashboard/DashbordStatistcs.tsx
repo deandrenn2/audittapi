@@ -15,29 +15,29 @@ export const DashboradStatistcs = () => {
     }, []);
 
     return (
-        <div className="flex-1 p-10 rounded-6xl">
-            <h1 className="text-8xl font-bold text-gray-800">
+        <div className="flex-1 p-10 ">
+            <h1 className="text-6xl font-bold text-gray-800">
                 Bienvenido a <span className="text-pink-500 font-bold">Auditt</span><span className="text-gray-800">Api</span>
             </h1>
 
-            <div className="mt-7 flex space-x-2 gap-3 ">
+            <div className="mt-10 flex space-x-3 gap-3 ">
                 <button className="bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">Crear Clientes</button>
-                <button className="border border-indigo-900 text-gray-500 px-6 py-2 rounded-lg font-semibold">Crear
+                <button className="border border-indigo-900 text-gray-500 px-3 py-2 rounded-lg font-semibold">Crear
                     Pacientes</button>
-                <button className="border border-indigo-900 text-gray-500 px-6 py-2 rounded-lg font-semibold">Crear
+                <button className="border border-indigo-900 text-gray-500 px-3 py-2 rounded-lg font-semibold">Crear
                     Instrumentos</button>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4 mr-4 scale-110">
-                <div className=" bg-pink-400 text-white rounded-2xl p-6 text-center mr-2">
+            <div className="mt-4 grid grid-cols-3 scale-90">
+                <div className=" bg-pink-400 text-white rounded-2xl p-2 text-center mr-2">
                     <p className=" font-bold">Total Valoraciones</p>
-                    <p className="text-5xl font-bold mt-2">250</p>
+                    <p className="text-3xl font-bold mt-2">250</p>
                 </div>
-                <div className="bg-pink-300 text-white rounded-2xl p-6 text-center mr-2">
+                <div className="bg-pink-300 text-white rounded-2xl p-2 text-center mr-2">
                     <p className="font-bold">Total Pacientes</p>
                     <p className="text-5xl font-bold mt-2">157</p>
                 </div>
-                <div className="bg-pink-300 text-indigo-900 rounded-2xl p-6 text-center">
+                <div className="bg-pink-300 text-indigo-900 rounded-2xl p-2 text-center">
                     <p className="font-bold">Total Profesionales</p>
                     <p className="text-5xl font-bold mt-2">234</p>
                 </div>

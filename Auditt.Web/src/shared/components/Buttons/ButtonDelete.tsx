@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMinus,} from '@fortawesome/free-solid-svg-icons';
 export const ButtonDelete = ({ id, onDelete }: { id: number; onDelete: any }) => {
   return (
-    <button className="text-red-500 text-2xl hover:text-red-700 mr-2"
+    <button className="w-10 h-10 rounded-full bg-red-300  border-red-400 flex items-center justify-center hover:border-red-500 mr-2"
       onClick={(e) => onDelete(e, id)}>
-      <FontAwesomeIcon icon={faTrashAlt} />
+      <FontAwesomeIcon icon={faMinus} className='text-red-800 border-red-400' />
     </button>
   );
 };

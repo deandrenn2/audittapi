@@ -10,6 +10,7 @@ import { Patients } from '../features/Users/Patients.tsx';
 import { Professionals } from '../features/Users/Professionals/Professionals.tsx';
 import { Instruments } from '../features/Instruments/Instruments.tsx';
 import { QuarterlyCuts } from '../features/QuarterlyCuts/QuarterlyCuts.tsx';
+import { AdhesionMeasurement } from '../features/Home/AdhesionMeasurement/AdhesionMeasurement.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -45,8 +46,10 @@ export const router = createBrowserRouter([
                 element: <QuarterlyCuts/>,
             },
 
-            
-
+            {
+                path: '/AdhesionMeasurement',
+                element: <AdhesionMeasurement/>,
+            },
         ],
     },
     {

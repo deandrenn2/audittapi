@@ -6,7 +6,7 @@ export const Home = () => {
       <div>
          {/* <!-- Cards Section --> */}
          <div className=" ">
-            <div>
+            <div className="">
                <DashboradStatistcs />
             </div>
          </div>
