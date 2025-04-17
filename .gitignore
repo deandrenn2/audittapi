@@ -429,3 +429,5 @@ TODOs.md
 /Auditt.Api/wwwroot/vite.svg
 /Auditt.Api/public
 /Auditt.Web/.env
+/Auditt.Api/appsettings.Development.json
+/Auditt.Api/appsettings.json

@@ -5,9 +5,9 @@ namespace Auditt.Application.Domain.Entities;
 public class Question : AggregateRoot
 {
     private Question(int id) : base(id) { }
-    public Question(int id, string name, int order, int idGuide, int idUser) : base(id)
+    public Question(int id, string text, int order, int idGuide, int idUser) : base(id)
     {
-        Name = name;
+        Text = text;
         Order = order;
         IdGuide = idGuide;
         IdUserUpdate = idUser;
@@ -16,7 +16,7 @@ public class Question : AggregateRoot
         CreateDate = new DateTime();
     }
 
-    public string Name { get; private set; }
+    public string Text { get; private set; }
     public int Order { get; private set; }
     public int IdGuide { get; private set; }
     public Guide Guide { get; private set; }
@@ -25,15 +25,21 @@ public class Question : AggregateRoot
     public DateTime UpdateDate { get; private set; }
     public DateTime CreateDate { get; private set; }
 
-    public static Question Create(int id, string name, int order, int idGuide, int idUser)
+    public static Question Create(int id, string text, int order, int idGuide, int idUser)
     {
-        return new Question(id, name, order, idGuide, idUser);
+        return new Question(id, text, order, idGuide, idUser);
     }
 
-    public void Update(string name, int idGuide, int idUser)
+    public void Update(string text, int idUser)
     {
-        Name = name;
-        IdGuide = idGuide;
+        Text = text;
+        IdUserUpdate = idUser;
+        UpdateDate = new DateTime();
+    }
+
+    public void UpdateOrder(int order, int idUser)
+    {
+        Order = order;
         IdUserUpdate = idUser;
         UpdateDate = new DateTime();
     }
