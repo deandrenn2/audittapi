@@ -1,11 +1,11 @@
 import { useState } from "react";
-import OffCanvas from "../../../shared/components/OffCanvas/Index";
-import { Direction } from "../../../shared/components/OffCanvas/Models";
+import OffCanvas from "../../../../shared/components/OffCanvas/Index";
+import { Direction } from "../../../../shared/components/OffCanvas/Models";
 import { ProfessionalsCreate } from "./ProfessionalsCreate";
 
-import { LinkClients } from "../../Dashboard/LinkClients";
-import ButtonDetail from "../../../shared/components/Buttons/ButtonDetail";
-import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
+import { LinkClients } from "../../../Dashboard/LinkClients";
+import ButtonDetail from "../../../../shared/components/Buttons/ButtonDetail";
+import ButtonDelete from "../../../../shared/components/Buttons/ButtonDelete";
 
 export const Professionals = () => {
     const [visible, setVisible] = useState(false);

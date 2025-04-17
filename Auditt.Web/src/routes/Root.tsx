@@ -19,8 +19,7 @@ export default function Root() {
             <Sidebar/>
             <div
                id="detail"
-               className="  w-full  bg-gray-100  min-h-screen">
-
+               className=" w-full bg-gray-100  min-h-screen">
                <Outlet />
             </div>
          </div>

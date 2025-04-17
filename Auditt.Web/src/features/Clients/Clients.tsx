@@ -58,11 +58,11 @@ export const Clients = () => {
                 </button>
                 <div>
                     <div className="grid grid-cols-5">
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Razón Social</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Abreviatura</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Nit</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Ciudad</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Opciones</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">RAZON SOCIAL</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">ABREVIATURA</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">NIT</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
 
                     <div className=" bg-white px-2 py-2 border border-gray-200">

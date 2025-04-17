@@ -19,8 +19,8 @@ export const Sidebar = () => {
                   <MenuItem icon={faHouse} path='/' text='Inicio' />
                   <MenuItem icon={faUser} path='/Clients' text='Clientes' />
                   <MenuItem icon={faUsers} path='/Instruments' text='Instrumentos' />
-                  <MenuItem icon={faBoxesStacked} path='/QuarterlyCuts' text='Cortes Trimestrales' />
-                  <MenuItem icon={faClipboardCheck} path='/AdhesionMeasurement' text='Medición de Adherencia' />
+                  <MenuItem icon={faBoxesStacked} path='/Quarterly' text='Cortes Trimestrales' />
+                  <MenuItem icon={faClipboardCheck} path='/Measurement' text='Medición de Adherencia' />
                   <MenuItem icon={faGear} path='/Settings' text='Configuraciones' />
                </ul>
             </nav>
