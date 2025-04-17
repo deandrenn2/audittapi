@@ -7,13 +7,13 @@ import { BusinessCreate } from './Login/BusinessCreate.tsx';
 import { PasswordRecoverForm } from './Login/PasswordRecover.tsx';
 import { Clients } from '../features/Clients/Clients.tsx';
 import { Patients } from '../features/Clients/Patients/Patients.tsx';
-import { Professionals } from '../features/Clients/Patients/Professionals/Professionals.tsx';
 import { Instruments } from '../features/Instruments/Instruments.tsx';
 import { Quarterly } from '../features/QuarterlyCuts/Quarterly.tsx';
 import { Measurement } from '../features/AdhesionMeasurement/Measurement.tsx';
 import { InstrumentsDetail } from '../features/Instruments/InstrumentsDetail.tsx';
 import {  QuarterlyDetail } from '../features/QuarterlyCuts/QuarterlyDetail.tsx';
 import { MeasurementDetail } from '../features/AdhesionMeasurement/MeasurementDetail.tsx';
+import { Functionary } from '../features/Clients/Professionals/Functionary.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -35,8 +35,8 @@ export const router = createBrowserRouter([
             },
 
             {
-                path: '/Professionals',
-                element: <Professionals/>,
+                path: '/Functionary',
+                element: <Functionary/>,
             },
 
             {

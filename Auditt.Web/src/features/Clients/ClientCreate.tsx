@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { ClientModel } from "./ClientModel";
 import { useClient } from "../Clients/useClient";
+import { ClientModel } from "./ClientModel";
 
 type formData = {
     name?: string;

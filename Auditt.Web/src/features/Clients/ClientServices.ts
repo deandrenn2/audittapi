@@ -1,7 +1,6 @@
 import { ApiClient } from "../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../shared/model";
 import { ClientModel } from "./ClientModel";
-
 export const getClients = async (): Promise<MsgResponse<ClientModel[]>> => {
 	const url = `api/institutions`;
 	const response = await ApiClient.get<MsgResponse<ClientModel[]>>(url);

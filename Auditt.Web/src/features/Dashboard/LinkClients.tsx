@@ -22,9 +22,9 @@ export const LinkClients = () => {
             </Link>
 
             <Link
-                to="/Professionals"
+                to="/Functionary"
                 className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${
-                    location.pathname === "/Professionals"
+                    location.pathname === "/Functionary"
                         ? "text-pink-500 border-pink-500" : ""}`}>
                 Profesionales
             </Link>
