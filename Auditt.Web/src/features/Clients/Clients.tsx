@@ -1,16 +1,16 @@
 import { useState } from "react";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
-import { ClientCreate } from "./ClientCreate";
 import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
 import { LinkClients } from "../Dashboard/LinkClients";
 import ButtonDelete from "../../shared/components/Buttons/ButtonDelete";
-import { useClient } from "./useClient";
 import { Bar } from "../../shared/components/Progress/Bar";
-import { ClientUpdate } from "./ClientUpdate";
-import { ClientModel } from "./ClientModel";
 import { MouseEvent } from "react";
 import Swal from "sweetalert2";
+import { ClientModel } from "./ClientModel";
+import { ClientCreate } from "./ClientCreate";
+import { ClientUpdate } from "./ClientUpdate";
+import { useClient } from "./useClient";
 export const Clients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -64,14 +64,13 @@ export const Clients = () => {
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
-
-                    <div className=" bg-white px-2 py-2 border border-gray-200">
+                    <div className=" bg-white px-2 py-2 border border-gray-200 ">
                         {clients?.map((client) => (
                             <div className="grid grid-cols-5">
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{client.name}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{client.abbreviation}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{client.nit}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{client.city}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.name}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.abbreviation}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.nit}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.city}</div>
                                 <div className="flex justify-center">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
                                     <ButtonDetail url={""} xClick={() => handleClickDetail(client)} />
@@ -79,7 +78,6 @@ export const Clients = () => {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 <OffCanvas titlePrincipal='Crear Cliente' visible={visible} xClose={() => setVisible(false)} position={Direction.Right}  >
                     <ClientCreate />

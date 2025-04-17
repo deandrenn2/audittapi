@@ -5,8 +5,41 @@ import { LinkClients } from "../../Dashboard/LinkClients";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { PatientsCreate } from "./PatientsCreate";
+import Swal from "sweetalert2";
+import { usePatients } from "./UsePatients";
+import { PatientsModel } from "./PantientsModel";
+import { PatientsUpdate } from "./Pantiensupdate";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
+    const [visibleUpdate, setVisibleUpdate] = useState(false);
+    const { patients,  deletePatients, } = usePatients();
+    const [patient, setPatient] = useState<PatientsModel>();
+
+    const handleClickDetail = (patientSelected: PatientsModel) => {
+        if (patientSelected) {
+            setPatient(patientSelected);
+            setVisibleUpdate(true);
+        }
+    }
+
+
+    function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estas seguro de eliminar este paciente?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            preConfirm: async () => {
+                await deletePatients.mutateAsync(id);
+            }
+        
+        })
+
+    }
 
     const handleClose = () => {
         setVisible(false);
@@ -16,6 +49,7 @@ export const Patients = () => {
         setVisible(true);
     } 
 
+
     return (
         <div className="flex">
             <div className="">
@@ -23,34 +57,41 @@ export const Patients = () => {
                     <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                         <LinkClients />
                     </div>
-
                     <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
                     <button onClick={handleClick} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg  font-semibold mb-2">Crear Paciente</button>
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IdPaciente</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Fecha Nacimiento</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1  ">Eps</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1  text-center">Opciones</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">IDPACIENTE</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE NACIMIENTO</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">EPS</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Opciones</div>
                         </div>
 
                         <div className="bg-white px-2 py-2 border border-gray-200">
-                            <div className="grid grid-cols-4">
-                                <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">1039094744</div>
-                                <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">02-02-1990</div>
-                                <div className="grid grid-cols-3 gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">Nueva EPS</div>
-                                <div className="flex justify-center">
-                                    <ButtonDelete id={0} onDelete={undefined}/>
-                                    <ButtonDetail url={""} /></div>
-                            </div>
+                            {patients?.map((patient) => (
+                                <div className="grid grid-cols-4">
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.firstName} {patient.lastName}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.birthDate}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.eps}</div>
+                                    <div className="flex justify-center">
+                                        <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
+                                        <ButtonDetail url={""} xClick={() => handleClickDetail(patient)} />
+                                    </div>
+                                </div>
+                            ))}
                         </div>
 
                     </div>
                 </div>
             </div>
             <OffCanvas titlePrincipal='Crear Paciente' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                    <PatientsCreate />
+                <PatientsCreate />
+            </OffCanvas>{
+                patient &&
+                <OffCanvas titlePrincipal='Detalle Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
+                    <PatientsUpdate data={patient} />
                 </OffCanvas>
+            }
         </div>
 
     );

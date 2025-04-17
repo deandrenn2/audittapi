@@ -11,7 +11,6 @@ export const Measurement = () => {
         const hadbleClick = () => {
             setVisible(true);
         }
-    
         
         const handleClose = () => {
             setVisible(false);
