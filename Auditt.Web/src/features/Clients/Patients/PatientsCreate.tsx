@@ -20,6 +20,10 @@ export const PatientsCreate = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         const patient = Object.fromEntries(formData.entries()) as formData;
+    
+        // Verifica si el valor de documentNumber es correcto
+        console.log(patient.documentNumber);
+    
         const newPatient: PatientsModel = {
             id: 0,
             firstName: patient.firstName ?? "",
@@ -28,13 +32,14 @@ export const PatientsCreate = () => {
             birthDate: patient.birthDate ?? "",
             eps: patient.eps ?? "",
         };
-
+    
         const response = await createPatients.mutateAsync(newPatient);
-
+    
         if (response.isSuccess) {
             refForm.current?.reset();
         }
     };
+    
 
     return (
         <div>

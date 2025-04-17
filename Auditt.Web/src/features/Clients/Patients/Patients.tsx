@@ -23,7 +23,6 @@ export const Patients = () => {
         }
     }
 
-
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
@@ -35,17 +34,19 @@ export const Patients = () => {
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
             preConfirm: async () => {
+                  
                 await deletePatients.mutateAsync(id);
+                queryPatients.refetch();
             }
         });
     };
 
-    if (queryPatients.isLoading)
-        return <Bar/>
-
     const handleClose = () => {
         setVisible(false);
     }
+
+    if (queryPatients.isLoading)
+        return <Bar/>
 
     return (
         <div className="flex">
@@ -88,6 +89,7 @@ export const Patients = () => {
             <OffCanvas titlePrincipal='Crear Paciente' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <PatientsCreate />
             </OffCanvas>{
+
                 patient &&
                 <OffCanvas titlePrincipal='Detalle Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
                     <PatientsUpdate data={patient} />

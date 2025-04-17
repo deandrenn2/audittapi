@@ -11,10 +11,11 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
         if (data) {
             setPatient(data);
         }
-    }, [data]);
+    }, [data, setPatient]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(patient);
         const response = await updatePatients.mutateAsync(patient);
         
         if (response.isSuccess) {
@@ -34,7 +35,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="firstName"
-                        value={patient?.firstName || ""}
+                        value={patient.firstName}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
@@ -45,7 +46,18 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="lastName"
-                        value={patient?.lastName || ""}
+                        value={patient.lastName }
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">Documento</label>
+                    <input
+                        type="text"
+                        name="documentNumber"
+                        value={patient.documentNumber}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
@@ -54,9 +66,9 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                 <div>
                     <label className="block text-sm font-medium mb-1">Fecha de Nacimiento</label>
                     <input
-                        type="date"
+                        type="text"
                         name="birthDate"
-                        value={patient?.birthDate || ""}
+                        value={patient.birthDate}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
@@ -67,7 +79,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="eps"
-                        value={patient?.eps || ""}
+                        value={patient?.eps}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}

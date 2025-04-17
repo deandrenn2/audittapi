@@ -36,7 +36,7 @@ export const Functionary = () => {
                 await deleteFunctionary.mutateAsync(id);
             }
     });
-}  ;
+};
 
 if (queryFunctionary.isLoading)
     return <Bar />
@@ -57,10 +57,10 @@ if (queryFunctionary.isLoading)
                     </button>
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombre</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Apellido</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Identificación</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">Opciones</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">NOMBRE</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">APELLIDO</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">OPCIONES</div>
                         </div>
 
                         <div className="bg-white px-2 py-2 border border-gray-200">
@@ -89,6 +89,5 @@ if (queryFunctionary.isLoading)
                 </OffCanvas>
             }
         </div>
-
     );
 }

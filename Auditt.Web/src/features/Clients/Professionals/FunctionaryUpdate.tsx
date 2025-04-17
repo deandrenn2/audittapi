@@ -11,7 +11,7 @@ export const FunctionaryUpdate = ({data} : {data: FunctionaryModel}) => {
         if (data) {
             setFunctionary(data);
         }
-    }, [data,])
+    }, [data, setFunctionary]);
    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

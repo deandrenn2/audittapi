@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createPatientsServices, deletePatientsServices, getPatients } from "./PantientsServices";
+import { createPatientsServices, deletePatientsServices, getPatients, updatePatientsServices } from "./PantientsServices";
 import { toast } from "react-toastify";
 
 const KEY = "patients";
@@ -23,10 +23,8 @@ export const usePatients = () => {
         },
     });
 
-    
-
     const updatePatients = useMutation({
-        mutationFn: deletePatientsServices,
+        mutationFn: updatePatientsServices,
         onSuccess: (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
@@ -36,18 +34,18 @@ export const usePatients = () => {
                     queryPatients.refetch();
                 }
             }
-        }
+        },
     }); 
 
     const deletePatients = useMutation({
         mutationFn: deletePatientsServices,
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
             } else {
                 if (data.isSuccess) {
                     toast.success(data.message);
-                    queryPatients.refetch();
+                    await queryPatients.refetch()
                 }
             }
         }

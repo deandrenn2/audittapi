@@ -40,6 +40,7 @@ export const createPatientsServices = async (
 
     return response.data;
 }
+
 export const updatePatientsServices = async (
     model: PatientsModel
 ): Promise<MsgResponse<PatientsModel>> => {
