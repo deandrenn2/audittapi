@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePatients } from "./UsePatients";
 import { PatientsModel } from "./PantientsModel";
 
@@ -11,12 +11,12 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
         if (data) {
             setPatient(data);
         }
-    }, [data, setPatient]);
-    
+    }, [data]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const response = await updatePatients.mutateAsync(patient);
-
+        
         if (response.isSuccess) {
             refForm.current?.reset();
         }
@@ -30,11 +30,11 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
         <div>
             <form ref={refForm} className="space-y-4" onSubmit={handleSubmit}>
                 <div>
-                    <label className="block text-sm font-medium mb-1">IdPaciente</label>
+                    <label className="block text-sm font-medium mb-1">Nombre</label>
                     <input
                         type="text"
-                        name="firstName" 
-                        value={patient?.firstName}
+                        name="firstName"
+                        value={patient?.firstName || ""}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
@@ -44,20 +44,19 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <label className="block text-sm font-medium mb-1">Apellido</label>
                     <input
                         type="text"
-                        name="firstName" 
-                        value={patient?.lastName}
+                        name="lastName"
+                        value={patient?.lastName || ""}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
                     />
                 </div>
-
                 <div>
                     <label className="block text-sm font-medium mb-1">Fecha de Nacimiento</label>
                     <input
-                        type="text"
+                        type="date"
                         name="birthDate"
-                        value={patient?.birthDate}
+                        value={patient?.birthDate || ""}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}
@@ -68,7 +67,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="eps"
-                        value={patient?.eps}
+                        value={patient?.eps || ""}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2"
                         onChange={handleChange}

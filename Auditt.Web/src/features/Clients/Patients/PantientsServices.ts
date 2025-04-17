@@ -43,7 +43,7 @@ export const createPatientsServices = async (
 export const updatePatientsServices = async (
     model: PatientsModel
 ): Promise<MsgResponse<PatientsModel>> => {
-    const url = "api/patients";
+    const url = `api/patients/${model.id}`;
     const response = await ApiClient.put<MsgResponse<PatientsModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
@@ -57,7 +57,6 @@ export const updatePatientsServices = async (
             },
         };
     }
-
     return response.data;
 }
 

@@ -23,19 +23,7 @@ export const usePatients = () => {
         },
     });
 
-    const deletePatients = useMutation({
-        mutationFn: deletePatientsServices,
-        onSuccess: (data) => {
-            if (!data.isSuccess) {
-                toast.info(data.message);
-            } else {
-                if (data.isSuccess) {
-                    toast.success(data.message);
-                    queryPatients.refetch();
-                }
-            }
-        }
-    });
+    
 
     const updatePatients = useMutation({
         mutationFn: deletePatientsServices,
@@ -51,9 +39,23 @@ export const usePatients = () => {
         }
     }); 
 
+    const deletePatients = useMutation({
+        mutationFn: deletePatientsServices,
+        onSuccess: (data) => {
+            if (!data.isSuccess) {
+                toast.info(data.message);
+            } else {
+                if (data.isSuccess) {
+                    toast.success(data.message);
+                    queryPatients.refetch();
+                }
+            }
+        }
+    });
+
     return {
         patients: queryPatients?.data?.data,
-        isLoading: queryPatients.isLoading,
+        queryPatients,
         createPatients,
         deletePatients,
         updatePatients,
