@@ -31,15 +31,36 @@ export const FunctionaryUpdate = ({data} : {data: FunctionaryModel}) => {
         <form ref={refForm} className="space-y-4" onSubmit={handleSubmit}>
         <div>
             <label className="block text-sm font-medium mb-1">Nombre</label>
-            <input type="text" name="firstName" value={functionary.firstName} required className="w-full border border-gray-300 rounded px-3 py-2" onChange={handleChange} />
+            <input 
+            type="text" 
+            name="firstName" 
+            value={functionary.firstName} 
+            required 
+            className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+            hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+            onChange={handleChange} />
         </div>
+
         <div>
             <label className="block text-sm font-medium mb-1">Apellido</label>
-            <input type="text" name="lastName" value={functionary.lastName} required className="w-full border border-gray-300 rounded px-3 py-2" onChange={handleChange} />
+            <input 
+            type="text" 
+            name="lastName" 
+            value={functionary.lastName} 
+            required 
+            className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+            hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+            onChange={handleChange} />
         </div>
         <div>
             <label className="block text-sm font-medium mb-1">Documento</label>
-            <input type="text" name="identification" required value={functionary.identification} className="w-full border border-gray-300 rounded px-3 py-2" onChange={handleChange} />
+            <input 
+            type="text" 
+            name="identification"
+             required value={functionary.identification}
+              className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+            hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+              onChange={handleChange} />
         </div>
         <div>
             <button type="submit" className=" bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
