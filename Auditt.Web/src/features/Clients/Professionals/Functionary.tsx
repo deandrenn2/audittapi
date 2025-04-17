@@ -1,7 +1,6 @@
 import { useState } from "react";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import ButtonDetail from "../../../shared/components/Buttons/ButtonDetail";
-
 import { LinkClients } from "../../Dashboard/LinkClients";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { FunctionaryCreate } from "./FunctionaryCreate";
@@ -56,7 +55,6 @@ if (queryFunctionary.isLoading)
                     <button  onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                         Crear Profesionales
                     </button>
-
                     <div>
                         <div className="grid grid-cols-4">
                             <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombre</div>

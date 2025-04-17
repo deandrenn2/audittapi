@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFunctionaryServices, deleteFunctionaryServices, getFunctionary, updateFunctionaryServices } from "./FunctionaryServices";
 import { toast } from "react-toastify";
 
-
 const KEY = "functionary";
 export const useFunctionary = () => {
     const queryFunctionary = useQuery({

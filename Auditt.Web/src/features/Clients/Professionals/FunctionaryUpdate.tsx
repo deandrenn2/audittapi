@@ -6,7 +6,7 @@ export const FunctionaryUpdate = ({data} : {data: FunctionaryModel}) => {
     const { updateFunctionary } = useFunctionary();
     const [functionary, setFunctionary] = useState<FunctionaryModel>(data);  
     const refForm = useRef<HTMLFormElement>(null);
-
+    
     useEffect(() => {
         if (data) {
             setFunctionary(data);
