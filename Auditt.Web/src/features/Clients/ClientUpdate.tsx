@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ClientModel } from "./ClientModel";
-import { useClient } from "./useClient";
+import { useClient } from "../Clients/useClient";
 
 export const ClientUpdate = ({ data }: { data: ClientModel }) => {
     const { updateClient } = useClient();

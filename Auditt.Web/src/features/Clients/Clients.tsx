@@ -62,7 +62,7 @@ export const Clients = () => {
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">ABREVIATURA</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">NIT</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OpCIONES</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
 
                     <div className=" bg-white px-2 py-2 border border-gray-200">
