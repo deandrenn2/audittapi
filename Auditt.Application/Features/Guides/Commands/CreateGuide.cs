@@ -9,6 +9,7 @@ using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
 
+namespace Auditt.Application.Features.Guides;
 public class CreateGuide : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)

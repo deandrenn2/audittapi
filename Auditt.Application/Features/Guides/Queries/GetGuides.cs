@@ -10,7 +10,7 @@ using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace Auditt.Application.Features.Questions;
+namespace Auditt.Application.Features.Guides;
 public class GetGuides : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -26,15 +26,11 @@ public class GetGuides : ICarterModule
     }
     public record GetGuidesCommand() : IRequest<IResult>;
     public record GetGuidesResponse(int Id, string Name, string Description, int IdScale);
-    public class GetGuidesHandler(AppDbContext context, IValidator<GetGuidesCommand> validator) : IRequestHandler<GetGuidesCommand, IResult>
+    public class GetGuidesHandler(AppDbContext context) : IRequestHandler<GetGuidesCommand, IResult>
     {
         public async Task<IResult> Handle(GetGuidesCommand request, CancellationToken cancellationToken)
         {
-            var result = validator.Validate(request);
-            if (!result.IsValid)
-            {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
-            }
+           
             var guides = await context.Guides.ToListAsync();
             var resModel = guides.Select(g => new GetGuidesResponse(g.Id, g.Name, g.Description, g.IdScale)).ToList();
             return Results.Ok(Result<List<GetGuidesResponse>>.Success(resModel, "Guías obtenidas correctamente"));
