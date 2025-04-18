@@ -39,19 +39,38 @@ export const ClientCreate = () => {
             <form ref={refForm} className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                     <label className="block text-sm font-medium mb-1">Razón Social</label>
-                    <input type="text" name="name" required className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input
+                    type="text"
+                    name="name" 
+                    required 
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">Abreviatura</label>
-                    <input type="text" name="abbreviation" required className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input 
+                    type="text" 
+                    name="abbreviation" 
+                    required 
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">NIT</label>
-                    <input type="text" name="nit" required className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input 
+                    type="text" 
+                    name="nit" 
+                    required 
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">Ciudad</label>
-                    <input type="text" name="city" className="w-full border border-gray-300 rounded px-3 py-2" />
+                    <input 
+                    type="text" 
+                    name="city" 
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <button type="submit" className=" bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">

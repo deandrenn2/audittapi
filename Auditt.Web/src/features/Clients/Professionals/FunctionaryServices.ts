@@ -42,10 +42,10 @@ export const createFunctionaryServices = async (
 }
 
 export const updateFunctionaryServices = async (
-    data: FunctionaryModel
+    model: FunctionaryModel
 ): Promise<MsgResponse<FunctionaryModel>> => {
-    const url = `api/functionaries/${data.id}`;
-    const response = await ApiClient.put<MsgResponse<FunctionaryModel>>(url, data);
+    const url = `api/functionaries/${model.id}`;
+    const response = await ApiClient.put<MsgResponse<FunctionaryModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
         return {
@@ -63,8 +63,7 @@ export const updateFunctionaryServices = async (
 };
 
 export const deleteFunctionaryServices = async (
-    id: number
-): Promise<MsgResponse<FunctionaryModel>> => {
+    id: number): Promise<MsgResponse<FunctionaryModel>> => {
     const url = `api/functionaries/${id}`;
     const response = await ApiClient.delete<MsgResponse<FunctionaryModel>>(url);
 

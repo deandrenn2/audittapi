@@ -13,7 +13,7 @@ import { FunctionaryUpdate } from "./FunctionaryUpdate";
 export const Functionary = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const {Functionary , queryFunctionary, deleteFunctionary} = useFunctionary();
+    const {Functionarys , queryFunctionary, deleteFunctionary} = useFunctionary();
     const [functionary, setFunctionary] = useState<FunctionaryModel>();
 
     const handleClickDetail = (functionarySelected: FunctionaryModel) => {
@@ -35,8 +35,8 @@ export const Functionary = () => {
             preConfirm: async () => {
                 await deleteFunctionary.mutateAsync(id);
             }
-    })
-}   
+    });
+};
 
 if (queryFunctionary.isLoading)
     return <Bar />
@@ -57,18 +57,18 @@ if (queryFunctionary.isLoading)
                     </button>
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombre</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Apellido</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Identificación</div>
-                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">Opciones</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">NOMBRE</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">APELLIDO</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
+                            <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">OPCIONES</div>
                         </div>
 
                         <div className="bg-white px-2 py-2 border border-gray-200">
-                            {Functionary?.map((functionary) => (
+                            {Functionarys?.map((functionary) => (
                                 <div className="grid grid-cols-4">
-                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary?.firstName}</div>
-                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary?.lastName}</div>
-                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary?.identification}</div>
+                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.firstName}</div>
+                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.lastName}</div>
+                                    <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.identification}</div>
                                     <div className="flex justify-center">
                                         <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                         <ButtonDetail url={""} xClick={() => handleClickDetail(functionary)}/>
@@ -89,6 +89,5 @@ if (queryFunctionary.isLoading)
                 </OffCanvas>
             }
         </div>
-
     );
 }

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createPatientsServices, deletePatientsServices, getPatients } from "./PantientsServices";
+import { createPatientsServices, deletePatientsServices, getPatients, updatePatientsServices } from "./PantientsServices";
 import { toast } from "react-toastify";
 
 const KEY = "patients";
@@ -23,8 +23,8 @@ export const usePatients = () => {
         },
     });
 
-    const deletePatients = useMutation({
-        mutationFn: deletePatientsServices,
+    const updatePatients = useMutation({
+        mutationFn: updatePatientsServices,
         onSuccess: (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
@@ -32,28 +32,28 @@ export const usePatients = () => {
                 if (data.isSuccess) {
                     toast.success(data.message);
                     queryPatients.refetch();
+                }
+            }
+        },
+    }); 
+
+    const deletePatients = useMutation({
+        mutationFn: deletePatientsServices,
+        onSuccess: async (data) => {
+            if (!data.isSuccess) {
+                toast.info(data.message);
+            } else {
+                if (data.isSuccess) {
+                    toast.success(data.message);
+                    await queryPatients.refetch()
                 }
             }
         }
     });
 
-    const updatePatients = useMutation({
-        mutationFn: deletePatientsServices,
-        onSuccess: (data) => {
-            if (!data.isSuccess) {
-                toast.info(data.message);
-            } else {
-                if (data.isSuccess) {
-                    toast.success(data.message);
-                    queryPatients.refetch();
-                }
-            }
-        }
-    }); 
-
     return {
         patients: queryPatients?.data?.data,
-        isLoading: queryPatients.isLoading,
+        queryPatients,
         createPatients,
         deletePatients,
         updatePatients,

@@ -8,11 +8,12 @@ import { PatientsCreate } from "./PatientsCreate";
 import Swal from "sweetalert2";
 import { usePatients } from "./UsePatients";
 import { PatientsModel } from "./PantientsModel";
-import { PatientsUpdate } from "./Pantiensupdate";
+import { PatientsUpdate } from "./PatientsUpdate";
+import { Bar } from "../../../shared/components/Progress/Bar";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const { patients,  deletePatients, } = usePatients();
+    const { patients, queryPatients,  deletePatients, } = usePatients();
     const [patient, setPatient] = useState<PatientsModel>();
 
     const handleClickDetail = (patientSelected: PatientsModel) => {
@@ -22,11 +23,10 @@ export const Patients = () => {
         }
     }
 
-
-    function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estas seguro de eliminar este paciente?',
+            title: '¿Estás seguro de eliminar este paciente?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -34,21 +34,19 @@ export const Patients = () => {
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
             preConfirm: async () => {
+                  
                 await deletePatients.mutateAsync(id);
+                queryPatients.refetch();
             }
-        
-        })
-
-    }
+        });
+    };
 
     const handleClose = () => {
         setVisible(false);
     }
 
-    const handleClick = () => {
-        setVisible(true);
-    } 
-
+    if (queryPatients.isLoading)
+        return <Bar/>
 
     return (
         <div className="flex">
@@ -58,8 +56,12 @@ export const Patients = () => {
                         <LinkClients />
                     </div>
                     <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
-                    <button onClick={handleClick} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg  font-semibold mb-2">Crear Paciente</button>
+                    
+                    <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg  font-semibold mb-2">
+                        Crear Paciente
+                    </button>
                     <div>
+
                         <div className="grid grid-cols-4">
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">IDPACIENTE</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE NACIMIENTO</div>
@@ -87,6 +89,7 @@ export const Patients = () => {
             <OffCanvas titlePrincipal='Crear Paciente' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <PatientsCreate />
             </OffCanvas>{
+
                 patient &&
                 <OffCanvas titlePrincipal='Detalle Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
                     <PatientsUpdate data={patient} />

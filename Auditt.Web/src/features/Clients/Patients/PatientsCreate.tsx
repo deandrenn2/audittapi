@@ -3,9 +3,10 @@ import { usePatients } from "./UsePatients";
 import { PatientsModel } from "./PantientsModel";
 
 type formData = {
+    
     firstName: string;
     lastName: string;
-    documentNumber: string;
+    identification: string;
     birthDate: string;
     eps: string;
 };
@@ -19,20 +20,23 @@ export const PatientsCreate = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
         const patient = Object.fromEntries(formData.entries()) as formData;
+    
         const newPatient: PatientsModel = {
+            id: 0,
             firstName: patient.firstName ?? "",
             lastName: patient.lastName ?? "",
-            documentNumber: patient.documentNumber ?? "",
+            identification: patient.identification ?? "",
             birthDate: patient.birthDate ?? "",
             eps: patient.eps ?? "",
         };
-
+    
         const response = await createPatients.mutateAsync(newPatient);
-
+    
         if (response.isSuccess) {
             refForm.current?.reset();
         }
     };
+    
 
     return (
         <div>
@@ -43,7 +47,8 @@ export const PatientsCreate = () => {
                         type="text"
                         name="firstName"
                         required
-                        className="w-full border border-gray-300 rounded px-2 py-2"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
                 <div>
@@ -52,16 +57,18 @@ export const PatientsCreate = () => {
                         type="text"
                         name="lastName"
                         required
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">Número de Documento</label>
                     <input
                         type="text"
-                        name="documentNumber"
+                        name="identification"
                         required
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
                 <div>
@@ -70,7 +77,8 @@ export const PatientsCreate = () => {
                         type="date"
                         name="birthDate"
                         required
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
                 <div>
@@ -79,7 +87,8 @@ export const PatientsCreate = () => {
                         type="text"
                         name="eps"
                         required
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                     />
                 </div>
                 <div>

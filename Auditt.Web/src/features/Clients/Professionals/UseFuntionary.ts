@@ -50,7 +50,7 @@ export const useFunctionary = () => {
     });
 
     return {
-        Functionary: queryFunctionary?.data?.data,
+        Functionarys: queryFunctionary?.data?.data,
         queryFunctionary,
         createFunctionary,
         deleteFunctionary,
