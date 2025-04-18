@@ -1,10 +1,15 @@
 import { useState } from "react";
-import OffCanvas from "../../shared/components/OffCanvas/Index"
-import { Direction } from "../../shared/components/OffCanvas/Models";
 import { QuestionsForm } from "./QuestionsForm";
+import OffCanvas from "../../../shared/components/OffCanvas/Index";
+import { Direction } from "../../../shared/components/OffCanvas/Models";
+import { useQuestions } from "./useQuestions";
 
-export const GuideForm = () => {
+export const Questions = () => {
     const [visible, setVisible] = useState(false);
+    const {Questions, queryQuestions, deleteQuestion} = useQuestions();
+
+
+
     const handleClose = () => {
         setVisible(false);
     }
