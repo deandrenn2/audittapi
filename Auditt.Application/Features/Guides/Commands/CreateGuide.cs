@@ -27,7 +27,6 @@ public class CreateGuide : ICarterModule
     public record CreateGuideCommand : IRequest<IResult>
     {
         public string Name { get; init; } = string.Empty;
-        public int IdInstitution { get; init; }
         public string Description { get; init; } = string.Empty;
         public int IdScale { get; init; }
     }
@@ -41,7 +40,7 @@ public class CreateGuide : ICarterModule
             {
                 return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
-            var guide = Guide.Create(0, request.Name, request.IdInstitution, request.Description, request.IdScale);
+            var guide = Guide.Create(0, request.Name, request.Description, request.IdScale);
             await context.Guides.AddAsync(guide);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)

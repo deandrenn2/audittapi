@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\DataCuts\Queries\" />
     <Folder Include="Features\Guides\Queries\" />
   </ItemGroup>
 
