@@ -14,7 +14,6 @@ public class Guide : AggregateRoot
 
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public int IdInstitution { get; private set; }
     public int IdScale { get; private set; }
     public Scale Scale { get; private set; }
     public List<Assessment> Assessments { get; private set; } = new List<Assessment>();
