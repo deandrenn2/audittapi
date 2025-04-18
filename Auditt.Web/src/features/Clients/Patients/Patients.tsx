@@ -76,7 +76,7 @@ export const Patients = () => {
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.identification}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.birthDate}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.eps}</div>
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.firstName} {patient.lastName}</div>
+
                                     <div className="flex justify-center">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
                                         <ButtonDetail url={""} xClick={() => handleClickDetail(patient)} />

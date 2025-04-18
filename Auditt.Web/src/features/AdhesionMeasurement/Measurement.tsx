@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
-import ButtonDelete from "../../shared/components/Buttons/ButtonDelete";
 import { QuarterlyCreateForm } from "../QuarterlyCuts/QuarterlCreateForm";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
@@ -48,7 +47,6 @@ export const Measurement = () => {
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">01-01-2025</div>
                             <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">31-03-2025</div>
                             <div className=" flex justify-center"> 
-                                <ButtonDelete id={0} onDelete={undefined}/>
                                 <ButtonDetail url={"QuanrtelForm"} />
                             </div>
                         </div>

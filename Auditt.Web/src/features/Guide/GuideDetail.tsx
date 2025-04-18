@@ -1,8 +1,8 @@
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { InstrumentsForm } from "./IntrumentsForm";
-export const InstrumentsDetail = () => {
+import { GuideForm } from "./GuideForm";
+export const GuideDetail = () => {
     return (
         <div className="w-full">
             <div className="flex space-x-4 mb-4 p-4">
@@ -15,7 +15,7 @@ export const InstrumentsDetail = () => {
                 </Link>
             </div>
             <div className="w-2/3 bg-white p-4 rounded-lg">
-                <InstrumentsForm/>
+                <GuideForm/>
             </div>
 
         </div>

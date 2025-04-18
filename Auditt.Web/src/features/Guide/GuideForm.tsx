@@ -3,7 +3,7 @@ import OffCanvas from "../../shared/components/OffCanvas/Index"
 import { Direction } from "../../shared/components/OffCanvas/Models";
 import { QuestionsForm } from "./QuestionsForm";
 
-export const InstrumentsForm = () => {
+export const GuideForm = () => {
     const [visible, setVisible] = useState(false);
     const handleClose = () => {
         setVisible(false);
@@ -37,7 +37,7 @@ export const InstrumentsForm = () => {
                     </div>
                 </section>
             </div>
-            <OffCanvas titlePrincipal='Creación de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
+            <OffCanvas titlePrincipal='Crear de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
                 <QuestionsForm />
             </OffCanvas>
         </div>
