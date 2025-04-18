@@ -24,8 +24,8 @@ public class CreatePermission : ICarterModule
         .ProducesValidationProblem()
         .Produces<CreatePermissionResponse>(StatusCodes.Status200OK);
     }
-    public record CreatePermissionCommand(string Name, string Description) : IRequest<IResult>;
-    public record CreatePermissionResponse(int Id, string Name, string Description);
+    public record CreatePermissionCommand(string Name, string Code, string? Description) : IRequest<IResult>;
+    public record CreatePermissionResponse(int Id, string Name, string Code, string? Description);
     public class CreatePermissionHandler(AppDbContext context, IValidator<CreatePermissionCommand> validator) : IRequestHandler<CreatePermissionCommand, IResult>
     {
         public async Task<IResult> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
@@ -35,12 +35,12 @@ public class CreatePermission : ICarterModule
             {
                 return Results.ValidationProblem(result.GetValidationProblems());
             }
-            var permission = Permission.Create(0, request.Name, request.Description);
+            var permission = Permission.Create(0, request.Name, request.Code, request.Description);
             await context.Permissions.AddAsync(permission);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new CreatePermissionResponse(permission.Id, permission.Name, permission.Description);
+                var resModel = new CreatePermissionResponse(permission.Id, permission.Name, permission.Code, permission.Description ?? string.Empty);
                 return Results.Ok(Result<CreatePermissionResponse>.Success(resModel, "Permiso creado correctamente"));
             }
             else

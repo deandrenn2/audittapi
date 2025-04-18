@@ -25,7 +25,7 @@ public class DeletePermission : ICarterModule
         .Produces<DeletePermissionResponse>(StatusCodes.Status200OK);
     }
     public record DeletePermissionCommand(int Id) : IRequest<IResult>;
-    public record DeletePermissionResponse(int Id, string Name, string Description);
+    public record DeletePermissionResponse(int Id, string Name);
     public class DeletePermissionHandler(AppDbContext context, IValidator<DeletePermissionCommand> validator) : IRequestHandler<DeletePermissionCommand, IResult>
     {
         public async Task<IResult> Handle(DeletePermissionCommand request, CancellationToken cancellationToken)
@@ -44,7 +44,7 @@ public class DeletePermission : ICarterModule
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new DeletePermissionResponse(permission.Id, permission.Name, permission.Description);
+                var resModel = new DeletePermissionResponse(permission.Id, permission.Name);
                 return Results.Ok(Result<DeletePermissionResponse>.Success(resModel, "Permiso eliminado correctamente"));
             }
             else
