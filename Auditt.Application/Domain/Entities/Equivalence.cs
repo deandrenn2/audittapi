@@ -26,5 +26,6 @@ public class Equivalence : AggregateRoot
     public void Update(string name, decimal value)
     {
         Name = name;
+        Value = value;
     }
 }

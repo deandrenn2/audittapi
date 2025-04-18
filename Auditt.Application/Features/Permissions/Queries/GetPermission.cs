@@ -25,7 +25,7 @@ public class GetPermission : ICarterModule
         .Produces<GetPermissionResponse>(StatusCodes.Status200OK);
     }
     public record GetPermissionCommand(int Id) : IRequest<IResult>;
-    public record GetPermissionResponse(int Id, string Name, string Description);
+    public record GetPermissionResponse(int Id, string Name, string Code, string Description);
     public class GetPermissionHandler(AppDbContext context, IValidator<GetPermissionCommand> validator) : IRequestHandler<GetPermissionCommand, IResult>
     {
         public async Task<IResult> Handle(GetPermissionCommand request, CancellationToken cancellationToken)
@@ -40,7 +40,7 @@ public class GetPermission : ICarterModule
             {
                 return Results.NotFound(new { Message = "Permiso no encontrado" });
             }
-            var resModel = new GetPermissionResponse(permission.Id, permission.Name, permission.Description);
+            var resModel = new GetPermissionResponse(permission.Id, permission.Name, permission.Code, permission.Description ?? string.Empty);
             return Results.Ok(Result<GetPermissionResponse>.Success(resModel, "Permiso encontrado correctamente"));
         }
     }
