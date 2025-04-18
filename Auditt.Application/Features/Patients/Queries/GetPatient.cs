@@ -25,7 +25,7 @@ public class GetPatient : ICarterModule
         .Produces<GetPatientResponse>(StatusCodes.Status200OK);
     }
     public record GetPatientQuery(int Id) : IRequest<IResult>;
-    public record GetPatientResponse(string FirstName, string LastName, string DocumentNumber, DateTime BirthDate, string Eps);
+    public record GetPatientResponse(string FirstName, string LastName, string Identification, DateTime BirthDate, string Eps);
     public class GetPatientHandler(AppDbContext context) : IRequestHandler<GetPatientQuery, IResult>
     {
         public async Task<IResult> Handle(GetPatientQuery request, CancellationToken cancellationToken)

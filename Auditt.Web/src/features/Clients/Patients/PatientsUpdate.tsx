@@ -16,7 +16,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const response = await updatePatients.mutateAsync(patient);
-        
+
         if (response.isSuccess) {
             refForm.current?.reset();
         }
@@ -35,7 +35,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                         type="text"
                         name="firstName"
                         value={patient.firstName}
-                        required
+
                         className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200
                          hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2
                          focus:ring-indigo-400"
@@ -47,8 +47,8 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="lastName"
-                        value={patient.lastName }
-                        required
+                        value={patient.lastName}
+
                         className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         onChange={handleChange}

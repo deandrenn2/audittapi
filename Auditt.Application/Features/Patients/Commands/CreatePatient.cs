@@ -28,7 +28,7 @@ public class CreatePatient : ICarterModule
     {
         public string FirstName { get; init; } = string.Empty;
         public string LastName { get; init; } = string.Empty;
-        public string DocumentNumber { get; init; } = string.Empty;
+        public string Identification { get; init; } = string.Empty;
         public DateTime BirthDate { get; init; }
         public string Eps { get; init; } = string.Empty;
     }
@@ -40,15 +40,18 @@ public class CreatePatient : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
+                result.GetValidationProblems(),
+                new Error("Patient.ErrorValidation", "Se presentaron errores de validación")
+            ));
             }
-            var patient = Patient.Create(0,request.FirstName, request.LastName,  request.DocumentNumber, request.BirthDate, request.Eps);
+            var patient = Patient.Create(0, request.FirstName, request.LastName, request.Identification, request.BirthDate, request.Eps);
             await context.Patients.AddAsync(patient);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
                 var resModel = new CreatePatientResponse(patient.Id, patient.FirstName, patient.LastName, patient.Identification, patient.BirthDate);
-                return Results.Ok(Result<Patient>.Success(patient, "Paciente creado correctamente"));
+                return Results.Ok(Result<CreatePatientResponse>.Success(resModel, "Paciente creado correctamente"));
             }
             else
             {
@@ -60,9 +63,7 @@ public class CreatePatient : ICarterModule
     {
         public CreatePatientValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().WithMessage("El nombre del paciente es requerido");
-            RuleFor(x => x.LastName).NotEmpty().WithMessage("El apellido del paciente es requerido");
-            RuleFor(x => x.DocumentNumber).NotEmpty().WithMessage("El número de documento es requerido");
+            RuleFor(x => x.Identification).NotEmpty().WithMessage("El número de documento es requerido");
             RuleFor(x => x.BirthDate).NotEmpty().WithMessage("La fecha de nacimiento es requerida");
             RuleFor(x => x.BirthDate)
                 .Must(BeAValidDate)

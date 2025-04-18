@@ -1,5 +1,6 @@
 ﻿using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
+using Auditt.Domain.Shared;
 using Carter;
 using Carter.ModelBinding;
 using FluentValidation;
@@ -26,14 +27,17 @@ public class DeletePatient : ICarterModule
     public record DeletePatientCommand(int Id) : IRequest<IResult>;
     public record DeletePatientResponse(string Message);
 
-    public class DeletePatientHandler(AppDbContext _dbContext,  IValidator<DeletePatientCommand> validator) : IRequestHandler<DeletePatientCommand, IResult>
+    public class DeletePatientHandler(AppDbContext _dbContext, IValidator<DeletePatientCommand> validator) : IRequestHandler<DeletePatientCommand, IResult>
     {
         public async Task<IResult> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
         {
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.ValidationProblem(result.GetValidationProblems());
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
+                result.GetValidationProblems(),
+                new Error("Patient.ErrorValidation", "Se presentaron errores de validación")
+            ));
             }
 
             var patient = await _dbContext.Patients.FindAsync(new object[] { request.Id }, cancellationToken);

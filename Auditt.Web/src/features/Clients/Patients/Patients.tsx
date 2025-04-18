@@ -13,7 +13,7 @@ import { Bar } from "../../../shared/components/Progress/Bar";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const { patients, queryPatients,  deletePatients, } = usePatients();
+    const { patients, queryPatients, deletePatients, } = usePatients();
     const [patient, setPatient] = useState<PatientsModel>();
 
     const handleClickDetail = (patientSelected: PatientsModel) => {
@@ -34,7 +34,7 @@ export const Patients = () => {
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
             preConfirm: async () => {
-                  
+
                 await deletePatients.mutateAsync(id);
                 queryPatients.refetch();
             }
@@ -46,7 +46,7 @@ export const Patients = () => {
     }
 
     if (queryPatients.isLoading)
-        return <Bar/>
+        return <Bar />
 
     return (
         <div className="flex">
@@ -56,25 +56,27 @@ export const Patients = () => {
                         <LinkClients />
                     </div>
                     <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
-                    
+
                     <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg  font-semibold mb-2">
                         Crear Paciente
                     </button>
                     <div>
 
-                        <div className="grid grid-cols-4">
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">IDPACIENTE</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE NACIMIENTO</div>
+                        <div className="grid grid-cols-5">
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Id Paciente</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Decha de nacimiento</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">EPS</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombres</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Opciones</div>
                         </div>
 
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {patients?.map((patient) => (
-                                <div className="grid grid-cols-4">
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.firstName} {patient.lastName}</div>
+                                <div className="grid grid-cols-5">
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.identification}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.birthDate}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.eps}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.firstName} {patient.lastName}</div>
                                     <div className="flex justify-center">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
                                         <ButtonDetail url={""} xClick={() => handleClickDetail(patient)} />
