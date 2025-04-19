@@ -14,6 +14,10 @@ import { MeasurementDetail } from '../features/AdhesionMeasurement/MeasurementDe
 import { Functionary } from '../features/Clients/Professionals/Functionary.tsx';
 import { Guide } from '../features/Guide/Guide.tsx';
 import { GuideDetail } from '../features/Guide/GuideDetail.tsx';
+import { Settings, } from '../features/Settings/Settings.tsx';
+import { Users } from '../features/Settings/Users/Users.tsx';
+import { Scales } from '../features/Settings/Scales/Scales.tsx';
+import { Roles } from '../features/Settings/Roles/Roles.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -68,6 +72,25 @@ export const router = createBrowserRouter([
                 element: <MeasurementDetail/>,
             },
 
+            {
+                path: '/Settings',
+                element: <Settings/>,
+            },
+
+            {
+                path: '/Users',
+                element: <Users/>,
+            },
+
+            {
+                path: '/Scales',
+                element: <Scales/>,
+            },
+
+            {
+                path: '/Roles',
+                element: <Roles/>,
+            },
         ],
     },
     {
