@@ -5,7 +5,7 @@ namespace Auditt.Application.Domain.Entities;
 public class Valuation : AggregateRoot
 {
     private Valuation(int id) : base(id) { }
-    public Valuation(int id, int order, string text, int idEquivalence, int idAssessment, int idUser) : base(id)
+    public Valuation(int id, int order, string text, int idEquivalence, int idAssessment, int idUser, int? idQuestion) : base(id)
     {
         Order = order;
         Text = text;
@@ -15,10 +15,12 @@ public class Valuation : AggregateRoot
         IdUserUpdate = idUser;
         UpdateDate = new DateTime();
         CreateDate = new DateTime();
+        IdQuestion = idQuestion;
     }
 
     public int Order { get; private set; }
     public string Text { get; private set; }
+
     public int IdEquivalence { get; private set; }
     public Equivalence Equivalence { get; private set; }
     public int IdAssessment { get; private set; }
@@ -27,10 +29,11 @@ public class Valuation : AggregateRoot
     public int IdUserUpdate { get; private set; }
     public DateTime UpdateDate { get; private set; }
     public DateTime CreateDate { get; private set; }
+    public int? IdQuestion { get; private set; }
 
-    public static Valuation Create(int id, int order, string text, int idEquivalence, int idAssessment, int idUser)
+    public static Valuation Create(int id, int order, string text, int idEquivalence, int idAssessment, int idUser, int? idQuestion = null)
     {
-        return new Valuation(id, order, text, idEquivalence, idAssessment, idUser);
+        return new Valuation(id, order, text, idEquivalence, idAssessment, idUser, idQuestion);
     }
 
     public void Update(int order, string text, int idEquivalence, int idAssessment, int idUser)
