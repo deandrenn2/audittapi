@@ -15,7 +15,6 @@ export const Users = () => {
         setVisible(false);
     }
 
-
     return (
         <div className="p-6">
             <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
