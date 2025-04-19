@@ -2,13 +2,11 @@ import { useState } from "react";
 import { QuestionsForm } from "./QuestionsForm";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
-import { useQuestions } from "./useQuestions";
+import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
+
 
 export const Questions = () => {
     const [visible, setVisible] = useState(false);
-    const {Questions, queryQuestions, deleteQuestion} = useQuestions();
-
-
 
     const handleClose = () => {
         setVisible(false);
@@ -28,7 +26,10 @@ export const Questions = () => {
                             <select className="border rounded px-3 py-2 ">
                                 <option>Instrumento HTA</option>
                             </select>
-                            <button onClick={handleClick} className="bg-green-600 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl">+</button>
+                            <button onClick={handleClick}>
+                                <ButtonPlus/>
+                            </button>
+                           
                         </div>
                     </div>
 

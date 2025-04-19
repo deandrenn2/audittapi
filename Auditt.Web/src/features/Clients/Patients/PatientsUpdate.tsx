@@ -59,7 +59,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <input
                         type="text"
                         name="DocumentNumber"
-                        value={patient.identification}
+                        value={patient.idetification}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"

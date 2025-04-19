@@ -20,7 +20,7 @@ export const getRoles = async (): Promise<MsgResponse<RolesModel[]>> => {
     return response.data;
 }
 
-export const createRole = async (
+export const createRoleServices = async (
     model: RolesModel
 ): Promise<MsgResponse<RolesModel>> => {
     const url = "api/roles";
@@ -41,7 +41,7 @@ export const createRole = async (
     return response.data;
 };
 
-export const updateRole = async (
+export const updateRoleServices = async (
     model: RolesModel
 ): Promise<MsgResponse<RolesModel>> => {
     const url = "api/roles";
@@ -62,7 +62,7 @@ export const updateRole = async (
     return response.data;
 };
 
-export const deleteRole = async (
+export const deleteRoleServices = async (
     id: number
 ): Promise<MsgResponse<RolesModel>> => {
     const url = `api/roles/${id}`;
