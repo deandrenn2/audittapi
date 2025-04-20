@@ -17,7 +17,7 @@ export const LinkSettings = () => {
             </Link>
 
             <Link
-                to="/scales"
+                to="/Scales"
                 className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${location.pathname === "/Scales"
                     ? "text-pink-500 border-pink-500" : ""}`}>
                 Escalas

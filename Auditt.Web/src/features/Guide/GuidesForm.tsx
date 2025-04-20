@@ -1,7 +1,7 @@
 export const GuidesForm = () => {
     return (
         <div className="w-full">
-            <label className="block text-2xl font-medium mb-2" htmlFor="nombre">Nombre</label>
+            <label className="block  font-medium mb-2" htmlFor="nombre">Nombre</label>
             <section className="w-full">
                 <input type="text" id="nombre" className="w-full h-12 p-3 border rounded mb-4" />
             </section>

@@ -52,7 +52,7 @@ export const Guide = () => {
                         </div>
                     </div>
                 </div>
-                <OffCanvas titlePrincipal='Crear Instrumentos o GUIAS' visible={visible} xClose={handleClose} position={Direction.Right}  >
+                <OffCanvas titlePrincipal='Crear Instrumentos' visible={visible} xClose={handleClose} position={Direction.Right}  >
                     <GuidesForm/>
                 </OffCanvas>
             </div>
