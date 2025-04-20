@@ -9,7 +9,7 @@ import { Clients } from '../features/Clients/Clients.tsx';
 import { Patients } from '../features/Clients/Patients/Patients.tsx';
 import { Quarterly } from '../features/QuarterlyCuts/Quarterly.tsx';
 import { Measurement } from '../features/AdhesionMeasurement/Measurement.tsx';
-import {  QuarterlyDetail } from '../features/QuarterlyCuts/QuarterlyDetail.tsx';
+import { QuarterlyDetail } from '../features/QuarterlyCuts/QuarterlyDetail.tsx';
 import { MeasurementDetail } from '../features/AdhesionMeasurement/MeasurementDetail.tsx';
 import { Functionary } from '../features/Clients/Professionals/Functionary.tsx';
 import { Guide } from '../features/Guide/Guide.tsx';
@@ -25,71 +25,71 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />,            
+                element: <Home />,
             },
 
             {
                 path: '/Clients',
-                element: <Clients/>,
+                element: <Clients />,
             },
 
             {
                 path: '/Patients',
-                element: <Patients/>,
+                element: <Patients />,
             },
 
             {
                 path: '/Functionary',
-                element: <Functionary/>,
+                element: <Functionary />,
             },
 
             {
                 path: '/Guide',
-                element: <Guide/>,
+                element: <Guide />,
             },
             {
                 path: 'Guide/:id',
-                element: <GuideDetail/>,
+                element: <GuideDetail />,
             },
 
             {
                 path: '/Quarterly',
-                element: <Quarterly/>,
+                element: <Quarterly />,
             },
 
             {
                 path: 'Quarterly/:Id',
-                element: <QuarterlyDetail/>,
+                element: <QuarterlyDetail />,
             },
 
             {
                 path: '/Measurement',
-                element: <Measurement/>,
+                element: <Measurement />,
             },
 
             {
                 path: 'AdhesionMeasurement/:id',
-                element: <MeasurementDetail/>,
+                element: <MeasurementDetail />,
             },
 
             {
                 path: '/Settings',
-                element: <Settings/>,
+                element: <Settings />,
             },
 
             {
                 path: '/Users',
-                element: <Users/>,
+                element: <Users />,
             },
 
             {
                 path: '/Scales',
-                element: <Scales/>,
+                element: <Scales />,
             },
 
             {
                 path: '/Roles',
-                element: <Roles/>,
+                element: <Roles />,
             },
         ],
     },
@@ -97,8 +97,6 @@ export const router = createBrowserRouter([
         path: 'Login',
         element: <Login />,
     },
-
-
     {
         path: '/Create/User',
         element: <UserCreate />,

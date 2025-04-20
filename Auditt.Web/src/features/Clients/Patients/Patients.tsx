@@ -72,7 +72,7 @@ export const Patients = () => {
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {patients?.map((patient) => (
                                 <div className="grid grid-cols-5">
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.idetification}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.identification}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.birthDate}</div>
                                     <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.eps}</div>
 

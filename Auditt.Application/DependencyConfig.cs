@@ -11,6 +11,7 @@ using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Authentications;
 using Auditt.Infrastructure.Authentications;
 using System.Text;
+using Auditt.Application.Infrastructure.Authentications.Google;
 
 namespace Auditt.Application;
 
@@ -52,6 +53,7 @@ public static class DependencyConfig
     {
         builder.Services.AddScoped<IManagerToken, ManagerToken>();
         builder.Services.AddScoped<IFileManager, FileManager>();
+        builder.Services.AddScoped<IJwtService, JwtService>();
     }
 
     public static IServiceCollection AddApplicationCore(this IServiceCollection services)
