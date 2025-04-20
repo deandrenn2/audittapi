@@ -3,9 +3,12 @@ import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { ButtonPlay } from "../../../shared/components/Buttons/ButtonPlay";
 import { LinkSettings } from "../../Dashboard/LinkSenttings";
 import { useScales } from "./useScales";
+import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
+import Swal from "sweetalert2";
+import { Bar } from "../../../shared/components/Progress/Bar";
 
 export const Scales = () => {
-    const { scales, createScale } = useScales();
+    const { scales, createScale, queryScale,deleteScale } = useScales();
     const refForm = useRef<HTMLFormElement>(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,6 +25,25 @@ export const Scales = () => {
             refForm.current?.reset();
         }
     };
+
+    function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
+            e.preventDefault();
+            Swal.fire({
+                title: '¿Estás seguro de eliminar esta escala?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                preConfirm: async () => {
+                    await deleteScale.mutateAsync(id);
+                }
+            })
+        }
+        
+        if (queryScale.isLoading)
+            return <Bar/>
 
     return (
         <div className="p-6">
@@ -54,6 +76,7 @@ export const Scales = () => {
                             />
                         </div>
                         <ButtonPlus />
+                        <ButtonDelete id={scale.id} onDelete={handleDelete}/>
                     </div>
 
                     <div className="pl-8 space-y-2 text-sm font-bold">

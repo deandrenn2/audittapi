@@ -3,7 +3,7 @@ import { MsgResponse } from "../../../shared/model";
 import { ScaleModel } from "./ScaleModel";
 
 export const getScale = async (): Promise<MsgResponse<ScaleModel[]>> => {
-    const url = `api/scales/{id}`;
+    const url = `api/scales`;
     const response = await ApiClient.get<MsgResponse<ScaleModel[]>>(url);
     if (response.status !== 200) {
         return {
