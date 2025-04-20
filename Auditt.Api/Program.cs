@@ -28,6 +28,10 @@ builder.Services.ConfigureServices();
 builder.AddInfraestructure();
 builder.Services.AddInfraestructureReports();
 
+//Google requited this services
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // 🔄 Aplica las migraciones automáticamente si no estás en desarrollo
