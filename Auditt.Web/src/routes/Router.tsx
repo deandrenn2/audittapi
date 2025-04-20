@@ -7,13 +7,17 @@ import { BusinessCreate } from './Login/BusinessCreate.tsx';
 import { PasswordRecoverForm } from './Login/PasswordRecover.tsx';
 import { Clients } from '../features/Clients/Clients.tsx';
 import { Patients } from '../features/Clients/Patients/Patients.tsx';
-import { Instruments } from '../features/Instruments/Instruments.tsx';
 import { Quarterly } from '../features/QuarterlyCuts/Quarterly.tsx';
 import { Measurement } from '../features/AdhesionMeasurement/Measurement.tsx';
-import { InstrumentsDetail } from '../features/Instruments/InstrumentsDetail.tsx';
 import {  QuarterlyDetail } from '../features/QuarterlyCuts/QuarterlyDetail.tsx';
 import { MeasurementDetail } from '../features/AdhesionMeasurement/MeasurementDetail.tsx';
 import { Functionary } from '../features/Clients/Professionals/Functionary.tsx';
+import { Guide } from '../features/Guide/Guide.tsx';
+import { GuideDetail } from '../features/Guide/GuideDetail.tsx';
+import { Settings, } from '../features/Settings/Settings.tsx';
+import { Users } from '../features/Settings/Users/Users.tsx';
+import { Scales } from '../features/Settings/Scales/Scales.tsx';
+import { Roles } from '../features/Settings/Roles/Roles.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -40,12 +44,12 @@ export const router = createBrowserRouter([
             },
 
             {
-                path: '/Instruments',
-                element: <Instruments/>,
+                path: '/Guide',
+                element: <Guide/>,
             },
             {
-                path: 'Instruments/:id',
-                element: <InstrumentsDetail/>,
+                path: 'Guide/:id',
+                element: <GuideDetail/>,
             },
 
             {
@@ -68,6 +72,25 @@ export const router = createBrowserRouter([
                 element: <MeasurementDetail/>,
             },
 
+            {
+                path: '/Settings',
+                element: <Settings/>,
+            },
+
+            {
+                path: '/Users',
+                element: <Users/>,
+            },
+
+            {
+                path: '/Scales',
+                element: <Scales/>,
+            },
+
+            {
+                path: '/Roles',
+                element: <Roles/>,
+            },
         ],
     },
     {

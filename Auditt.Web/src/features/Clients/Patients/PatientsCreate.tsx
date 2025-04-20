@@ -25,7 +25,7 @@ export const PatientsCreate = () => {
             id: 0,
             firstName: patient.firstName ?? "",
             lastName: patient.lastName ?? "",
-            identification: patient.identification ?? "",
+            idetification: patient.identification ?? "",
             birthDate: patient.birthDate ?? "",
             eps: patient.eps ?? "",
         };

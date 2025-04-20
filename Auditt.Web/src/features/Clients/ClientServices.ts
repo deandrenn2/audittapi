@@ -1,4 +1,4 @@
-import { ApiClient } from "../../shared/helpers/ApiClient";
+ import { ApiClient } from "../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../shared/model";
 import { ClientModel } from "./ClientModel";
 export const getClients = async (): Promise<MsgResponse<ClientModel[]>> => {

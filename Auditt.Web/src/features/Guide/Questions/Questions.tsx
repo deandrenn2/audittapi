@@ -1,10 +1,13 @@
 import { useState } from "react";
-import OffCanvas from "../../shared/components/OffCanvas/Index"
-import { Direction } from "../../shared/components/OffCanvas/Models";
 import { QuestionsForm } from "./QuestionsForm";
+import OffCanvas from "../../../shared/components/OffCanvas/Index";
+import { Direction } from "../../../shared/components/OffCanvas/Models";
+import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 
-export const InstrumentsForm = () => {
+
+export const Questions = () => {
     const [visible, setVisible] = useState(false);
+
     const handleClose = () => {
         setVisible(false);
     }
@@ -23,7 +26,10 @@ export const InstrumentsForm = () => {
                             <select className="border rounded px-3 py-2 ">
                                 <option>Instrumento HTA</option>
                             </select>
-                            <button onClick={handleClick} className="bg-green-600 hover:bg-green-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl">+</button>
+                            <button onClick={handleClick}>
+                                <ButtonPlus/>
+                            </button>
+                           
                         </div>
                     </div>
 
@@ -37,7 +43,7 @@ export const InstrumentsForm = () => {
                     </div>
                 </section>
             </div>
-            <OffCanvas titlePrincipal='Creación de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
+            <OffCanvas titlePrincipal='Crear de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
                 <QuestionsForm />
             </OffCanvas>
         </div>

@@ -1,7 +1,7 @@
 import {
 	passwordRecoverModel,
 	UsersUpdatePasswordModel,
-} from "../../features/Users/UsersModel";
+} from "../../features/Settings/Users/UsersModel";
 import { ApiClient } from "../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../shared/model";
 import {

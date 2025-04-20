@@ -1,6 +1,3 @@
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelopeOpen, faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstData, useLogin } from './useLogin';

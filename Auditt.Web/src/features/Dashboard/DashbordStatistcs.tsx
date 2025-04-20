@@ -59,7 +59,5 @@ export const DashboradStatistcs = () => {
                 <div className="h-6 bg-gray-200 rounded"></div>
             </div>
         </div>
-
-
     )
 };
