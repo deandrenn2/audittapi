@@ -25,14 +25,14 @@ public class User : AggregateRoot
         Email = email;
         Password = passWord;
         SecurePharse = securePharse;
-        IdRol = idRol;
+        RoleId = idRol;
     }
 
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string Password { get; private set; }
-    public int IdRol { get; private set; }
+    public int RoleId { get; private set; }
     public Role Role { get; private set; }
     public string SecurePharse { get; private set; }
     public int StatusId { get; private set; } = 1;
@@ -92,7 +92,7 @@ public class User : AggregateRoot
 
     public void UpdateRole(int idRol)
     {
-        IdRol = idRol;
+        RoleId = idRol;
     }
 
     public void SetAvatar(int id)

@@ -9,12 +9,12 @@ public class Guide : AggregateRoot
     {
         Name = name;
         Description = description;
-        IdScale = idScale;
+        ScaleId = idScale;
     }
 
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public int IdScale { get; private set; }
+    public int ScaleId { get; private set; }
     public Scale Scale { get; private set; }
     public List<Assessment> Assessments { get; private set; } = new List<Assessment>();
     public List<Question> Questions { get; private set; } = new List<Question>();
@@ -28,6 +28,6 @@ public class Guide : AggregateRoot
     {
         Name = name;
         Description = description;
-        IdScale = idScale;
+        ScaleId = idScale;
     }
 }

@@ -25,14 +25,20 @@ public class GoogleLoginEndpoint : ICarterModule
     {
         public Task<IResult> Handle(GoogleLoginQuery request, CancellationToken ct)
         {
-            var googleConfig = configuration.GetSection("GoogleOAuth2");
+            var googleConfig = configuration.GetSection("GoogleOAuth");
             if (googleConfig is null)
             {
-                return Task.FromResult<IResult>(Results.BadRequest("No se encontró la configuración de Google OAuth2."));
+                return Task.FromResult(Results.BadRequest("No se encontró la configuración de Google OAuth2."));
+            }
+            var webApiConfig = configuration.GetSection("WebApi");
+            if (webApiConfig is null)
+            {
+                return Task.FromResult(Results.BadRequest("No se encontró la configuración de la API web."));
             }
 
             var clientId = googleConfig["ClientId"];
-            var redirectUri = $"{googleConfig["RedirectUri"]}";
+            var urlApi = webApiConfig["Url"] ?? "https://localhost:7275";
+            var redirectUri = $"{urlApi}{googleConfig["RedirectUri"]}";
             var urlBaseAccount = googleConfig["UrlAccount"] ?? "https://accounts.google.com";
 
             var url = $"{urlBaseAccount}/o/oauth2/v2/auth?client_id={clientId}&redirect_uri={redirectUri}&response_type=code&scope=openid%20email%20profile";
@@ -40,7 +46,7 @@ public class GoogleLoginEndpoint : ICarterModule
 
             Console.WriteLine($"Generated Google OAuth2 URL: {url}");
 
-            return Task.FromResult<IResult>(Results.Redirect(url));
+            return Task.FromResult(Results.Redirect(url));
         }
     }
 

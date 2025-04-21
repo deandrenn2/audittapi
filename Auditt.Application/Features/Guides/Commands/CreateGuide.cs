@@ -45,7 +45,7 @@ public class CreateGuide : ICarterModule
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new CreateGuideResponse(guide.Id, guide.Name, guide.Description, guide.IdScale);
+                var resModel = new CreateGuideResponse(guide.Id, guide.Name, guide.Description, guide.ScaleId);
                 return Results.Ok(Result<Guide>.Success(guide, "Guía creada correctamente"));
             }
             else

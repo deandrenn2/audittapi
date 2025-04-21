@@ -32,7 +32,7 @@ public class GetGuides : ICarterModule
         {
            
             var guides = await context.Guides.ToListAsync();
-            var resModel = guides.Select(g => new GetGuidesResponse(g.Id, g.Name, g.Description, g.IdScale)).ToList();
+            var resModel = guides.Select(g => new GetGuidesResponse(g.Id, g.Name, g.Description, g.ScaleId)).ToList();
             return Results.Ok(Result<List<GetGuidesResponse>>.Success(resModel, "Guías obtenidas correctamente"));
         }
     }
