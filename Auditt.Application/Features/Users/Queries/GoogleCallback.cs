@@ -17,7 +17,7 @@ public class GoogleCallbackEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/auth/google-callback", async ([AsParameters] GoogleCallbackQuery query, ISender sender) =>
+        app.MapGet("api/auth/google-callback", async ([AsParameters] GoogleCallbackQuery query, ISender sender) =>
         {
             return await sender.Send(query);
         })
@@ -34,7 +34,7 @@ public class GoogleCallbackEndPoint : ICarterModule
         public async Task<IResult> Handle(GoogleCallbackQuery request, CancellationToken ct)
         {
             // Obtén la configuración de Google desde appsettings.json
-            var googleConfig = configuration.GetSection("GoogleOAuth2");
+            var googleConfig = configuration.GetSection("GoogleOAuth");
             if (googleConfig is null)
             {
                 return Results.BadRequest("No se encontró la configuración de Google OAuth2.");
@@ -68,17 +68,25 @@ public class GoogleCallbackEndPoint : ICarterModule
             var tokenBody = await tokenRes.Content.ReadFromJsonAsync<JsonElement>();
             var accessToken = tokenBody.GetProperty("access_token").GetString();
 
-            var userRes = await client.GetFromJsonAsync<JsonElement>($"{googleConfig["Url"]}/oauth2/v2/userinfo?access_token={accessToken}", ct);
+            var userRes = await client.GetFromJsonAsync<JsonElement>($"{googleConfig["UrlApi"]}/oauth2/v2/userinfo?access_token={accessToken}", ct);
             var email = userRes.GetProperty("email").GetString();
-            var name = userRes.GetProperty("name").GetString();
+            var firstName = userRes.GetProperty("given_name").GetString() ?? "";
+            var lastName = userRes.GetProperty("family_name").GetString() ?? "";
 
             var user = await context.Users.Where(x => x.Email == email).FirstOrDefaultAsync(ct);
+            var guidPass = Guid.NewGuid().ToString();
             if (user is null)
             {
-                if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(email))
+                if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(email))
                 {
-                    user = User.Create(0, name, "APELLIDO", email, "PASSWORD", "SECUREPHRASE", 1);
-                    await context.SaveChangesAsync();
+                    user = User.Create(0, firstName, lastName, email, guidPass, "Auth Google", 1);
+                    context.Add(user);
+                    var resCount = await context.SaveChangesAsync();
+
+                    if (resCount == 0)
+                    {
+                        return Results.BadRequest("No se pudo crear el usuario.");
+                    }
                 }
                 else
                 {
