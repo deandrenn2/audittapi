@@ -13,7 +13,7 @@ export const EquivalenceCreate = ({ idScale, onCreated }: Props) => {
         idScale,
         name: "",
         value: 0,
-        scale: {},
+
     });
 
     const { createEquivalence } = useEquivalence();
@@ -34,7 +34,7 @@ export const EquivalenceCreate = ({ idScale, onCreated }: Props) => {
     const handleSubmit = async () => {
         const response = await createEquivalence.mutateAsync(equivalence);
         if (response?.isSuccess) {
-            setEquivalence({ id: 0, idScale, name: "", value: 0, scale: {} });
+            setEquivalence({ id: 0, idScale, name: "", value: 0, });
             onCreated?.();
         }
     };

@@ -79,14 +79,14 @@ export const Scales = () => {
             </form>
 
             {scales?.map((scale) => (
-                <div key={scale.id} className="w-4xl p-4 mb-4 border rounded-lg shadow">
+                <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center ">
                             <ButtonPlay />
                             <input
                                 value={scale.name}
                                 readOnly
-                                className="border rounded px-3 py-1 mr-2"
+                                className="border rounded px-2 py-1 mr-2 "
                             />
                         </div>
                         <div onClick={hadbleClick}>
@@ -97,11 +97,11 @@ export const Scales = () => {
                             <ButtonDelete id={scale.id} onDelete={handleDelete} />
                         )}
                     </div>
-                    <Equivalence equivalences={[]} />
+                    <Equivalence/>
                 </div>
             ))}
               <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                    <EquivalenceCreate idScale={0}/>
+                    <EquivalenceCreate idScale={Scales.id} />
                 </OffCanvas>
         </div>
 
