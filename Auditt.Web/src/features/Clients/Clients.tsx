@@ -17,7 +17,6 @@ export const Clients = () => {
     const { clients, queryClients, deleteClient } = useClient();
     const [client, setClient] = useState<ClientModel>();
 
-
     const handleClickDetail = (clientSelected: ClientModel) => {
         if (clientSelected) {
             setClient(clientSelected);

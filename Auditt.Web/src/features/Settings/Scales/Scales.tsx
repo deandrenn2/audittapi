@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { ButtonPlay } from "../../../shared/components/Buttons/ButtonPlay";
 import { LinkSettings } from "../../Dashboard/LinkSenttings";
@@ -6,10 +6,24 @@ import { useScales } from "./useScales";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 import Swal from "sweetalert2";
 import { Bar } from "../../../shared/components/Progress/Bar";
+import { Equivalence } from "./Equivalence/Equivalence";
+import OffCanvas from "../../../shared/components/OffCanvas/Index";
+import { EquivalenceCreate } from "./Equivalence/EquivalenceCreate";
+import { Direction } from "../../../shared/components/OffCanvas/Models";
 
 export const Scales = () => {
-    const { scales, createScale, queryScale,deleteScale } = useScales();
+    const { scales, createScale, queryScale, deleteScale } = useScales();
     const refForm = useRef<HTMLFormElement>(null);
+    const [visible, setVisible] = useState(false);
+    
+        const hadbleClick = () => {
+            setVisible(true);
+        }
+    
+        
+        const handleClose = () => {
+            setVisible(false);
+        }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,23 +41,23 @@ export const Scales = () => {
     };
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
-            e.preventDefault();
-            Swal.fire({
-                title: '¿Estás seguro de eliminar esta escala?',
-                text: 'Esta acción no se puede deshacer',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar',
-                preConfirm: async () => {
-                    await deleteScale.mutateAsync(id);
-                }
-            })
-        }
-        
-        if (queryScale.isLoading)
-            return <Bar/>
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estás seguro de eliminar esta escala?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            preConfirm: async () => {
+                await deleteScale.mutateAsync(id);
+            }
+        })
+    }
+
+    if (queryScale.isLoading)
+        return <Bar />
 
     return (
         <div className="p-6">
@@ -75,26 +89,21 @@ export const Scales = () => {
                                 className="border rounded px-3 py-1 mr-2"
                             />
                         </div>
-                        <ButtonPlus />
-                        <ButtonDelete id={scale.id} onDelete={handleDelete}/>
+                        <div onClick={hadbleClick}>
+                            <ButtonPlus/>
+                        </div>
+                        
+                        {typeof scale.id === 'number' && (
+                            <ButtonDelete id={scale.id} onDelete={handleDelete} />
+                        )}
                     </div>
-
-                    <div className="pl-8 space-y-2 text-sm font-bold">
-                        <label className="flex items-start gap-2 mb-2">
-                            Cumple
-                            <span className="text-red-500">Value: 1</span>
-                        </label>
-                        <label className="flex items-start gap-2 mb-2">
-                            No Cumple
-                            <span className="text-red-500">Value: 2</span>
-                        </label>
-                        <label className="flex items-start gap-2 mb-2">
-                            No Aplica
-                            <span className="text-red-500">Value: 0</span>
-                        </label>
-                    </div>
+                    <Equivalence equivalences={[]} />
                 </div>
             ))}
+              <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
+                    <EquivalenceCreate idScale={0}/>
+                </OffCanvas>
         </div>
+
     );
 };
