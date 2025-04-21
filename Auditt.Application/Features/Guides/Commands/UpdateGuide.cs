@@ -49,7 +49,7 @@ public class UpdateGuide : ICarterModule
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new UpdateGuideResponse(guide.Id, guide.Name, guide.Description, guide.IdScale);
+                var resModel = new UpdateGuideResponse(guide.Id, guide.Name, guide.Description, guide.ScaleId);
                 return Results.Ok(Result<UpdateGuideResponse>.Success(resModel, "Guía actualizada correctamente"));
             }
             else

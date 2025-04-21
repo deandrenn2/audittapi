@@ -39,7 +39,7 @@ public class GetGuide : ICarterModule
             {
                 return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Guía no encontrada")));
             }
-            var resModel = new GetGuideResponse(guide.Id, guide.Name, guide.Description, guide.IdScale);
+            var resModel = new GetGuideResponse(guide.Id, guide.Name, guide.Description, guide.ScaleId);
             return Results.Ok(Result<GetGuideResponse>.Success(resModel, "Guía obtenida correctamente"));
         }
     }

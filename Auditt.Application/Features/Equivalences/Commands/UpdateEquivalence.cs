@@ -51,7 +51,7 @@ public class UpdateEquivalence : ICarterModule
             {
                 return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Equivalente no encontrado")));
             }
-            equivalent.Update(request.Name, request.Value);
+            equivalent.Update(request.Name, request.Value, request.ScaleId);
             context.Equivalences.Update(equivalent);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
