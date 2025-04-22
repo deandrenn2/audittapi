@@ -15,15 +15,17 @@ export const Scales = () => {
     const { scales, createScale, queryScale, deleteScale } = useScales();
     const refForm = useRef<HTMLFormElement>(null);
     const [visible, setVisible] = useState(false);
-    
-        const hadbleClick = () => {
-            setVisible(true);
-        }
-    
-        
-        const handleClose = () => {
-            setVisible(false);
-        }
+    const [scaleId, setScaleId] = useState(0);
+
+    const handleEdit = (id: number) => {
+        setVisible(true);
+        setScaleId(id);
+    }
+
+
+    const handleClose = () => {
+        setVisible(false);
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -89,21 +91,22 @@ export const Scales = () => {
                                 className="border rounded px-2 py-1 mr-2 "
                             />
                         </div>
-                        <div onClick={hadbleClick}>
-                            <ButtonPlus/>
+                        <div onClick={() => handleEdit(scale.id ?? 0)}>
+                            <ButtonPlus />
                         </div>
-                        
+
                         {typeof scale.id === 'number' && (
                             <ButtonDelete id={scale.id} onDelete={handleDelete} />
                         )}
                     </div>
-                    <Equivalence/>
+                    <div className="mb-4">
+                        <Equivalence />
+                    </div>
                 </div>
             ))}
-              <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                    <EquivalenceCreate idScale={Scales.id} />
-                </OffCanvas>
+            <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
+                <EquivalenceCreate scaleId={scaleId} />
+            </OffCanvas>
         </div>
-
     );
 };

@@ -1,6 +1,6 @@
 export interface EquivalenceModel{
     id: number;
-    idScale: number;
+    scaleId: number;
     name: string,
     value: number,
 }

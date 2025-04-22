@@ -45,7 +45,7 @@ export const updateEquivalenceServices = async (model: EquivalenceModel) => {
     if (response.status !== 200 && response.status !== 201) {
         return {
             isSuccess: false,
-            message: "Error al actualizar la escala",
+            message: "Error al actualizar la Equivalencia",
             isFailure: true,
             error: {
                 code: response.status.toString(),

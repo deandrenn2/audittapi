@@ -3,14 +3,14 @@ import { EquivalenceModel } from "./EquivalenceModel";
 import { useEquivalence } from "./useEquivalence";
 
 interface Props {
-    idScale: number;
+    scaleId: number;
     onCreated?: () => void;
 }
 
-export const EquivalenceCreate = ({ idScale, onCreated }: Props) => {
+export const EquivalenceCreate = ({ scaleId, onCreated }: Props) => {
     const [equivalence, setEquivalence] = useState<EquivalenceModel>({
         id: 0,
-        idScale,
+        scaleId,
         name: "",
         value: 0,
 
@@ -19,8 +19,8 @@ export const EquivalenceCreate = ({ idScale, onCreated }: Props) => {
     const { createEquivalence } = useEquivalence();
 
     useEffect(() => {
-        setEquivalence((prev) => ({ ...prev, idScale }));
-    }, [idScale]);
+        setEquivalence((prev) => ({ ...prev, scaleId }));
+    }, [scaleId]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEquivalence({
@@ -34,7 +34,7 @@ export const EquivalenceCreate = ({ idScale, onCreated }: Props) => {
     const handleSubmit = async () => {
         const response = await createEquivalence.mutateAsync(equivalence);
         if (response?.isSuccess) {
-            setEquivalence({ id: 0, idScale, name: "", value: 0, });
+            setEquivalence({ id: 0, scaleId, name: "", value: 0, });
             onCreated?.();
         }
     };
