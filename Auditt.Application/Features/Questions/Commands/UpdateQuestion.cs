@@ -28,7 +28,7 @@ public class UpdateQuestion : ICarterModule
     {
         public int Id { get; init; }
         public string Text { get; init; } = string.Empty;
-        public int IdUser { get; init; } 
+        public int? IdUser { get; init; } 
     }
     public record UpdateQuestionResponse(int Id, string Text, int IdGuide);
     public class UpdateQuestionHandler(AppDbContext context, IValidator<UpdateQuestionCommand> validator) : IRequestHandler<UpdateQuestionCommand, IResult>
