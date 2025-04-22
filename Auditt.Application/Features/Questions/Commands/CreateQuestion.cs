@@ -24,7 +24,7 @@ public class CreateQuestion : ICarterModule
         .ProducesValidationProblem()
         .Produces<CreateQuestionResponse>(StatusCodes.Status200OK);
     }
-    public record CreateQuestionCommand(string Text, int Order, int IdGuide, int IdUser) : IRequest<IResult>;
+    public record CreateQuestionCommand(string Text, int Order, int IdGuide, int? IdUser = null) : IRequest<IResult>;
     public record CreateQuestionResponse(int Id, string Text, int Order, int IdGuide);
     public class CreateQuestionHandler(AppDbContext context, IValidator<CreateQuestionCommand> validator) : IRequestHandler<CreateQuestionCommand, IResult>
     {
