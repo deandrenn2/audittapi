@@ -9,6 +9,7 @@ export const useQuestions = () => {
         queryKey: [`${KEY}`],
         queryFn: getQuestions,
     });
+    
     const createQuestion = useMutation({
         mutationFn: createQuestionServices,
         onSuccess: (data) => {

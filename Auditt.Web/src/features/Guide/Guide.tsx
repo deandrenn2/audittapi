@@ -16,7 +16,6 @@ export const Guide = () => {
     const [visibleUpdate, setUpdateVisible] = useState(false);
     const { guides, queryGuide, deleteGuide } = useGuide();
     const [guide, setGuide] = useState<GuideModel>();
-
     const handleGuideDetail = (guideSelected: GuideModel) => {
         setGuide(guideSelected);
         setUpdateVisible(true);
