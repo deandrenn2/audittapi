@@ -18,10 +18,6 @@ export const Guide = () => {
     const [guide, setGuide] = useState<GuideModel>();
     const [idGuide, setIdGuide] = useState(0);
 
-    const handleEdit = (id: number) =>{
-       setVisible(true)
-        setGuide(id);
-    }
 
     const handleGuideDetail = (guideSelected: GuideModel) => {
         setGuide(guideSelected);
@@ -29,27 +25,21 @@ export const Guide = () => {
         setIdGuide(idGuide)
     };
 
-    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number): Promise<void> => {
-        e.preventDefault();
-        try {
-            const result = await Swal.fire({
-                title: '¿Estás seguro de eliminar este instrumento?',
-                text: 'Esta acción no se puede deshacer',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Confirmar',
-                cancelButtonText: 'Cancelar',
-            });
-
-            if (result.isConfirmed) {
-                await deleteGuide.mutateAsync(id);
-                Swal.fire('Eliminado', 'La guía ha sido eliminada', 'success');
+    function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro de eliminar esta Equivalencia?',
+                    text: 'Esta acción no se puede deshacer',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar',
+                    preConfirm: async () => {
+                        await deleteGuide.mutateAsync(id);
+                    }
+                })
             }
-        } catch (error) {
-            Swal.fire('Error', 'Hubo un error al eliminar la guía', 'error');
-        }
-    };
 
     if (queryGuide.isLoading) return <Bar />;
 
@@ -80,10 +70,8 @@ export const Guide = () => {
                                     <div onClick={() => handleGuideDetail(guide)}>
                                         <ButtonPlay />
                                     </div>
-                                    <div onClick={() => handleEdit(guide.id ?? 0) }>
                                         <ButtonDetail url={"Questions"} />
-                                    </div>
-                                    
+                                
                                     <ButtonDelete id={guide.id ?? 0} onDelete={handleDelete} />
                                 </div>
                             </div>
