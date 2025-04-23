@@ -62,10 +62,12 @@ export const GuideUpdate = ({ data }: { data: GuideModel }) => {
                         id="idScale"
                         className="w-full h-12 p-2 border rounded mb-4"
                         required
-                        value={selectedScaleId}
-                        onChange={(e) => setSelectedScaleId(e.target.value)}
+                        value={guide.idScale}
+                        onChange={(e) => {
+                            setSelectedScaleId(e.target.value); 
+                            setGuide({ ...guide, idScale: parseInt(e.target.value, 10) });
+                        }}
                     >
-                        
                         {scales?.map((scale) => (
                             <option key={scale.id} value={scale.id}>
                                 {scale.name}

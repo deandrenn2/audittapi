@@ -4,12 +4,14 @@ import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { useQuestions } from "./useQuestions";
-
+import { useGuide } from "../useGuide";
 
 export const Questions = () => {
-    const { questions,  } = useQuestions();
+    const { questions, } = useQuestions();
     const [visible, setVisible] = useState(false);
-
+    const { guides } = useGuide();
+    const [selectedIdguide] = useState()
+    
     const handleClose = () => {
         setVisible(false);
     }
@@ -25,8 +27,17 @@ export const Questions = () => {
                     <div className="mb-4">
                         <label className="block text-sm font-semibold mb-2">Instrumento de Adherencia a GPC</label>
                         <div className="flex items-center gap-2">
-                            <select className="border rounded px-3 py-2 ">
-                                <option>Instrumento HTA</option>
+                            <select
+                                name="idGuide"
+                                className="border rounded px-3 py-2"
+                                required
+                                value={selectedIdguide}
+                                onChange={(() => selectedIdguide)}>
+                                {guides?.map((guide) => (
+                                    <option key={guide.id} value={guide.id} >
+                                        {guide.name}I
+                                    </option>
+                                ))}
                             </select>
                             <button onClick={handleClick}>
                                 <ButtonPlus />
@@ -34,7 +45,6 @@ export const Questions = () => {
 
                         </div>
                     </div>
-
                     <div className="space-y-4">
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
@@ -43,15 +53,10 @@ export const Questions = () => {
                                         <div className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
                                             {question.text}
                                         </div>
-                                        
                                     </div>
                                 ))
                                 }
                             </div>
-                        </div>
-
-                        <div className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
-                            En los primeros tres meses después del diagnóstico de HTA, debe realizarse una muestra de orina casual, evaluando la relación proteinuria/creatinina con tiras reactivas. (FUERTE A FAVOR = efectos deseables)
                         </div>
                     </div>
                 </section>

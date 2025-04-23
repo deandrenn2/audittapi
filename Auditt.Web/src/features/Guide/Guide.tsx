@@ -16,9 +16,17 @@ export const Guide = () => {
     const [visibleUpdate, setUpdateVisible] = useState(false);
     const { guides, queryGuide, deleteGuide } = useGuide();
     const [guide, setGuide] = useState<GuideModel>();
+    const [idGuide, setIdGuide] = useState(0);
+
+    const handleEdit = (id: number) =>{
+       setVisible(true)
+        setGuide(id);
+    }
+
     const handleGuideDetail = (guideSelected: GuideModel) => {
         setGuide(guideSelected);
         setUpdateVisible(true);
+        setIdGuide(idGuide)
     };
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: number): Promise<void> => {
@@ -72,7 +80,10 @@ export const Guide = () => {
                                     <div onClick={() => handleGuideDetail(guide)}>
                                         <ButtonPlay />
                                     </div>
-                                    <ButtonDetail url={"Intrumento"} />
+                                    <div onClick={() => handleEdit(guide.id ?? 0) }>
+                                        <ButtonDetail url={"Questions"} />
+                                    </div>
+                                    
                                     <ButtonDelete id={guide.id ?? 0} onDelete={handleDelete} />
                                 </div>
                             </div>

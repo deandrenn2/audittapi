@@ -3,5 +3,4 @@ export interface QuestionsModel {
     text: string;
     order: number;
     idGuide: number;
-    idUser: number;
 }

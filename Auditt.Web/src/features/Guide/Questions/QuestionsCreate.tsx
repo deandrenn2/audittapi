@@ -6,7 +6,6 @@ type formData = {
     text?: string;
     order: number;
     idGuide: number;
-    idUser: number;
 };
 
 export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
@@ -22,9 +21,8 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
 
         const newQuestion: QuestionsModel = {
             text: question.text ?? "",
-            order: question.order ?? 0,
+            order: question.order ?? "",
             idGuide: idGuide,
-            idUser: question.idUser ?? 0,
         };
 
         const response = await createQuestion.mutateAsync(newQuestion);
@@ -37,12 +35,18 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
     return (
         <div className="w-full">
             <form ref={refForm} onSubmit={handleSubmit}>
-                <label className="block text-2xl font-medium mb-2" htmlFor="pregunta">Pregunta</label>
+            <label className="block  font-medium mb-2" htmlFor="pregunta">orde</label>
+            <input type="text" 
+            className="w-full"
+            />
+              
+              
+                <label className="block  font-medium mb-2" htmlFor="pregunta">Pregunta</label>
                 <section className="w-full">
                     <textarea
                         id="pregunta"
                         className="w-full h-60 p-3 border rounded resize-none mb-4"
-                        name="text" // Asegúrate de poner el atributo `name` para poder acceder al campo
+                        name="text"
                     />
                 </section>
                 <button className="bg-indigo-900 hover:bg-indigo-800 text-white font-semibold px-6 py-2 rounded">
