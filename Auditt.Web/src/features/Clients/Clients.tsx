@@ -1,8 +1,6 @@
 import { useState } from "react";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
-import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
-import { LinkClients } from "../Dashboard/LinkClients";
 import ButtonDelete from "../../shared/components/Buttons/ButtonDelete";
 import { Bar } from "../../shared/components/Progress/Bar";
 import { MouseEvent } from "react";
@@ -11,6 +9,8 @@ import { ClientModel } from "./ClientModel";
 import { ClientCreate } from "./ClientCreate";
 import { ClientUpdate } from "./ClientUpdate";
 import { useClient } from "./useClient";
+import { LinkClients } from "../Dashboard/LinkClients";
+import { ButtonDetail } from "../../shared/components/Buttons/ButtonDetail";
 export const Clients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -72,7 +72,9 @@ export const Clients = () => {
                                 <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.city}</div>
                                 <div className="flex justify-center">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
-                                    <ButtonDetail url={""} xClick={() => handleClickDetail(client)} />
+                                    <div onClick={() => handleClickDetail(client)}>
+                                        <ButtonDetail />
+                                    </div>
                                 </div>
                             </div>
                         ))}

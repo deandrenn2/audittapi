@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
 import { Direction } from "../../shared/components/OffCanvas/Models";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { QuarterlyCreateForm, } from "./QuarterlCreateForm";
+import { ButtonDetail } from "../../shared/components/Buttons/ButtonDetail";
 export const Quarterly = () => {
     const [visible, setVisible] = useState(false);
 
@@ -10,7 +10,7 @@ export const Quarterly = () => {
         setVisible(true);
     }
 
-    
+
     const handleClose = () => {
         setVisible(false);
     }
@@ -45,14 +45,16 @@ export const Quarterly = () => {
                         <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">220</div>
                         <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">01-01-2025</div>
                         <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">31-03-2025</div>
-                        <div className=" flex justify-center"> 
-                            
-                            <ButtonDetail url={"QuanrtelForm"} />
+                        <div className=" flex justify-center">
+                            <div>
+                                <ButtonDetail />
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <OffCanvas titlePrincipal='Crear Cortes Trimestrales' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                    <QuarterlyCreateForm/>
+                    <QuarterlyCreateForm />
                 </OffCanvas>
             </div>
         </div>

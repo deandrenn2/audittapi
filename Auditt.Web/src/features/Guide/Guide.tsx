@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
 import { GuidesCreate } from "./GuidesCreate";
@@ -10,6 +9,7 @@ import { Bar } from "../../shared/components/Progress/Bar";
 import { GuideModel } from "./GuideModel";
 import { GuideUpdate } from "./GuideUpdate";
 import { ButtonPlay } from "../../shared/components/Buttons/ButtonPlay";
+import { ButtonDetail } from "../../shared/components/Buttons/ButtonDetail";
 
 export const Guide = () => {
     const [visible, setVisible] = useState(false);
@@ -64,10 +64,9 @@ export const Guide = () => {
                                 <div className="text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">80</div>
                                 <div className="flex justify-center">
                                     <div onClick={() => handleGuideDetail(guide)}>
-                                        <ButtonPlay />
+                                        <ButtonDetail/>
                                     </div>
-                                    <ButtonDetail url={"Questions"} />
-
+                                        <ButtonPlay url={"Questions"} />
                                     <ButtonDelete id={guide.id ?? 0} onDelete={handleDelete} />
                                 </div>
                             </div>

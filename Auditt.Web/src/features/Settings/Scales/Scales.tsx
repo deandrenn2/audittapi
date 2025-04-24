@@ -84,7 +84,7 @@ export const Scales = () => {
                 <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
                         <div className="flex items-center ">
-                            <ButtonPlay />
+                            <ButtonPlay url={""} />
                             <input
                                 value={scale.name}
                                 readOnly

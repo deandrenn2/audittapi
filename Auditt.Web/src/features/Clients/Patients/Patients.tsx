@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
-import ButtonDetail from "../../../shared/components/Buttons/ButtonDetail";
 import { LinkClients } from "../../Dashboard/LinkClients";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
@@ -10,6 +9,7 @@ import { usePatients } from "./UsePatients";
 import { PatientsModel } from "./PantientsModel";
 import { PatientsUpdate } from "./PatientsUpdate";
 import { Bar } from "../../../shared/components/Progress/Bar";
+import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -78,7 +78,10 @@ export const Patients = () => {
 
                                     <div className="flex justify-center">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
-                                        <ButtonDetail url={""} xClick={() => handleClickDetail(patient)} />
+                                       <div onClick={() => handleClickDetail(patient)}  >
+                                       <ButtonDetail />
+                                       </div>
+                                        
                                     </div>
                                 </div>
                             ))}
