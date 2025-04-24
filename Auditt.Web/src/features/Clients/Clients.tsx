@@ -17,7 +17,6 @@ export const Clients = () => {
     const { clients, queryClients, deleteClient } = useClient();
     const [client, setClient] = useState<ClientModel>();
 
-
     const handleClickDetail = (clientSelected: ClientModel) => {
         if (clientSelected) {
             setClient(clientSelected);
@@ -64,7 +63,7 @@ export const Clients = () => {
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
-                    <div className=" bg-white px-2 py-2 border border-gray-200 ">
+                    <div className=" bg-white px-2 py-2 border border-gray-200">
                         {clients?.map((client) => (
                             <div className="grid grid-cols-5">
                                 <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.name}</div>
