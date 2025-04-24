@@ -4,7 +4,7 @@ import { QuestionsModel } from "./QuestionsModel";
 
 
 export const getQuestions = async () => {
-    const url = "api/questions";
+    const url = "api/questions/{idGuide}";
     const response = await ApiClient.get<MsgResponse<QuestionsModel[]>>(url);
 
     if (response.status !== 200) {
@@ -25,7 +25,7 @@ export const getQuestions = async () => {
 export const createQuestionServices = async (
     model: QuestionsModel
 ): Promise<MsgResponse<QuestionsModel>> => {
-    const url = `api/questions/{idGuide}`;
+    const url = `api/questions`;
     const response = await ApiClient.post<MsgResponse<QuestionsModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {

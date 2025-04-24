@@ -1,7 +1,7 @@
+import { EquivalenceModel } from "./Equivalence/EquivalenceModel";
+
 export interface ScaleModel {
     id?: number;
     name: string;
-    abbreviation: string;
-    description: string;
-    type: number;
+    equivalences?: EquivalenceModel[];
 }

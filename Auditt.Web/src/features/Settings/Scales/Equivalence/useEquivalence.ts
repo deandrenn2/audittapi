@@ -1,62 +1,64 @@
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { createScaleServices, deleteScaleServives, getScale, updateScaleServices } from "./ScalesServices";
+import { getEquivalence, createEquivalenceServices, deleteEqvalenceServives,  updateEquivalenceServices } from "./EquivalenceServices";
 
-const KEY = "Scale";
-export const useScales = () => {
-    const queryScale = useQuery({
+
+const KEY = "Equivalence";
+export const useEquivalence = () => {
+    const queryEquivalence = useQuery({
         queryKey: [`${KEY}`],
-        queryFn: getScale,
+        queryFn: getEquivalence,
     });
 
-    const createScale = useMutation({
-        mutationFn: createScaleServices,
+    const createEquivalence = useMutation({
+        mutationFn: createEquivalenceServices,
         onSuccess: (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
             } else {
                 if (data.isSuccess) {
                     toast.success(data.message);
-                    queryScale.refetch();
+                    queryEquivalence.refetch();
                 }
             }
         },
     });
 
-    const updateScale = useMutation({
-        mutationFn: updateScaleServices,
+    const updateEquivalence = useMutation({
+        mutationFn: updateEquivalenceServices,
         onSuccess: (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
             } else {
                 if (data.isSuccess) {
                     toast.success(data.message);
-                    queryScale.refetch();
+                    queryEquivalence.refetch();
                 }
             }
         },
     });
 
-    const deleteScale = useMutation({
-        mutationFn: deleteScaleServives,
+    const deleteEqvalence = useMutation({
+        mutationFn: deleteEqvalenceServives,
         onSuccess: (data) => {
             if (!data.isSuccess) {
                 toast.info(data.message);
             } else {
                 if (data.isSuccess) {
                     toast.success(data.message);
-                    queryScale.refetch();
+                    queryEquivalence.refetch();
                 }
             }
         },
     });
 
     return {
-        scales: queryScale?.data?.data,
-        queryScale,
-        createScale,
-        deleteScale,
-        updateScale,
+        equivalences: queryEquivalence?.data?.data,
+        queryEquivalence,
+        createEquivalence,
+        updateEquivalence,
+        deleteEqvalence,
     };
 }
 

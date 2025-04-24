@@ -2,8 +2,8 @@ import { ApiClient } from "../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../shared/model";
 import { GuideModel } from "./GuideModel";
 
-export const getGuideServices = async (): Promise<MsgResponse<GuideModel[]>> => {
-    const url = "api/guide";
+export const getGuide = async (): Promise<MsgResponse<GuideModel[]>> => {
+    const url = `api/guides`;
     const response = await ApiClient.get<MsgResponse<GuideModel[]>>(url);
 
     if (response.status !== 200) {
@@ -24,7 +24,7 @@ export const getGuideServices = async (): Promise<MsgResponse<GuideModel[]>> => 
 export const createGuideServices = async (
     model: GuideModel
 ): Promise<MsgResponse<GuideModel>> => {
-    const url = "api/guidese";
+    const url = "api/guides";
     const response = await ApiClient.post<MsgResponse<GuideModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
@@ -45,7 +45,7 @@ export const createGuideServices = async (
 export const updateGuideServices = async (
     model: GuideModel
 ): Promise<MsgResponse<GuideModel>> => {
-    const url = "api/guide";
+    const url = "api/guides";
     const response = await ApiClient.put<MsgResponse<GuideModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
@@ -66,7 +66,7 @@ export const updateGuideServices = async (
 export const deleteGuideServices = async (
     id: number
 ): Promise<MsgResponse<GuideModel>> => {
-    const url = `api/guide/${id}`;
+    const url = `api/guides/${id}`;
     const response = await ApiClient.delete<MsgResponse<GuideModel>>(url);
 
     if (response.status !== 200 && response.status !== 201) {
