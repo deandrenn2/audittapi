@@ -9,7 +9,8 @@ type formData = {
 };
 
 export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
-    const { createQuestion } = useQuestions();
+    const { createQuestion, questions } = useQuestions(idGuide);
+
     const refForm = useRef<HTMLFormElement>(null);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -18,11 +19,12 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
 
         const formData = new FormData(form);
         const question = Object.fromEntries(formData.entries()) as unknown as formData;
+        question.order = (questions?.length ?? 0) + 1; // Set the order based on the current length of questions
 
         const newQuestion: QuestionsModel = {
             text: question.text ?? "",
-            order: question.order ?? "",
-            idGuide: idGuide,
+            order: question.order ?? 0,
+            idGuide: idGuide
         };
 
         const response = await createQuestion.mutateAsync(newQuestion);
@@ -35,12 +37,7 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
     return (
         <div className="w-full">
             <form ref={refForm} onSubmit={handleSubmit}>
-            <label className="block  font-medium mb-2" htmlFor="pregunta">orde</label>
-            <input type="text" 
-            className="w-full"
-            />
-              
-              
+
                 <label className="block  font-medium mb-2" htmlFor="pregunta">Pregunta</label>
                 <section className="w-full">
                     <textarea

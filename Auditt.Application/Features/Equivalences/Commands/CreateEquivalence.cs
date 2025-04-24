@@ -38,16 +38,11 @@ public class CreateEquivalence : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
-            }
-            var scale = await context.Scales.FindAsync(request.ScaleId);
-            if (scale == null)
-            {
-                return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Escala no encontrada")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(result.GetValidationProblems(), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
             var equivalent = Equivalence.Create(0, request.ScaleId, request.Name, request.Value);
-            await context.Equivalences.AddAsync(equivalent);
-            var resCount = await context.SaveChangesAsync();
+            context.Add(equivalent);
+            var resCount = await context.SaveChangesAsync(cancellationToken);
             if (resCount > 0)
             {
                 var resModel = new CreateEquivalentResponse(equivalent.Id, equivalent.Name);
@@ -65,7 +60,6 @@ public class CreateEquivalence : ICarterModule
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("El nombre no puede estar vacío.");
             RuleFor(x => x.ScaleId).GreaterThan(0).WithMessage("El ID de la escala debe ser mayor que cero.");
-            RuleFor(x => x.Value).GreaterThan(0).WithMessage("El valor debe ser mayor que cero.");
         }
     }
 }

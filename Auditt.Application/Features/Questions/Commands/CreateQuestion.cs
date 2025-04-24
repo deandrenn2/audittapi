@@ -33,14 +33,14 @@ public class CreateQuestion : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(result.GetValidationProblems(), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
-            var question = new Question(0, request.Text, request.Order, request.IdGuide, request.IdUser);
+            var question = Question.Create(0, request.Text, request.Order, request.IdGuide);
             await context.Questions.AddAsync(question);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new CreateQuestionResponse(question.Id, question.Text,question.Order, question.IdGuide);
+                var resModel = new CreateQuestionResponse(question.Id, question.Text, question.Order, question.GuideId);
                 return Results.Ok(Result<CreateQuestionResponse>.Success(resModel, "Pregunta creada correctamente"));
             }
             else

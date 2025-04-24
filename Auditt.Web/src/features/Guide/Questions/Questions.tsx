@@ -7,11 +7,11 @@ import { useQuestions } from "./useQuestions";
 import { useGuide } from "../useGuide";
 
 export const Questions = () => {
-    const { questions, } = useQuestions();
     const [visible, setVisible] = useState(false);
     const { guides } = useGuide();
-    const [selectedIdguide] = useState()
-    
+    const [selectedIdguide, setSelectedIdguide] = useState<number>(guides ? guides[0]?.id ?? 0 : 0);
+    const { questions } = useQuestions(selectedIdguide);
+
     const handleClose = () => {
         setVisible(false);
     }
@@ -32,16 +32,16 @@ export const Questions = () => {
                                 className="border rounded px-3 py-2"
                                 required
                                 value={selectedIdguide}
-                                onChange={(() => selectedIdguide)}>
+                                onChange={((e) => setSelectedIdguide(Number(e.target.value)))}>
                                 {guides?.map((guide) => (
                                     <option key={guide.id} value={guide.id} >
                                         {guide.name}I
                                     </option>
                                 ))}
                             </select>
-                            <button onClick={handleClick}>
+                            <div onClick={handleClick}>
                                 <ButtonPlus />
-                            </button>
+                            </div>
 
                         </div>
                     </div>
@@ -62,7 +62,7 @@ export const Questions = () => {
                 </section>
             </div>
             <OffCanvas titlePrincipal='Crear de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
-                <QuestionsCreate idGuide={0} />
+                <QuestionsCreate idGuide={selectedIdguide} />
             </OffCanvas>
         </div>
     )

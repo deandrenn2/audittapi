@@ -33,7 +33,7 @@ public class DeleteQuestion : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(result.GetValidationProblems(), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
             var question = await context.Questions.FindAsync(request.Id);
             if (question == null)

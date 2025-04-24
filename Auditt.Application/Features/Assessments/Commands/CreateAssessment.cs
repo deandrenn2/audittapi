@@ -55,7 +55,7 @@ public class CreateAssessment : ICarterModule
             var valuations = new List<Valuation>();
             if (guide != null)
             {
-                var questions = await context.Questions.Where(x => x.IdGuide == request.IdGuide).ToListAsync(cancellationToken);
+                var questions = await context.Questions.Where(x => x.GuideId == request.IdGuide).ToListAsync(cancellationToken);
                 var equivalences = guide.Scale.Equivalences.ToList();
                 int idDefaultValue = equivalences.OrderBy(x => x.Value).First().Id;
 

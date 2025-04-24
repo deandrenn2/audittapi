@@ -9,16 +9,16 @@ public class Question : AggregateRoot
     {
         Text = text;
         Order = order;
-        IdGuide = idGuide;
+        GuideId = idGuide;
         IdUserUpdate = idUser;
         IdUserCreate = idUser;
-        UpdateDate = new DateTime();
-        CreateDate = new DateTime();
+        UpdateDate = DateTime.Now;
+        CreateDate = DateTime.Now;
     }
 
     public string Text { get; private set; }
     public int Order { get; private set; }
-    public int IdGuide { get; private set; }
+    public int GuideId { get; private set; }
     public Guide Guide { get; private set; }
     public int? IdUserUpdate { get; private set; }
     public int? IdUserCreate { get; private set; }

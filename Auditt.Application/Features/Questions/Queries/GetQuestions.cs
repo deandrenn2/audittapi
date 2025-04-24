@@ -31,8 +31,8 @@ public class GetQuestions : ICarterModule
     {
         public async Task<IResult> Handle(GetQuestionsCommand request, CancellationToken cancellationToken)
         {
-            var questions = await context.Questions.Where(x => x.IdGuide == request.IdGuide).ToListAsync();
-            var resModel = questions.Select(q => new GetQuestionsResponse(q.Id, q.Text, q.Order, q.IdGuide)).ToList();
+            var questions = await context.Questions.Where(x => x.GuideId == request.IdGuide).ToListAsync(cancellationToken);
+            var resModel = questions.Select(q => new GetQuestionsResponse(q.Id, q.Text, q.Order, q.GuideId)).ToList();
             return Results.Ok(Result<List<GetQuestionsResponse>>.Success(resModel, "Preguntas obtenidas correctamente"));
         }
     }

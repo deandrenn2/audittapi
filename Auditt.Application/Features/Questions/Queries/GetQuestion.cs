@@ -40,7 +40,7 @@ public class GetQuestion : ICarterModule
             {
                 return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Pregunta no encontrada")));
             }
-            var resModel = new GetQuestionResponse(question.Id, question.Text, question.Order, question.IdGuide);
+            var resModel = new GetQuestionResponse(question.Id, question.Text, question.Order, question.GuideId);
             return Results.Ok(Result<GetQuestionResponse>.Success(resModel, "Pregunta obtenida correctamente"));
         }
     }

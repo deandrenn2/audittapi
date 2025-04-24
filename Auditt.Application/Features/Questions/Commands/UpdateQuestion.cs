@@ -28,7 +28,7 @@ public class UpdateQuestion : ICarterModule
     {
         public int Id { get; init; }
         public string Text { get; init; } = string.Empty;
-        public int? IdUser { get; init; } 
+        public int? IdUser { get; init; }
     }
     public record UpdateQuestionResponse(int Id, string Text, int IdGuide);
     public class UpdateQuestionHandler(AppDbContext context, IValidator<UpdateQuestionCommand> validator) : IRequestHandler<UpdateQuestionCommand, IResult>
@@ -38,7 +38,7 @@ public class UpdateQuestion : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(result.GetValidationProblems(), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
             var question = await context.Questions.FindAsync(request.Id);
             if (question == null)
@@ -49,7 +49,7 @@ public class UpdateQuestion : ICarterModule
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new UpdateQuestionResponse(question.Id, question.Text, question.IdGuide);
+                var resModel = new UpdateQuestionResponse(question.Id, question.Text, question.GuideId);
                 return Results.Ok(Result<UpdateQuestionResponse>.Success(resModel, "Pregunta actualizada correctamente"));
             }
             else
