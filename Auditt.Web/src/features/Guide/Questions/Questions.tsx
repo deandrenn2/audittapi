@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QuestionsCreate } from "./QuestionsCreate";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
@@ -8,8 +8,16 @@ import { useGuide } from "../useGuide";
 export const Questions = () => {
     const [visible, setVisible] = useState(false);
     const { guides } = useGuide();
-    const [selectedIdguide, setSelectedIdguide] = useState<number>(guides ? guides[0]?.id ?? 0 : 0);
+    const [selectedIdguide, setSelectedIdguide] = useState<number>(0);
     const { questions } = useQuestions(selectedIdguide);
+
+    useEffect(() => {
+        if (guides && guides.length > 0 && selectedIdguide === 0) {
+            setSelectedIdguide(guides[0]?.id ?? 0);
+        }
+    }, [guides, selectedIdguide]);
+
+
     const selectedGuide = guides?.find((guide) => guide.id === selectedIdguide);
 
     const handleClose = () => {
@@ -55,7 +63,7 @@ export const Questions = () => {
                             <div className="bg-white px-2 py-2 border border-gray-200">
                                 <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
                                     {questions
-                                        ?.filter((question) => question.idGuide === selectedGuide.id)
+                                        ?.filter((question) => question.idGuide === selectedIdguide)
                                         .map((question) => (
                                             <div key={question.id} className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
                                                 {question.text}
