@@ -32,7 +32,7 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
         if (response.isSuccess) {
             refForm.current?.reset();
         }
-    }
+    };
 
     return (
         <div className="w-full">
@@ -41,9 +41,10 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
                 <label className="block  font-medium mb-2" htmlFor="pregunta">Pregunta</label>
                 <section className="w-full">
                     <textarea
-                        id="pregunta"
-                        className="w-full h-60 p-3 border rounded resize-none mb-4"
+                        id="text"
                         name="text"
+                        className="w-full h-60 p-3 border rounded resize-none mb-4"
+                        required
                     />
                 </section>
                 <button className="bg-indigo-900 hover:bg-indigo-800 text-white font-semibold px-6 py-2 rounded">

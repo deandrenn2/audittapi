@@ -16,13 +16,11 @@ export const Guide = () => {
     const [visibleUpdate, setUpdateVisible] = useState(false);
     const { guides, queryGuide, deleteGuide } = useGuide();
     const [guide, setGuide] = useState<GuideModel>();
-    const [idGuide, setIdGuide] = useState(0);
-
 
     const handleGuideDetail = (guideSelected: GuideModel) => {
         setGuide(guideSelected);
         setUpdateVisible(true);
-        setIdGuide(idGuide)
+
     };
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
@@ -47,11 +45,9 @@ export const Guide = () => {
         <div className="flex p-8">
             <div>
                 <h2 className="text-2xl font-semibold mb-6 mr-2">Instrumentos o GUIAS</h2>
-
                 <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                     Crear Instrumento
                 </button>
-
                 <div>
                     <div className="grid grid-cols-4">
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombre</div>
@@ -78,11 +74,11 @@ export const Guide = () => {
                         ))}
                     </div>
                 </div>
-                <OffCanvas titlePrincipal='Crear Instrumentos' visible={visible} xClose={() => setVisible(false)} position={Direction.Right}>
+                <OffCanvas titlePrincipal="Crear Instrumentos" visible={visible} xClose={() => setVisible(false)} position={Direction.Right}>
                     <GuidesCreate />
                 </OffCanvas>
                 {guide && (
-                    <OffCanvas titlePrincipal='Detalle Instrumentos' visible={visibleUpdate} xClose={() => setUpdateVisible(false)} position={Direction.Right}>
+                    <OffCanvas titlePrincipal="Detalle Instrumentos" visible={visibleUpdate} xClose={() => setUpdateVisible(false)} position={Direction.Right}>
                         <GuideUpdate data={guide} />
                     </OffCanvas>
                 )}

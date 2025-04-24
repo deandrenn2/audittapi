@@ -5,20 +5,18 @@ import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { useQuestions } from "./useQuestions";
 import { useGuide } from "../useGuide";
-
 export const Questions = () => {
     const [visible, setVisible] = useState(false);
     const { guides } = useGuide();
     const [selectedIdguide, setSelectedIdguide] = useState<number>(guides ? guides[0]?.id ?? 0 : 0);
     const { questions } = useQuestions(selectedIdguide);
+    const selectedGuide = guides?.find((guide) => guide.id === selectedIdguide);
 
     const handleClose = () => {
         setVisible(false);
     }
 
-    const handleClick = () => {
-        setVisible(true);
-    }
+    const handleClick = () => setVisible(true);
 
     return (
         <div className="w-full">
@@ -34,8 +32,8 @@ export const Questions = () => {
                                 value={selectedIdguide}
                                 onChange={((e) => setSelectedIdguide(Number(e.target.value)))}>
                                 {guides?.map((guide) => (
-                                    <option key={guide.id} value={guide.id} >
-                                        {guide.name}I
+                                    <option key={guide.id} value={guide.id}>
+                                        {guide.name}
                                     </option>
                                 ))}
                             </select>
@@ -45,25 +43,35 @@ export const Questions = () => {
 
                         </div>
                     </div>
-                    <div className="space-y-4">
-                        <div className="bg-white px-2 py-2 border border-gray-200">
-                            <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
-                                {questions?.map((question) => (
-                                    <div>
-                                        <div className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
-                                            {question.text}
-                                        </div>
-                                    </div>
-                                ))
-                                }
+
+                    {selectedGuide && (
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">Preguntas de la guía: {selectedGuide.name}</h3>
+                        </div>
+                    )}
+
+                    {selectedGuide ? (
+                        <div className="space-y-4">
+                            <div className="bg-white px-2 py-2 border border-gray-200">
+                                <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
+                                    {questions
+                                        ?.filter((question) => question.idGuide === selectedGuide.id)
+                                        .map((question) => (
+                                            <div key={question.id} className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
+                                                {question.text}
+                                            </div>
+                                        ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <p className="text-sm text-gray-500">Selecciona una guía para ver las preguntas.</p>
+                    )}
                 </section>
             </div>
             <OffCanvas titlePrincipal='Crear de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
                 <QuestionsCreate idGuide={selectedIdguide} />
             </OffCanvas>
         </div>
-    )
-}
+    );
+};
