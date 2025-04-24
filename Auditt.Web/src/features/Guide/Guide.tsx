@@ -42,14 +42,14 @@ export const Guide = () => {
     if (queryGuide.isLoading) return <Bar />;
 
     return (
-        <div className="flex p-8">
+        <div className="flex p-8 w-full">
             <div>
                 <h2 className="text-2xl font-semibold mb-6 mr-2">Instrumentos o GUIAS</h2>
                 <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                     Crear Instrumento
                 </button>
                 <div>
-                    <div className="grid grid-cols-4">
+                    <div className="grid grid-cols-[2fr_3fr_1fr_2fr] w-full">
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Nombre</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Descripción</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">Preguntas</div>
@@ -58,10 +58,10 @@ export const Guide = () => {
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
                         {guides?.map((guide) => (
-                            <div className="grid grid-cols-4" key={guide.id}>
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{guide.name}</div>
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{guide.description}</div>
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">80</div>
+                            <div className="grid grid-cols-[2fr_3fr_1fr_2fr] w-full" key={guide.id}>
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{guide.name}</div>
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{guide.description}</div>
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">80</div>
                                 <div className="flex justify-center">
                                     <div onClick={() => handleGuideDetail(guide)}>
                                         <ButtonDetail/>

@@ -19,11 +19,9 @@ const ButtonDetails = ({ url, state, className, xClick }: DetailButtonProps) => 
       to={url}
       state={state}
       className={className || "w-5 h-5 rounded-full bg-green-300  border-green-400 flex items-center justify-center hover:border-green-500 mr-2"}
-      onClick={handleClick}
-    >
+      onClick={handleClick}>
       <FontAwesomeIcon icon={faPen} className='text-green-500' />
     </Link>
   );
 };
-
 export default ButtonDetails;

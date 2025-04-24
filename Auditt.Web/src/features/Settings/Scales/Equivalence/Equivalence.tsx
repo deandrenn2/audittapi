@@ -44,9 +44,9 @@ export const Equivalence = () => {
             <div className="pl-8 space-y-1 text-sm font-bold">
                 {equivalences?.length ? (
                     equivalences.map((equivalence) => (
-                        <div key={equivalence.id} className="flex mb-3 items-center gap-3">
-                            <label className="font-semibold">{equivalence.name}</label>
-                            <span className="text-red-500">Value: {equivalence.value}</span>
+                        <div key={equivalence.id} className="flex mb-3 items-center">
+                            <label className="font-semibold mr-1">{equivalence.name}</label>
+                            <span className="text-red-500 mr-2">Value: {equivalence.value}</span>
                             <ButtonDeletes id={equivalence.id} onDelete={handleDelete} />
                             <div onClick={() => handleOpenEdit(equivalence)}>
                                 <ButtonDetails url={""} />
@@ -54,7 +54,7 @@ export const Equivalence = () => {
                         </div>
                     ))
                 ) : (
-                    <p>No hay equivalencias disponibles.</p>
+                    <p className="text-gray-400">No hay equivalencias disponibles.</p>
                 )}
             </div>
             <OffCanvas

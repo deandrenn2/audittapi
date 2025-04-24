@@ -46,8 +46,8 @@ export const Functionary = () => {
     }
 
     return (
-        <div className="flex">
-            <div className=" p-8">
+        <div className="flex w-full">
+            <div className="p-8">
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
                 </div>
@@ -56,19 +56,19 @@ export const Functionary = () => {
                     Crear Profesionales
                 </button>
                 <div>
-                    <div className="grid grid-cols-4">
-                        <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">NOMBRE</div>
-                        <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">APELLIDO</div>
-                        <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
-                        <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">OPCIONES</div>
+                    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
+                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">NOMBRE</div>
+                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">APELLIDO</div>
+                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
+                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">OPCIONES</div>
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
                         {Functionarys?.map((functionary) => (
-                            <div className="grid grid-cols-4">
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.firstName}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.lastName}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{functionary.identification}</div>
+                            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.firstName}</div>
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.lastName}</div>
+                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.identification}</div>
                                 <div className="flex justify-center">
                                     <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(functionary)}>

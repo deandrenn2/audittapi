@@ -58,8 +58,8 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                     <label className="block text-sm font-medium mb-1">Número de Documento</label>
                     <input
                         type="text"
-                        name="DocumentNumber"
-                        value={patient.idetification}
+                        name="identification"
+                        value={patient.identification}
                         required
                         className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -94,8 +94,7 @@ export const PatientsUpdate = ({ data }: { data: PatientsModel }) => {
                 <div>
                     <button
                         type="submit"
-                        className="bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold"
-                    >
+                        className="bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
                         {updatePatients.isPending ? "Actualizando..." : "Actualizar"}
                     </button>
                 </div>

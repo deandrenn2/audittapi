@@ -7,7 +7,12 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
     const [equivalence, setEquivalence] = useState<EquivalenceModel>(data);
 
     useEffect(() => {
-        setEquivalence(data);
+       
+        const cleanData = {
+            ...data,
+            scale: undefined,
+        };
+        setEquivalence(cleanData);
     }, [data]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,8 +25,8 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
 
     const handleSubmit = async () => {
         if (!equivalence.name || equivalence.value === undefined) {
-            alert("Por favor complete todos los campos");
-            return;
+
+           
         }
         await updateEquivalence.mutateAsync(equivalence);
     };
@@ -36,7 +41,7 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
                     value={equivalence.name}
                     onChange={handleChange}
                     placeholder="Nombre"
-                    className="border px-3 py-2 rounded w-full"
+                    className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                 />
             </div>
             <div className="mb-2">
@@ -47,7 +52,7 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
                     value={equivalence.value}
                     onChange={handleChange}
                     placeholder="Valor"
-                    className="border px-3 py-2 rounded w-full"
+                    className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                 />
             </div>
             <button

@@ -90,11 +90,11 @@ export const Questions = () => {
                     {questions
                         ?.filter((question) => question.idGuide === selectedIdguide)
                         .map((question) => (
-                            <div key={question.id} className="flex items-start space-x-2 mb-4">
-                                <div className="flex-1 bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden max-h-60 ">
+                            <div key={question.id} className="flex items-start space-x-1 mb-4">
+                                <div className="flex-1 bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden max-h-60">
                                     {question.text}
                                 </div>
-                                <div className="flex items-center space-x-2">
+                                <div className="flex items-center space-x-1">
                                     <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(question)}>
                                         <ButtonDetail />
