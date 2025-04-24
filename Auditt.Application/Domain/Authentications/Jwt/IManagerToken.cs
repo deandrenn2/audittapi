@@ -6,5 +6,6 @@ namespace Auditt.Domain.Authentications
     public interface IManagerToken
     {
         public TokenModel GenerateToken(User user);
+        public string ValidateToken(string token);
     }
 }

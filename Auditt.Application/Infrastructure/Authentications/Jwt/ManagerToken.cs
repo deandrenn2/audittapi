@@ -48,5 +48,22 @@ public class ManagerToken : IManagerToken
             claims.ToDictionary(c => c.Type, c => c.Value)
         );
     }
+
+    public string ValidateToken(string token)
+    {
+        var jwtSettings = _configuration.GetSection("JwtSettings");
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? "");
+        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        }, out SecurityToken validatedToken);
+        var jwtToken = (JwtSecurityToken)validatedToken;
+        return jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+    }
 }
 
