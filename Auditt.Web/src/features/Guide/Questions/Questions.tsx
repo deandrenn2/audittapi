@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { QuestionsCreate } from "./QuestionsCreate";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { useQuestions } from "./useQuestions";
 import { useGuide } from "../useGuide";
-
+import { GuideModel } from "../GuideModel";
 export const Questions = () => {
-    const { questions, } = useQuestions();
+    const { id } = useParams<{ id: string }>();
+    const { questions } = useQuestions();
+    const { guides, } = useGuide();
+    const [selectedGuide, setSelectedGuide] = useState<GuideModel | undefined>(undefined);
     const [visible, setVisible] = useState(false);
-    const { guides } = useGuide();
-    const [selectedIdguide] = useState()
-    
-    const handleClose = () => {
-        setVisible(false);
-    }
 
-    const handleClick = () => {
-        setVisible(true);
-    }
+    const handleClose = () => setVisible(false);
+    const handleClick = () => setVisible(true);
+
+    useEffect(() => {
+        if (id && guides) {
+            const guide = guides.find((g) => g.id === Number(id));
+            if (guide) {
+                setSelectedGuide(guide);
+            }
+        }
+    }, [id, guides]);
 
     return (
         <div className="w-full">
@@ -31,39 +37,51 @@ export const Questions = () => {
                                 name="idGuide"
                                 className="border rounded px-3 py-2"
                                 required
-                                value={selectedIdguide}
-                                onChange={(() => selectedIdguide)}>
+                                value={selectedGuide?.id || ""}
+                                onChange={(e) => setSelectedGuide(guides?.find(guide => guide.id === Number(e.target.value)))}
+                            >
+                                <option value="">Selecciona una guía</option>
                                 {guides?.map((guide) => (
-                                    <option key={guide.id} value={guide.id} >
-                                        {guide.name}I
+                                    <option key={guide.id} value={guide.id}>
+                                        {guide.name}
                                     </option>
                                 ))}
                             </select>
                             <button onClick={handleClick}>
                                 <ButtonPlus />
                             </button>
-
                         </div>
                     </div>
-                    <div className="space-y-4">
-                        <div className="bg-white px-2 py-2 border border-gray-200">
-                            <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
-                                {questions?.map((question) => (
-                                    <div>
-                                        <div className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
-                                            {question.text}
-                                        </div>
-                                    </div>
-                                ))
-                                }
+
+                    {selectedGuide && (
+                        <div className="mb-4">
+                            <h3 className="text-lg font-semibold">Preguntas de la guía: {selectedGuide.name}</h3>
+                        </div>
+                    )}
+
+                    {selectedGuide ? (
+                        <div className="space-y-4">
+                            <div className="bg-white px-2 py-2 border border-gray-200">
+                                <div className="bg-green-100 text-sm text-gray-800 p-4 rounded">
+                                    {questions
+                                        ?.filter((question) => question.idGuide === selectedGuide.id)
+                                        .map((question) => (
+                                            <div key={question.id} className="bg-green-100 text-sm text-gray-800 p-4 rounded flex">
+                                                {question.text}
+                                            </div>
+                                        ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <p className="text-sm text-gray-500">Selecciona una guía para ver las preguntas.</p>
+                    )}
                 </section>
             </div>
-            <OffCanvas titlePrincipal='Crear de Pregunta' visible={visible} xClose={handleClose} position={Direction.Right}>
-                <QuestionsCreate idGuide={0} />
+
+            <OffCanvas titlePrincipal="Crear Pregunta" visible={visible} xClose={handleClose} position={Direction.Right}>
+                    {selectedGuide && selectedGuide.id !== undefined && <QuestionsCreate idGuide={selectedGuide.id} />}
             </OffCanvas>
         </div>
-    )
-}
+    );
+};

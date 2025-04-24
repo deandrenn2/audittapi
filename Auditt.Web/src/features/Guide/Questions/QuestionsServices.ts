@@ -1,10 +1,8 @@
 import { ApiClient } from "../../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../../shared/model";
 import { QuestionsModel } from "./QuestionsModel";
-
-
 export const getQuestions = async () => {
-    const url = "api/questions/{idGuide}";
+    const url = `api/questions/{idGude}`;
     const response = await ApiClient.get<MsgResponse<QuestionsModel[]>>(url);
 
     if (response.status !== 200) {
@@ -17,7 +15,7 @@ export const getQuestions = async () => {
                 message: response.statusText,
             },
         };
-    }
+    } 
 
     return response.data;
 }

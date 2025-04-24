@@ -45,11 +45,11 @@ export const router = createBrowserRouter([
 
             {
                 path: '/Guide',
-                element: <Guide />,
+                element: <Guide/>,
             },
             {
                 path: 'Guide/:id',
-                element: <GuideDetail />,
+                element: <GuideDetail/>,
             },
 
             {
@@ -91,6 +91,8 @@ export const router = createBrowserRouter([
                 path: '/Roles',
                 element: <Roles />,
             },
+
+        
         ],
     },
     {
