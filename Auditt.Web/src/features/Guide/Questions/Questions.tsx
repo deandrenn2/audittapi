@@ -5,11 +5,11 @@ import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { useQuestions } from "./useQuestions";
 import { useGuide } from "../useGuide";
-import { ButtonDeletes } from "../../../shared/components/Buttons/ButtonDeletes";
 import Swal from "sweetalert2";
 import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
 import { QuestionsModel } from "./QuestionsModel";
 import { QuestionsUpdate } from "./QuestiosUpdate";
+import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 export const Questions = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -91,11 +91,11 @@ export const Questions = () => {
                         ?.filter((question) => question.idGuide === selectedIdguide)
                         .map((question) => (
                             <div key={question.id} className="flex items-start space-x-2 mb-4">
-                                <div className="flex-1 bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden max-h-60 overflow-y-auto">
+                                <div className="flex-1 bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden max-h-60 ">
                                     {question.text}
                                 </div>
                                 <div className="flex items-center space-x-2">
-                                    <ButtonDeletes id={question.id ?? 0} onDelete={handleDelete} />
+                                    <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(question)}>
                                         <ButtonDetail />
                                     </div>

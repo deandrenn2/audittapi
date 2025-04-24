@@ -27,6 +27,7 @@ export const Scales = () => {
         setVisible(false);
     }
 
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
@@ -107,6 +108,7 @@ export const Scales = () => {
             <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <EquivalenceCreate scaleId={scaleId} />
             </OffCanvas>
+           
         </div>
     );
 };
