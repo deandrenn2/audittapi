@@ -1,8 +1,6 @@
 import { useState } from "react";
 import OffCanvas from "../../shared/components/OffCanvas/Index";
 import { Direction } from "../../shared/components/OffCanvas/Models";
-import ButtonDetail from "../../shared/components/Buttons/ButtonDetail";
-import { LinkClients } from "../Dashboard/LinkClients";
 import ButtonDelete from "../../shared/components/Buttons/ButtonDelete";
 import { Bar } from "../../shared/components/Progress/Bar";
 import { MouseEvent } from "react";
@@ -11,6 +9,8 @@ import { ClientModel } from "./ClientModel";
 import { ClientCreate } from "./ClientCreate";
 import { ClientUpdate } from "./ClientUpdate";
 import { useClient } from "./useClient";
+import { LinkClients } from "../Dashboard/LinkClients";
+import { ButtonDetail } from "../../shared/components/Buttons/ButtonDetail";
 export const Clients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -44,7 +44,7 @@ export const Clients = () => {
         return <Bar />
 
     return (
-        <div className="flex p-8">
+        <div className="flex p-8 w-full">
             <div>
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
@@ -56,7 +56,7 @@ export const Clients = () => {
                     Crear Clientes
                 </button>
                 <div>
-                    <div className="grid grid-cols-5">
+                    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">RAZON SOCIAL</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">ABREVIATURA</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">NIT</div>
@@ -65,14 +65,16 @@ export const Clients = () => {
                     </div>
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {clients?.map((client) => (
-                            <div className="grid grid-cols-5">
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.name}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.abbreviation}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.nit}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{client.city}</div>
+                            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.name}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.abbreviation}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.nit}</div>
+                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.city}</div>
                                 <div className="flex justify-center">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
-                                    <ButtonDetail url={""} xClick={() => handleClickDetail(client)} />
+                                    <div onClick={() => handleClickDetail(client)}>
+                                        <ButtonDetail />
+                                    </div>
                                 </div>
                             </div>
                         ))}

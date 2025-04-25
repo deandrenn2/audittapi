@@ -27,6 +27,7 @@ export const Scales = () => {
         setVisible(false);
     }
 
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
@@ -84,7 +85,7 @@ export const Scales = () => {
                 <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
                         <div className="flex items-center ">
-                            <ButtonPlay />
+                            <ButtonPlay url={""} />
                             <input
                                 value={scale.name}
                                 readOnly
@@ -107,6 +108,7 @@ export const Scales = () => {
             <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <EquivalenceCreate scaleId={scaleId} />
             </OffCanvas>
+           
         </div>
     );
 };

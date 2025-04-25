@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
-import ButtonDetail from "../../../shared/components/Buttons/ButtonDetail";
 import { LinkClients } from "../../Dashboard/LinkClients";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
@@ -10,6 +9,7 @@ import { usePatients } from "./UsePatients";
 import { PatientsModel } from "./PantientsModel";
 import { PatientsUpdate } from "./PatientsUpdate";
 import { Bar } from "../../../shared/components/Progress/Bar";
+import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -49,8 +49,8 @@ export const Patients = () => {
         return <Bar />
 
     return (
-        <div className="flex">
-            <div className="">
+        <div className="flex w-full">
+            <div>
                 <div className="flex-1 p-8">
                     <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                         <LinkClients />
@@ -62,7 +62,7 @@ export const Patients = () => {
                     </button>
                     <div>
 
-                        <div className="grid grid-cols-5">
+                        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Id Paciente</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">Decha de nacimiento</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">EPS</div>
@@ -71,14 +71,17 @@ export const Patients = () => {
 
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {patients?.map((patient) => (
-                                <div className="grid grid-cols-5">
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.identification}</div>
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.birthDate}</div>
-                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2 mb-2">{patient.eps}</div>
+                                <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{patient.identification}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{patient.birthDate}</div>
+                                    <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{patient.eps}</div>
 
                                     <div className="flex justify-center">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
-                                        <ButtonDetail url={""} xClick={() => handleClickDetail(patient)} />
+                                       <div onClick={() => handleClickDetail(patient)}  >
+                                       <ButtonDetail />
+                                       </div>
+                                        
                                     </div>
                                 </div>
                             ))}

@@ -43,7 +43,8 @@ export const QuestionsCreate = ({ idGuide }: { idGuide: number }) => {
                     <textarea
                         id="text"
                         name="text"
-                        className="w-full h-60 p-3 border rounded resize-none mb-4"
+                        className="w-full h-60 border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                         required
                     />
                 </section>

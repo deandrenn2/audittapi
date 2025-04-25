@@ -21,7 +21,7 @@ export const Roles = () => {
                 <div className="flex items-center mb-2 mr-2">
                     <div className="flex items-center gap-2">
                         <div>
-                            <ButtonPlay />
+                            <ButtonPlay url={""} />
                         </div>
                         <input value="SUPERADMIN" readOnly className="border rounded px-3 py-1 mr-2" />
                     </div>
@@ -59,7 +59,7 @@ export const Roles = () => {
                 <div className="flex items-center mb-2">
                     <div className="flex items-center gap-2 mr-2">
                         <div>
-                            <ButtonPlay />
+                            <ButtonPlay url={""} />
                         </div>
                         <input value="ESTANDAR" readOnly className="border rounded px-3 py-1" />
                     </div>
