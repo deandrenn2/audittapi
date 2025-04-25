@@ -27,7 +27,10 @@ export const router = createBrowserRouter([
                 index: true,
                 element: <Home />,
             },
-
+            {
+                path: '/Dashboard',
+                element: <Home />,
+            },
             {
                 path: '/Clients',
                 element: <Clients />,
@@ -45,11 +48,11 @@ export const router = createBrowserRouter([
 
             {
                 path: '/Guide',
-                element: <Guide/>,
+                element: <Guide />,
             },
             {
                 path: 'Guide/:id',
-                element: <GuideDetail/>,
+                element: <GuideDetail />,
             },
 
             {
@@ -92,7 +95,7 @@ export const router = createBrowserRouter([
                 element: <Roles />,
             },
 
-        
+
         ],
     },
     {

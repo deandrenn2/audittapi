@@ -1,6 +1,8 @@
-import { faHouse, faUser, faUsers, faGear, faClipboardCheck, faBoxesStacked } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faUser, faUsers, faGear, faClipboardCheck, faBoxesStacked, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { MenuItem } from './MenuItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export const Sidebar = () => {
+   const urlApi = import.meta.env.VITE_API_URL;
    return (
       <div
          id="sidebar"
@@ -22,9 +24,20 @@ export const Sidebar = () => {
                   <MenuItem icon={faBoxesStacked} path='/Quarterly' text='Cortes Trimestrales' />
                   <MenuItem icon={faClipboardCheck} path='/Measurement' text='Medición de Adherencia' />
                   <MenuItem icon={faGear} path='/Settings' text='Configuraciones' />
+                  <a
+                     onClick={() => {
+                        window.location.href = `${urlApi}api/auth/google-logout`;
+                     }}
+                     className={`mt-1 cursor-pointer font-semibold text-gray-300 hover:bg-gray-700 rounded px-4 py-2 flex items-center gap-1`}>
+                     <FontAwesomeIcon
+                        icon={faLockOpen}
+                        className={`'text-gray-300'} transition-colors duration-300`}
+                     />
+                     <span>Salir</span>
+                  </a>
                </ul>
             </nav>
-         
+
          </div>
       </div>
    );

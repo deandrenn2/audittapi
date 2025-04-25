@@ -1,77 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useFirstData, useLogin } from './useLogin';
-import useUserContext from '../../shared/context/useUserContext';
-import { useBusiness } from '../Businesses/useBusiness';
 
 export const Login = () => {
-   const [email, setEmail] = useState<string>('');
-   const [password, setPassword] = useState<string>('');
-   const [showPassword, setShowPassword] = useState(false);
-
-   const navigate = useNavigate();
-   const { setToken, setBusiness, setUser, isAuthenticated, setIsAuthenticated } = useUserContext();
-   const { hasFirstUser, hasFirstBusiness } = useFirstData();
-   const { getUserMutation, logginn } = useLogin();
-   const { getBusinessMutation } = useBusiness();
-   const [isFetching, setIsFetching] = useState(false);
-
-   // useEffect(() => {
-   //    if (isAuthenticated) {
-   //       navigate('/');
-   //    }
-   // }, [isAuthenticated, navigate]);
-
-   // const handleLogin = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-   //    setIsFetching(true);
-   //    event.preventDefault();
-   //    const resLogin = await logginn.mutateAsync({ email, password });
-
-   //    if (!resLogin.isSuccess) {
-   //       setIsFetching(false);
-   //       return;
-   //    }
-   //    if (resLogin.data) {
-   //       setToken(resLogin?.data);
-
-   //       const iduserCode = resLogin?.data?.claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
-   //          != undefined && !!resLogin?.data ?
-   //          resLogin?.data?.claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
-   //          : "";
-
-   //       const resUser = await getUserMutation.mutateAsync(Number(iduserCode));
-   //       if (resUser.isSuccess) {
-   //          setIsAuthenticated(true);
-   //          if (resUser.data) {
-   //             setUser(resUser.data);
-   //          }
-   //       }
-   //       const resBusiness = await getBusinessMutation.mutateAsync();
-   //       if (resBusiness.isSuccess) {
-   //          if (resBusiness.data)
-   //             setBusiness(resBusiness.data);
-   //       }
-   //    }
-   //    setIsFetching(false);
-   // }
-
-
-
-   // useEffect(() => {
-   //    if (hasFirstBusiness === undefined && hasFirstUser === undefined) {
-   //       return;
-   //    }
-
-   //    if (!hasFirstUser) {
-   //       navigate('/Create/User');
-   //       return;
-   //    }
-
-   //    if (!hasFirstBusiness) {
-   //       navigate('/Create/Business');
-   //       return;
-   //    }
-   // }, [hasFirstUser, navigate, hasFirstBusiness]);
+   const apiUrl = import.meta.env.VITE_API_URL;
+   const handleLogin = async (): Promise<void> => {
+      window.location.href = `${apiUrl}api/auth/google-login`;
+   }
 
    return (
       <div className="flex justify-center items-center h-screen bg-gray-200">
@@ -81,13 +13,14 @@ export const Login = () => {
                   <span className="text-pink-500">Auditt</span><span className="text-gray-800">Api</span>
                </h1>
                <button
+                  onClick={handleLogin}
                   className="mt-8 cursor-pointer bg-red-500 text-white text-lg font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300">
                   Iniciar sesión con GOOGLE
                </button>
-               <button
+               {/* <button
                   className="mt-8 cursor-pointer bg-purple-500 text-white text-lg font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-purple-700 transition duration-300">
                   Registrarse
-               </button>
+               </button> */}
             </div>
 
             <div className="w-1/2 relative bg-gradient-to-br from-indigo-700 to-purple-800 overflow-hidden">

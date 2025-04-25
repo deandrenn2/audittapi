@@ -102,8 +102,8 @@ public class GoogleCallbackEndPoint : ICarterModule
                 response.Cookies.Append("access_token", jwt.Token, new CookieOptions
                 {
                     HttpOnly = true,
-                    SameSite = SameSiteMode.Lax,
-                    Secure = false,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
                     Expires = DateTimeOffset.UtcNow.AddHours(1)
                 });
             }
