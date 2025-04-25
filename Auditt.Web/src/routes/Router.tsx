@@ -7,9 +7,7 @@ import { BusinessCreate } from './Login/BusinessCreate.tsx';
 import { PasswordRecoverForm } from './Login/PasswordRecover.tsx';
 import { Clients } from '../features/Clients/Clients.tsx';
 import { Patients } from '../features/Clients/Patients/Patients.tsx';
-import { Measurement } from '../features/AdhesionMeasurement/Measurement.tsx';
 import { QuarterlyDetail } from '../features/DataCuts/QuarterlyDetail.tsx';
-import { MeasurementDetail } from '../features/AdhesionMeasurement/MeasurementDetail.tsx';
 import { Functionary } from '../features/Clients/Professionals/Functionary.tsx';
 import { Guide } from '../features/Guide/Guide.tsx';
 import { GuideDetail } from '../features/Guide/GuideDetail.tsx';
@@ -18,6 +16,8 @@ import { Users } from '../features/Settings/Users/Users.tsx';
 import { Scales } from '../features/Settings/Scales/Scales.tsx';
 import { Roles } from '../features/Settings/Roles/Roles.tsx';
 import { DataCuts } from '../features/DataCuts/DataCuts.tsx';
+import { Assessments } from '../features/Assessment/Assessments.tsx';
+import { AssessmentDetail } from '../features/Assessment/AssessmentDetail.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -66,13 +66,13 @@ export const router = createBrowserRouter([
             },
 
             {
-                path: '/Measurement',
-                element: <Measurement />,
+                path: '/Assessments',
+                element: <Assessments />,
             },
 
             {
-                path: 'AdhesionMeasurement/:id',
-                element: <MeasurementDetail />,
+                path: 'Assessments/Create',
+                element: <AssessmentDetail />,
             },
 
             {

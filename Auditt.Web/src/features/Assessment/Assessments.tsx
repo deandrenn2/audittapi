@@ -1,34 +1,37 @@
 import { useState } from "react";
+import { ClientSelect } from "../Clients/ClientSelect";
+import { Option } from "../../shared/model";
+import { SingleValue } from "react-select";
+import { Link } from "react-router-dom";
 
-import OffCanvas from "../../shared/components/OffCanvas/Index";
-import { Direction } from "../../shared/components/OffCanvas/Models";
 
-export const Measurement = () => {
-    const [visible, setVisible] = useState(false);
+export const Assessments = () => {
+    const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
+        value: "0",
+        label: "Seleccione un cliente",
+    }));
 
-    const hadbleClick = () => {
-        setVisible(true);
+    const handleChangeClient = (newValue: SingleValue<Option>) => {
+        setSelectedClient({
+            value: newValue?.value,
+            label: newValue?.label,
+        });
     }
 
-    const handleClose = () => {
-        setVisible(false);
-    }
 
     return (
         <div className="flex-1 p-8">
             <div className="">
                 <div className="flex items-center space-x-4 mb-4">
                     <span className="font-medium">IPS</span>
-                    <select className="border rounded px-3 py-1">
-                        <option>HOSPITAL SAN SEBASTIAN</option>
-                    </select>
+                    <ClientSelect className="w-lg" selectedValue={selectedClient} xChange={handleChangeClient} isSearchable={true} />
                 </div>
 
             </div>
             <h1 className="text-2xl font-semibold mb-4">Evaluaciones o auditorias</h1>
-            <button onClick={hadbleClick} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
-                Crear
-            </button>
+            <Link to={'/Assessments/Create'} title='Crear' className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
+                Realizar valoraciones
+            </Link>
 
             <div>
                 <div className="grid grid-cols-5">
@@ -50,9 +53,6 @@ export const Measurement = () => {
                         </div>
                     </div>
                 </div>
-                {/* <OffCanvas titlePrincipal='Crear auditoria' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                    <QuarterlyCreateForm />
-                </OffCanvas> */}
             </div>
         </div>
 
