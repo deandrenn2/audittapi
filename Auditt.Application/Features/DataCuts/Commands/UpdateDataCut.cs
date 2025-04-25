@@ -24,7 +24,7 @@ public class UpdateDataCut : ICarterModule
         .ProducesValidationProblem()
         .Produces<UpdateDataCutResponse>(StatusCodes.Status200OK);
     }
-    public record UpdateDataCutCommand(int Id, string Name, string Cycle, DateTime InitialDate, DateTime FinalDate, int MaxHistory, int IdInstitucion) : IRequest<IResult>;
+    public record UpdateDataCutCommand(int Id, string Name, string Cycle, DateTime InitialDate, DateTime FinalDate, int MaxHistory) : IRequest<IResult>;
     public record UpdateDataCutResponse(int Id, string Name, string Cycle, DateTime InitialDate, DateTime FinalDate, int MaxHistory);
 
     public class UpdateDataCutCommandHandler(AppDbContext _context) : IRequestHandler<UpdateDataCutCommand, IResult>
@@ -36,7 +36,7 @@ public class UpdateDataCut : ICarterModule
             {
                 return Results.NotFound();
             }
-            dataCut.Update(request.Name, request.Cycle, request.IdInstitucion, request.InitialDate, request.FinalDate, request.MaxHistory);
+            dataCut.Update(request.Name, request.Cycle, request.InitialDate, request.FinalDate, request.MaxHistory);
             await _context.SaveChangesAsync(cancellationToken);
             return Results.Ok(new UpdateDataCutResponse(dataCut.Id, dataCut.Name, dataCut.Cycle, dataCut.InitialDate, dataCut.FinalDate, dataCut.MaxHistory));
         }

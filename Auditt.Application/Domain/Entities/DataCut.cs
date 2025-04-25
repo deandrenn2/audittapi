@@ -31,7 +31,7 @@ public class DataCut : AggregateRoot
         return new DataCut(id, name, cycle, InitialDate, FinalDate, maxHistory, institucionId);
     }
 
-    public void Update(string name, string cycle, int idInstitucion, DateTime initialDate, DateTime finalDate, int maxHistory)
+    public void Update(string name, string cycle, DateTime initialDate, DateTime finalDate, int maxHistory)
     {
         Name = name;
         Cycle = cycle;
