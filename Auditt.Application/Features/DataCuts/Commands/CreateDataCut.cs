@@ -27,10 +27,10 @@ public class CreateDataCut : ICarterModule
     public record CreateDataCutCommand : IRequest<IResult>
     {
         public string Name { get; set; } = string.Empty;
-        public DateTime InitialDate { get; set; } 
+        public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
         public int MaxHistory { get; set; }
-        public int IdInstitucion { get; set; }
+        public int InstitutionId { get; set; }
     }
     public record CreateDataCutResponse(int Id, string Name, string Cycle, DateTime InitialDate, DateTime FinalDate, int MaxHistory);
     public class CreateDataCutHandler(AppDbContext context, IValidator<CreateDataCutCommand> validator) : IRequestHandler<CreateDataCutCommand, IResult>
@@ -42,7 +42,7 @@ public class CreateDataCut : ICarterModule
             {
                 return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
-            var newDataCut = DataCut.Create(0, request.Name, DateTime.Now.Year.ToString(), request.InitialDate, request.FinalDate, request.MaxHistory, request.IdInstitucion);
+            var newDataCut = DataCut.Create(0, request.Name, DateTime.Now.Year.ToString(), request.InitialDate, request.FinalDate, request.MaxHistory, request.InstitutionId);
             context.Add(newDataCut);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
@@ -73,7 +73,7 @@ public class CreateDataCut : ICarterModule
             RuleFor(x => x.MaxHistory)
                 .NotEmpty().WithMessage("El máximo de historia no puede estar vacío")
                 .GreaterThan(0).WithMessage("El máximo de historia debe ser mayor que 0");
-            RuleFor(x => x.IdInstitucion)
+            RuleFor(x => x.InstitutionId)
                 .NotEmpty().WithMessage("El ID de la institución no puede estar vacío")
                 .GreaterThan(0).WithMessage("El ID de la institución debe ser mayor que 0");
         }
