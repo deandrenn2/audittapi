@@ -13,7 +13,7 @@ import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
 export const Functionary = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const { Functionarys, queryFunctionary, deleteFunctionary } = useFunctionary();
+    const { functionarys, queryFunctionary, deleteFunctionary } = useFunctionary();
     const [functionary, setFunctionary] = useState<FunctionaryModel>();
 
     const handleClickDetail = (functionarySelected: FunctionaryModel) => {
@@ -64,7 +64,7 @@ export const Functionary = () => {
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
-                        {Functionarys?.map((functionary) => (
+                        {functionarys?.map((functionary) => (
                             <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
                                 <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.firstName}</div>
                                 <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.lastName}</div>
