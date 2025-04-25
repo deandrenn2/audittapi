@@ -6,7 +6,7 @@ export const LinkSettings = () => {
                 to="/Users"
                 className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${location.pathname === "/Users"
                     ? "text-pink-500 border-pink-500" : ""}`}>
-                Useuario
+                Usuario
             </Link>
 
             <Link

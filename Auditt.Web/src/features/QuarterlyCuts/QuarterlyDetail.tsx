@@ -1,7 +1,7 @@
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
-import { QuanrtelForm } from "./QuanrtelForm"
+import { QuarterlyForm } from "./QuarterlyForm"
 export const QuarterlyDetail = () => {
     return (
         <div className="w-full">
@@ -15,7 +15,7 @@ export const QuarterlyDetail = () => {
                 </Link>
             </div>
             <div className="w-2/3 bg-white p-4 rounded-lg">
-                <QuanrtelForm/>
+                <QuarterlyForm/>
             </div>
 
         </div>

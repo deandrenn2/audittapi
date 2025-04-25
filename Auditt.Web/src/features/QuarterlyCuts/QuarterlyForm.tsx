@@ -1,4 +1,4 @@
-export const QuanrtelForm = () => {
+export const QuarterlyForm = () => {
     return (
         <div>
         <div className="flex">
