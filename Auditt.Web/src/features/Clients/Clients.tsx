@@ -57,18 +57,18 @@ export const Clients = () => {
                 </button>
                 <div>
                     <div className="grid grid-cols-[2fr_3fr_3fr_3fr_1fr] w-full">
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">RAZON SOCIAL</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">ABREVIATURA</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">NIT</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">OPCIONES</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">RAZON SOCIAL</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ABREVIATURA</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">NIT</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">CIUDAD</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {clients?.map((client) => (
                             <div className="grid grid-cols-[2fr_3fr_3fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.name}</div>
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.abbreviation}</div>
-                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.nit}</div>
+                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300 text-center">{client.nit}</div>
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300 mr-">{client.city}</div>
                                 <div className="flex text-sm px-2  border border-gray-300">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />

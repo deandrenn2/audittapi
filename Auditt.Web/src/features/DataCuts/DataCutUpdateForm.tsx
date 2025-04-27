@@ -5,6 +5,7 @@ import { DataCutModel } from "./DataCutModels";
 export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
     const { updateDataCut } = useDataCuts();
     const [DataCuts, setDataCut] = useState<DataCutModel>(dataCut);
+    console.log("No hay datos de Datacuts",dataCut)
     const refForm = useRef<HTMLFormElement>(null);
 
     useEffect(() => {

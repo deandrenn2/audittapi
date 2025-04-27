@@ -1,5 +1,5 @@
 export interface DataCutModel {
-	id: number;
+	id?: number;
 	name: string;
 	cycle?: string;
 	initialDate: Date;

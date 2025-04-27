@@ -57,10 +57,10 @@ export const Functionary = () => {
                 </button>
                 <div>
                     <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full">
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">NOMBRE</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">APELLIDO</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">OPCIONES</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">APELLIDO</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">IDENTIFICACION</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">

@@ -63,10 +63,10 @@ export const Patients = () => {
                     <div>
 
                         <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full">
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">ID PACIENTE </div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE NACIMIENTO</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">EPS</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">OPCIONES</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID PACIENTE </div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">FECHA DE NACIMIENTO</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">EPS</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                         </div>
 
                         <div className="bg-white px-2 py-2 border border-gray-200">

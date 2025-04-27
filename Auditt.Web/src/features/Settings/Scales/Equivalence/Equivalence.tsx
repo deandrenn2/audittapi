@@ -15,7 +15,7 @@ export const Equivalence = () => {
 
     const handleClose = () => {
         setVisible(false);
-        setSelectedEquivalence(null); // Reseteamos la selección cuando cerramos el modal
+        setSelectedEquivalence(null);
     };
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {

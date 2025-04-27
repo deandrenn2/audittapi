@@ -57,7 +57,7 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
             </div>
             <button
                 onClick={handleSubmit}
-                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800"
+                className="bg-[#392F5A] text-white px-4 py-2 rounded hover:bg-indigo-800"
             >
                 Actualizar Equivalencia
             </button>
