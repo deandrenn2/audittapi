@@ -9,7 +9,7 @@ import { Bar } from "../../../shared/components/Progress/Bar";
 import Swal from "sweetalert2";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 import { FunctionaryUpdate } from "./FunctionaryUpdate";
-import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
+import { ButtonUpdate } from "../../../shared/components/Buttons/ButtonDetail";
 export const Functionary = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -52,27 +52,27 @@ export const Functionary = () => {
                     <LinkClients />
                 </div>
                 <h2 className="text-2xl font-semibold mb-4">Profesionales </h2>
-                <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
+                <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                     Crear Profesionales
                 </button>
                 <div>
-                    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
-                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">NOMBRE</div>
-                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">APELLIDO</div>
-                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
-                        <div className="font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">OPCIONES</div>
+                    <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full">
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">NOMBRE</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">APELLIDO</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">IDENTIFICACION</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 ">OPCIONES</div>
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
                         {functionarys?.map((functionary) => (
-                            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.firstName}</div>
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.lastName}</div>
-                                <div className="text-sm bg-white px-2 py-2 border border-gray-300">{functionary.identification}</div>
-                                <div className="flex justify-center">
+                            <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
+                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.firstName}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.lastName}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.identification}</div>
+                                <div className="flex text-sm px-2 border border-gray-300">
                                     <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(functionary)}>
-                                        <ButtonDetail />
+                                        <ButtonUpdate />
                                     </div>
                                 </div>
                             </div>

@@ -7,29 +7,33 @@ export const LinkClients = () => {
         <div className="flex gap-4">
             <Link
                 to="/Clients"
-                className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${
+                className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/Clients"
-                        ? "text-pink-500 border-pink-500": ""}`}>
+                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        : "text-gray-800"
+                }`}>
                 Clientes
             </Link>
 
             <Link
                 to="/patients"
-                className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${
+                className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/patients"
-                        ? "text-pink-500 border-pink-500": ""}`}>
+                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        : "text-gray-800"
+                }`}>
                 Pacientes
             </Link>
 
             <Link
                 to="/Functionary"
-                className={`text-gray-800 border-b-2 pb-1 px-2 transition-colors duration-300 ${
+                className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/Functionary"
-                        ? "text-pink-500 border-pink-500" : ""}`}>
+                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        : "text-gray-800"
+                }`}>
                 Profesionales
             </Link>
         </div>
     );
 };
-
-

@@ -10,7 +10,7 @@ import { ClientCreate } from "./ClientCreate";
 import { ClientUpdate } from "./ClientUpdate";
 import { useClient } from "./useClient";
 import { LinkClients } from "../Dashboard/LinkClients";
-import { ButtonDetail } from "../../shared/components/Buttons/ButtonDetail";
+import { ButtonUpdate } from "../../shared/components/Buttons/ButtonDetail";
 export const Clients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
@@ -52,28 +52,28 @@ export const Clients = () => {
 
                 <h2 className="text-2xl font-semibold mb-4">Clientes o Instituciones</h2>
 
-                <button onClick={() => setVisible(true)} className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
+                <button onClick={() => setVisible(true)} className="bg-[#392f5a] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                     Crear Clientes
                 </button>
                 <div>
-                    <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
+                    <div className="grid grid-cols-[2fr_3fr_3fr_3fr_1fr] w-full">
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">RAZON SOCIAL</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 ">ABREVIATURA</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">NIT</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">CIUDAD</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1">OPCIONES</div>
                     </div>
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {clients?.map((client) => (
-                            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_2fr] w-full">
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.name}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.abbreviation}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.nit}</div>
-                                <div className="gap-3 text-sm bg-white px-2 py-2 border border-gray-300">{client.city}</div>
-                                <div className="flex justify-center">
+                            <div className="grid grid-cols-[2fr_3fr_3fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
+                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.name}</div>
+                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.abbreviation}</div>
+                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.nit}</div>
+                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300 mr-">{client.city}</div>
+                                <div className="flex text-sm px-2  border border-gray-300">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(client)}>
-                                        <ButtonDetail />
+                                        <ButtonUpdate />
                                     </div>
                                 </div>
                             </div>

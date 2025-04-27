@@ -25,7 +25,7 @@ export const PatientsCreate = () => {
             id: 0,
             firstName: patient.firstName ?? "",
             lastName: patient.lastName ?? "",
-            idetification: patient.identification ?? "",
+            identification: patient.identification ?? "",
             birthDate: patient.birthDate ?? "",
             eps: patient.eps ?? "",
         };
@@ -94,7 +94,7 @@ export const PatientsCreate = () => {
                 <div>
                     <button
                         type="submit"
-                        className="bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold"
+                        className="bg-[#392F5A] hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold"
                     >
                         {createPatients.isPending ? "Creando..." : "Crear"}
                     </button>
