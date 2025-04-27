@@ -9,12 +9,12 @@ export const Login = () => {
       <div className="flex justify-center items-center h-screen bg-gray-200">
          <div className="flex h-screen w-full">
             <div className="w-1/2 bg-white flex flex-col justify-center items-center">
-               <h1 className="text-5xl font-bold">
-                  <span className="text-pink-500">Auditt</span><span className="text-gray-800">Api</span>
+               <h1 className="text-7xl">
+                  <span className="text-[#FF677D] font-bold">Auditt</span><span className="text-gray-800">Api</span>
                </h1>
                <button
                   onClick={handleLogin}
-                  className="mt-8 cursor-pointer bg-red-500 text-white text-lg font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300">
+                  className="mt-8 cursor-pointer bg-red-500 text-white  text-2xl font-bold px-6 py-3 rounded-full shadow-lg hover:bg-red-700 transition duration-300 ">
                   Iniciar sesión con GOOGLE
                </button>
                {/* <button

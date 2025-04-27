@@ -17,6 +17,7 @@ export const DataCuts = () => {
     const [visibleUpdate, setVisibleUpdate] = useState(false);
     const [selectedDataCut, setSelectedDataCut] = useState<any | null>(null);
     const { queryDataCuts, dataCuts, deleteDataCut } = useDataCuts();
+    console.log(queryDataCuts, dataCuts);
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
         value: "0",
         label: "Seleccione un cliente",
@@ -49,7 +50,6 @@ export const DataCuts = () => {
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
         e.preventDefault();
-        console.log("ID del DataCut:", id);
         Swal.fire({
             title: '¿Estás seguro de eliminar este corte?',
             text: 'Esta acción no se puede deshacer',
@@ -59,13 +59,7 @@ export const DataCuts = () => {
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar',
             preConfirm: async () => {
-                try {
                     await deleteDataCut.mutateAsync(id);
-                    await queryDataCuts.refetch();
-                    Swal.fire('¡Eliminado!', 'El corte ha sido eliminado correctamente.', 'success');
-                } catch (error) {
-                    Swal.fire('Error', 'Hubo un problema al eliminar el corte.', 'error');
-                }
             }
         });
     }

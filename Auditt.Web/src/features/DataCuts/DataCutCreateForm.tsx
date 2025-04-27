@@ -17,6 +17,7 @@ export const DataCutCreateForm = ({ idInstitution }: { idInstitution: string }) 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries()) as formData;
         const newDataCut = {
+            id: 0,
             name: data.name,
             maxHistory: Number(data.maxHistory),
             initialDate: new Date(data.initialDate),
