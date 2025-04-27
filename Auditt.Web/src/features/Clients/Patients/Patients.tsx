@@ -26,7 +26,7 @@ export const Patients = () => {
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar este paciente?',
+            title: '¿Estás seguro de eliminar este Paciente?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -75,8 +75,7 @@ export const Patients = () => {
                                     <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.identification}</div>
                                     <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.birthDate}</div>
                                     <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.eps}</div>
-
-                                    <div className="flex text-sm px-2 border border-gray-300">
+                                    <div className="flex text-sm px-2 border border-gray-300 py-1">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
                                        <div onClick={() => handleClickDetail(patient)}  >
                                        <ButtonUpdate />
@@ -93,7 +92,6 @@ export const Patients = () => {
             <OffCanvas titlePrincipal='Crear Paciente' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <PatientsCreate />
             </OffCanvas>{
-
                 patient &&
                 <OffCanvas titlePrincipal='Detalle Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
                     <PatientsUpdate data={patient} />

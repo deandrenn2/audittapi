@@ -43,7 +43,7 @@ export const Questions = () => {
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar esta pregunta?',
+            title: '¿Estás seguro de eliminar esta Pregunta?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,

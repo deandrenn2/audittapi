@@ -27,7 +27,7 @@ export const Clients = () => {
     function handleDelete(e: MouseEvent<HTMLButtonElement>, id: number): void {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar este cliente?',
+            title: '¿Estás seguro de eliminar este Cliente?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -70,7 +70,7 @@ export const Clients = () => {
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.abbreviation}</div>
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300 text-center">{client.nit}</div>
                                 <div className="gap-3 text-sm px-2 py-2 border border-gray-300 mr-">{client.city}</div>
-                                <div className="flex text-sm px-2  border border-gray-300">
+                                <div className="flex text-sm px-2  border border-gray-300 py-1">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(client)}>
                                         <ButtonUpdate />

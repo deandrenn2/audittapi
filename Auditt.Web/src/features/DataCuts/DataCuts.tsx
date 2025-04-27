@@ -51,7 +51,7 @@ export const DataCuts = () => {
         e.preventDefault();
         console.log("No hay Id",id)
         Swal.fire({
-            title: '¿Estás seguro de eliminar este corte?',
+            title: '¿Estás seguro de eliminar este Corte?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -79,13 +79,13 @@ export const DataCuts = () => {
                     />
                 </div>
             </div>
-
             <h1 className="text-2xl font-semibold mb-4">Cortes trimestrales de auditoría</h1>
             <button
                 onClick={handleCreateClick}
                 className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                 Crear Trimestrales
             </button>
+
             <div>
                 <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr]">
                     <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
@@ -102,11 +102,10 @@ export const DataCuts = () => {
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.maxHistory}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.initialDate.toString()}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.finalDate.toString()}</div>
-                            <div className="flex justify-center text-sm px-2  border border-gray-300">
+                            <div className="flex justify-center text-sm px-2  border border-gray-300 py-1">
                                 <ButtonDelete id={item.id ?? 0} onDelete={handleDelete} />
                                 <button
-                                    onClick={() => handleUpdateClick(item)}
-                                    className="text-blue-600 hover:underline text-sm">
+                                    onClick={() => handleUpdateClick(item)}>
                                     <ButtonUpdate />
                                 </button>
                             </div>

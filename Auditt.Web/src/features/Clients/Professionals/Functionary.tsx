@@ -25,7 +25,7 @@ export const Functionary = () => {
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar este cliente?',
+            title: '¿Estás seguro de eliminar este Profesional?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -69,7 +69,7 @@ export const Functionary = () => {
                                 <div className="text-sm px-2 py-2 border border-gray-300">{functionary.firstName}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300">{functionary.lastName}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300">{functionary.identification}</div>
-                                <div className="flex text-sm px-2 border border-gray-300">
+                                <div className="flex text-sm px-2 border border-gray-300 py-1">
                                     <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(functionary)}>
                                         <ButtonUpdate />
