@@ -81,9 +81,9 @@ export const updateDataCutServices = async (
 
 export const deleteDataCutServices = async (
 	id: number
-  ): Promise<MsgResponse<DataCutModel>> => {
+  ): Promise<MsgResponse<string>> => {
 	const url = `api/datacut/${id}`;
-	const response = await ApiClient.delete<MsgResponse<DataCutModel>>(url);
+	const response = await ApiClient.delete<MsgResponse<string>>(url);
   
 	if (response.status !== 200) {
 	  return {

@@ -46,8 +46,8 @@ export const Functionary = () => {
     }
 
     return (
-        <div className="flex w-full">
-            <div className="p-8">
+        <div className="w-full p-6">
+            <div>
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
                 </div>
@@ -66,10 +66,10 @@ export const Functionary = () => {
                     <div className="bg-white px-2 py-2 border border-gray-200">
                         {functionarys?.map((functionary) => (
                             <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
-                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.firstName}</div>
-                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.lastName}</div>
-                                <div className="text-sm px-2 py-2 border border-gray-300">{functionary.identification}</div>
-                                <div className="flex text-sm px-2 border border-gray-300 py-1">
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.firstName}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.lastName}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.identification}</div>
+                                <div className="flex justify-center text-sm px-2 b text-center border border-gray-300 py-1">
                                     <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(functionary)}>
                                         <ButtonUpdate />

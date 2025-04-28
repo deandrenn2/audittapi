@@ -4,20 +4,18 @@ import { DataCutModel } from "./DataCutModels";
 
 export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
     const { updateDataCut } = useDataCuts();
-    const [DataCuts, setDataCut] = useState<DataCutModel>(dataCut);
-    console.log("No hay datos de Datacuts",dataCut)
+    const [currentDataCut, setDataCut] = useState<DataCutModel>(dataCut);
     const refForm = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
-        if (dataCut) {
-            setDataCut(dataCut); 
+        if (dataCut?.id) {
+            setDataCut(dataCut);
         }
-    }, [dataCut, setDataCut]);
+    }, [dataCut]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await updateDataCut.mutateAsync(DataCuts);
-       
+        const response = await updateDataCut.mutateAsync(currentDataCut);
         if (response.isSuccess) {
             refForm.current?.reset();
         }
@@ -25,7 +23,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDataCut({
-            ...DataCuts,
+            ...currentDataCut,
             [e.target.name]: e.target.value,
         });
     };
@@ -38,7 +36,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                     <input
                         name="name"
                         type="text"
-                        value={DataCuts.name}
+                        value={currentDataCut.name}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />
@@ -49,7 +47,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                     <input
                         name="maxHistory"
                         type="number"
-                        value={DataCuts.maxHistory}
+                        value={currentDataCut.maxHistory}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />
@@ -60,7 +58,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                     <input
                         name="initialDate"
                         type="date"
-                        value={new Date(DataCuts.initialDate).toISOString().substring(0, 10)}
+                        value={new Date(currentDataCut.initialDate).toISOString().substring(0, 10)}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />
@@ -71,7 +69,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                     <input
                         name="finalDate"
                         type="date"
-                        value={new Date(DataCuts.finalDate).toISOString().substring(0, 10)}
+                        value={new Date(currentDataCut.finalDate).toISOString().substring(0, 10)}
                         onChange={handleChange}
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />

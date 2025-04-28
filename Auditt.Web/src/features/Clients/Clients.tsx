@@ -44,7 +44,7 @@ export const Clients = () => {
         return <Bar />
 
     return (
-        <div className="flex p-8 w-full">
+        <div className="p-6 w-full">
             <div>
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
@@ -66,11 +66,11 @@ export const Clients = () => {
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {clients?.map((client) => (
                             <div className="grid grid-cols-[2fr_3fr_3fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
-                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.name}</div>
-                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300">{client.abbreviation}</div>
-                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300 text-center">{client.nit}</div>
-                                <div className="gap-3 text-sm px-2 py-2 border border-gray-300 mr-">{client.city}</div>
-                                <div className="flex text-sm px-2  border border-gray-300 py-1">
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{client.name}</div>
+                                <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.abbreviation}</div>
+                                <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.nit}</div>
+                                <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.city}</div>
+                                <div className="flex justify-center text-sm px-2  border border-gray-300 py-1">
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(client)}>
                                         <ButtonUpdate />

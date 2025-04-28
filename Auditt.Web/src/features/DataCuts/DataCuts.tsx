@@ -15,7 +15,7 @@ import { DataCutUpdateForm } from "./DataCutUpdateForm";
 export const DataCuts = () => {
     const [visibleCreate, setVisibleCreate] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const [selectedDataCut, setSelectedDataCut] = useState(null);
+    const [selectedDataCut, setSelectedDataCut] = useState(null); // Estado para almacenar el corte seleccionado
     const { queryDataCuts, dataCuts, deleteDataCut } = useDataCuts();
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
         value: "0",
@@ -33,15 +33,6 @@ export const DataCuts = () => {
         });
     };
 
-    const handleCloseCreate = () => {
-        setVisibleCreate(false);
-    };
-
-    const handleCloseUpdate = () => {
-        setVisibleUpdate(false);
-        setSelectedDataCut(null);
-    };
-
     const handleUpdateClick = (item: any) => {
         setSelectedDataCut(item);
         setVisibleUpdate(true);
@@ -49,7 +40,6 @@ export const DataCuts = () => {
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
         e.preventDefault();
-        console.log("No hay Id",id)
         Swal.fire({
             title: '¿Estás seguro de eliminar este Corte?',
             text: 'Esta acción no se puede deshacer',
@@ -98,14 +88,13 @@ export const DataCuts = () => {
                 <div className="bg-white px-2 py-2 border border-gray-200">
                     {dataCuts?.map((item) => (
                         <div key={item.id} className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] hover:bg-[#F4EDEE] transition-colors">
-                            <div className="text-sm px-2 py-2 border border-gray-300">{item.name}</div>
+                            <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.name}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.maxHistory}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.initialDate.toString()}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.finalDate.toString()}</div>
-                            <div className="flex justify-center text-sm px-2  border border-gray-300 py-1">
+                            <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
                                 <ButtonDelete id={item.id ?? 0} onDelete={handleDelete} />
-                                <button
-                                    onClick={() => handleUpdateClick(item)}>
+                                <button onClick={() => handleUpdateClick(item)}>
                                     <ButtonUpdate />
                                 </button>
                             </div>
@@ -114,14 +103,15 @@ export const DataCuts = () => {
                 </div>
 
                 <OffCanvas
-                    titlePrincipal="Crear Cortes Trimestrales" visible={visibleCreate} xClose={handleCloseCreate} position={Direction.Right}>
+                    titlePrincipal="Crear Cortes Trimestrales" visible={visibleCreate} xClose={() => setVisibleCreate(false)} position={Direction.Right}>
                     <DataCutCreateForm idInstitution={selectedClient?.value ?? "0"} />
                 </OffCanvas>
 
+                {/* Paso de datos a DataCutUpdateForm */}
                 {selectedDataCut && (
                     <OffCanvas
-                        titlePrincipal="Actualizar Cortes" visible={visibleUpdate} xClose={handleCloseUpdate} position={Direction.Right}>
-                        <DataCutUpdateForm  dataCut={selectedDataCut} />
+                        titlePrincipal="Actualizar Cortes" visible={visibleUpdate} xClose={() => { setVisibleUpdate(false); setSelectedDataCut(null); }} position={Direction.Right}>
+                        <DataCutUpdateForm dataCut={selectedDataCut} /> {/* Pasamos los datos del corte */}
                     </OffCanvas>
                 )}
             </div>

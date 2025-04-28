@@ -49,9 +49,9 @@ export const Patients = () => {
         return <Bar />
 
     return (
-        <div className="flex w-full">
+        <div className="w-full p-6">
             <div>
-                <div className="flex-1 p-8">
+                <div className="flex-1">
                     <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                         <LinkClients />
                     </div>
@@ -72,15 +72,14 @@ export const Patients = () => {
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {patients?.map((patient) => (
                                 <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
-                                    <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.identification}</div>
-                                    <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.birthDate}</div>
-                                    <div className=" gap-3 text-sm px-2 py-2 border border-gray-300">{patient.eps}</div>
-                                    <div className="flex text-sm px-2 border border-gray-300 py-1">
+                                    <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.identification}</div>
+                                    <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.birthDate}</div>
+                                    <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.eps}</div>
+                                    <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
                                        <div onClick={() => handleClickDetail(patient)}  >
                                        <ButtonUpdate />
-                                       </div>
-                                        
+                                       </div> 
                                     </div>
                                 </div>
                             ))}

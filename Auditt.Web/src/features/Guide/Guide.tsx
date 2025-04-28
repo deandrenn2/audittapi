@@ -42,7 +42,7 @@ export const Guide = () => {
     if (queryGuide.isLoading) return <Bar />;
 
     return (
-        <div className="flex p-8 w-full">
+        <div className="p-6 w-full">
             <div>
                 <h2 className="text-2xl font-semibold mb-6 mr-2">Instrumentos o GUIAS</h2>
                 <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
@@ -60,10 +60,10 @@ export const Guide = () => {
                         {guides?.map((guide) => (
                             <div className="grid grid-cols-[2fr_3fr_2fr_1fr] w-ful hover:bg-[#F4EDEE] transition-colorsl" 
                                 key={guide.id}>
-                                <div className="text-sm px-2 py-2 border border-gray-300">{guide.name}</div>
-                                <div className="text-sm px-2 py-2 border border-gray-300">{guide.description}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.name}</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.description}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">80</div>
-                                <div className="flex text-sm px-2 border border-gray-300 py-1">
+                                <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
                                     <div onClick={() => handleGuideDetail(guide)}>
                                         <ButtonUpdate/>
                                     </div>

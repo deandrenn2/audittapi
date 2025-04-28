@@ -54,15 +54,15 @@ export const DashboradStatistcs = () => {
 
             <div className="mt-4 flex justify-center  ">
                 <div className=" bg-[#FF677D] text-white rounded-2xl p-2 text-center mr-2">
-                    <p className=" font-bold text-3xl">Total Valoraciones</p>
+                    <p className=" font-bold text-4xl">Total Valoraciones</p>
                     <p className="text-6xl font-bold mt-2">250</p>
                 </div>
                 <div className="bg-[#FFB3BA] text-white rounded-2xl p-2 text-center mr-2">
-                    <p className="font-bold text-3xl">Total Pacientes</p>
+                    <p className="font-bold text-5xl">Total Pacientes</p>
                     <p className="text-6xl font-bold mt-2">157</p>
                 </div>
                 <div className="bg-[#FFB3BA] text-indigo-900 rounded-2xl p-2 text-center text-2xl">
-                    <p className="font-bold text-3xl">Total Profesionales</p>
+                    <p className="font-bold text-4xl">Total Profesionales</p>
                     <p className="text-6xl font-bold mt-2">234</p>
                 </div>
             </div>
@@ -70,7 +70,7 @@ export const DashboradStatistcs = () => {
             <div className="mt-10">
                 <p className="font-bold text-2xl">Evaluaciones</p>
                 <p className="text-sm mt-1 mb-2">Filtrar por ID Paciente</p>
-                <input type="text" value="1039094780" className="w-58 border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                <input type="text" value="1039094780" className="text-center w-58 border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
             </div>
 
