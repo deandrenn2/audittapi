@@ -3,9 +3,12 @@ import { ClientSelect } from "../Clients/ClientSelect";
 import { Option } from "../../shared/model";
 import { SingleValue } from "react-select";
 import { Link } from "react-router-dom";
+import { useAssessments } from "./useAssessment";
+import { Bar } from "../../shared/components/Progress/Bar";
 
 
 export const Assessments = () => {
+    const { queryAssessments, assessments, deleteAssessment } = useAssessments();
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
         value: "0",
         label: "Seleccione un cliente",
@@ -17,6 +20,10 @@ export const Assessments = () => {
             label: newValue?.label,
         });
     }
+
+    if (queryAssessments.isLoading)
+        return <Bar />;
+
 
 
     return (
@@ -35,23 +42,27 @@ export const Assessments = () => {
 
             <div>
                 <div className="grid grid-cols-5">
-                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">HISTORIA</div>
-                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">PROFECIONAL</div>
-                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE ATENCION</div>
-                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">FECHA DE ATENCION</div>
-
-                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">Historia</div>
+                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">Profesional</div>
+                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1">Fecha de Atención</div>
+                    <div className="gap-3 font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center"></div>
                 </div>
                 <div className="bg-white px-2 py-2 border border-gray-200">
-                    <div className="grid grid-cols-5">
-                        <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">1er Trimestre 2025</div>
-                        <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">220</div>
-                        <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">01-01-2025</div>
-                        <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">31-03-2025</div>
-                        <div className=" flex justify-center">
-
+                    {assessments?.map((assessment) => (
+                        <div className="grid grid-cols-5">
+                            <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{assessment.identificationPatient}</div>
+                            <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{assessment.functionaryName}</div>
+                            <div className=" gap-3 text-sm bg-white px-2 py-2 border border-gray-300 mr-2">{assessment.date.toString()}</div>
+                            <div className=" flex justify-center">
+                                <button
+                                    className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2"
+                                    onClick={() => deleteAssessment.mutate(assessment.id)}
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
