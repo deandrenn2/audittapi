@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
             },
 
             {
-                path: 'Assessments/Create',
+                path: 'Assessments/Create/:Id',
                 element: <AssessmentDetail />,
             },
 

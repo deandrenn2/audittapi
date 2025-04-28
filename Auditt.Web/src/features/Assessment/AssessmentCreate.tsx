@@ -5,13 +5,20 @@ import { SingleValue } from "react-select";
 import { DataCutSelect } from "../DataCuts/DataCutsSelect";
 import { FunctionarySelect } from "../Clients/Professionals/FunctionarySelect";
 import { GuideSelect } from "../Guide/GuideSelect";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAssessments } from "./useAssessment";
+import { usePatientByDocument } from "../Clients/Patients/UsePatients";
 
 export const AssessmentCreate = () => {
+    const { createAssessment } = useAssessments();
+    const [document, setDocument] = useState<string>("");
+    const { patient } = usePatientByDocument(document);
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
         value: "0",
         label: "Seleccione un cliente",
     }));
+
+    const navigate = useNavigate();
 
     const [selectedDataCut, setSelectedDataCut] = useState<Option | undefined>(() => ({
         value: "0",
@@ -27,6 +34,7 @@ export const AssessmentCreate = () => {
         value: "0",
         label: "Seleccione un corte",
     }));
+
 
     const handleChangeClient = (newValue: SingleValue<Option>) => {
         setSelectedClient({
@@ -55,6 +63,29 @@ export const AssessmentCreate = () => {
             label: newValue?.label,
         });
     }
+
+    const handleCreateAssessment = async () => {
+        const res = await createAssessment.mutateAsync({
+            idInstitucion: Number(selectedClient?.value),
+            idDataCut: Number(selectedDataCut?.value),
+            idFunctionary: Number(selectedFunctionary?.value),
+            idPatient: patient?.id ?? 0,
+            date: new Date(),
+            eps: patient?.eps ?? "",
+            idUser: 1,
+            idGuide: 0,
+            yearOld: patient?.birthDate?.toString() ?? "",
+        });
+
+        if (res.isSuccess) {
+            navigate("/Assessments/Create/" + res?.data?.id);
+        }
+    }
+
+    const handleChangeDocument = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDocument(e.target.value);
+    }
+
 
     return (
         <div className="w-full">
@@ -94,13 +125,14 @@ export const AssessmentCreate = () => {
                             <input
                                 id="licenseInput"
                                 type="text"
+                                onChange={(e) => handleChangeDocument(e)}
                                 placeholder="Ingrese el número de identificación del paciente"
                                 className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
                         </div>
                         <button
                             className="bg-[#392F5A] hover:bg-purple-950 text-white px-6 py-2 rounded-lg font-semibold cursor-pointer"
-                            onClick={() => alert('Licenciado!')}
+                            onClick={handleCreateAssessment}
                         >
                             Diligenciar
                         </button>

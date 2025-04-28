@@ -16,7 +16,7 @@ public class GetAssessment : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/assessment/{id}", async (HttpRequest req, IMediator mediator, int id) =>
+        app.MapGet("api/assessments/{id}", async (HttpRequest req, IMediator mediator, int id) =>
         {
             return await mediator.Send(new GetAssessmentQuery(id));
         })
