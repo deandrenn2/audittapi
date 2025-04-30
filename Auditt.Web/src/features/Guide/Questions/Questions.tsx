@@ -6,7 +6,7 @@ import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import { useQuestions } from "./useQuestions";
 import { useGuide } from "../useGuide";
 import Swal from "sweetalert2";
-import { ButtonDetail } from "../../../shared/components/Buttons/ButtonDetail";
+import { ButtonUpdate } from "../../../shared/components/Buttons/ButtonDetail";
 import { QuestionsModel } from "./QuestionsModel";
 import { QuestionsUpdate } from "./QuestiosUpdate";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
@@ -43,7 +43,7 @@ export const Questions = () => {
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number): void => {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar esta pregunta?',
+            title: '¿Estás seguro de eliminar esta Pregunta?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -58,14 +58,15 @@ export const Questions = () => {
 
     return (
         <div className="w-full">
-            <div className="flex space-x-2">
+            <div>
                 <section className=" p-2 bg-white">
                     <div className="mb-4">
                         <label className="block text-sm font-semibold mb-2">Instrumento de Adherencia a GPC</label>
-                        <div className="flex items-center gap-1">
+                        <div className="flex">
                             <select
                                 name="idGuide"
-                                className="border rounded px-3 py-2"
+                                className="w-65 border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2"
                                 required
                                 value={selectedIdguide}
                                 onChange={(e) => setSelectedIdguide(Number(e.target.value))}>
@@ -90,14 +91,14 @@ export const Questions = () => {
                     {questions
                         ?.filter((question) => question.idGuide === selectedIdguide)
                         .map((question) => (
-                            <div key={question.id} className="flex items-start space-x-1 mb-4">
-                                <div className="flex-1 bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden max-h-60">
+                            <div key={question.id} className="flex  space-x-1 mb-4 w-full">
+                                <div className=" bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden w-full">
                                     {question.text}
                                 </div>
-                                <div className="flex items-center space-x-1">
+                                <div className="flex ">
                                     <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(question)}>
-                                        <ButtonDetail />
+                                        <ButtonUpdate />
                                     </div>
                                 </div>
                             </div>

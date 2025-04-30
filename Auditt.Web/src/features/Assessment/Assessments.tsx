@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useAssessments } from "./useAssessment";
 import { Bar } from "../../shared/components/Progress/Bar";
 
-
 export const Assessments = () => {
     const { queryAssessments, assessments, deleteAssessment } = useAssessments();
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
@@ -36,7 +35,7 @@ export const Assessments = () => {
 
             </div>
             <h1 className="text-2xl font-semibold mb-4">Evaluaciones o auditorias</h1>
-            <Link to={'/Assessments/Create'} title='Crear' className="bg-indigo-500 hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
+            <Link to={'/Assessments/Create'} title='Crear' className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
                 Realizar valoraciones
             </Link>
 

@@ -18,7 +18,7 @@ export const ButtonPlay = ({ url, state, className, xClick }: DetailButtonProps)
         <Link
             to={url}
             state={state}
-            className={className || "w-9 h-9 rounded-full bg-blue-300  border-blue-400 flex items-center justify-center hover:border-blue-500 mr-2"}
+            className={className || "w-8 h-8 rounded-full bg-blue-300  border-blue-400 flex items-center justify-center hover:border-blue-500 mr-2"}
             onClick={handleClick}
         >
             <FontAwesomeIcon icon={faPlay} className='text-blue-500' />

@@ -9,7 +9,7 @@ interface DetailButtonProps {
   xClick?: () => void;
 }
 
-const ButtonDetails = ({ url, state, className, xClick }: DetailButtonProps) => {
+const ButtonUpdates = ({ url, state, className, xClick }: DetailButtonProps) => {
   const handleClick = () => {
     if (xClick)
       xClick();
@@ -24,4 +24,4 @@ const ButtonDetails = ({ url, state, className, xClick }: DetailButtonProps) => 
     </Link>
   );
 };
-export default ButtonDetails;
+export default ButtonUpdates;

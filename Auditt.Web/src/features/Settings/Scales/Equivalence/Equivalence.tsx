@@ -4,7 +4,7 @@ import ButtonDeletes from "../../../../shared/components/Buttons/ButtonDeletes";
 import OffCanvas from "../../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../../shared/components/OffCanvas/Models";
 import { EquivalenceUpdate } from "./EquivalenceUpdate";
-import ButtonDetails from "../../../../shared/components/Buttons/ButtonDetails";
+import ButtonDetails from "../../../../shared/components/Buttons/ButtonUpdates";
 import Swal from "sweetalert2";
 import { EquivalenceModel } from "./EquivalenceModel";
 
@@ -15,7 +15,7 @@ export const Equivalence = () => {
 
     const handleClose = () => {
         setVisible(false);
-        setSelectedEquivalence(null); // Reseteamos la selección cuando cerramos el modal
+        setSelectedEquivalence(null);
     };
 
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {

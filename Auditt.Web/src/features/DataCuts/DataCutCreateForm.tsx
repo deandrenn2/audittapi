@@ -7,10 +7,7 @@ type formData = {
     initialDate: string;
     finalDate: string;
 }
-
-
 export const DataCutCreateForm = ({ idInstitution }: { idInstitution: string }) => {
-
     const { createDataCut } = useDataCuts();
     const refForm = useRef<HTMLFormElement>(null);
 
@@ -18,7 +15,7 @@ export const DataCutCreateForm = ({ idInstitution }: { idInstitution: string }) 
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries()) as formData;
+        const data = Object.fromEntries(formData.entries()) as unknown as formData;
         const newDataCut = {
             name: data.name,
             maxHistory: Number(data.maxHistory),
@@ -54,7 +51,7 @@ export const DataCutCreateForm = ({ idInstitution }: { idInstitution: string }) 
                     <input name="finalDate" type="date" className="w-full border border-gray-300 rounded px-3 py-2" />
                 </div>
                 <div className="mt-4">
-                    <button type="submit" className=" bg-indigo-500 hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
+                    <button type="submit" className=" bg-[#392F5A] hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
                         {createDataCut.isPending ? "Creando..." : "Crear"}
                     </button>
                 </div>

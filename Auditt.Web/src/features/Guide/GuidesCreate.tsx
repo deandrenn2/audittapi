@@ -44,7 +44,8 @@ export const GuidesCreate = () => {
                     type="text"
                     name="name"
                     id="name"
-                    className="w-full h-12 p-2 border rounded mb-4"
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-4"
                     required
                 />
             </section>
@@ -55,7 +56,8 @@ export const GuidesCreate = () => {
                     type="text"
                     name="description"
                     id="description"
-                    className="w-full h-12 p-2 border rounded mb-4"
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-4"
                 />
             </section>
 
@@ -64,7 +66,8 @@ export const GuidesCreate = () => {
                 <select
                     name="idScale"
                     id="idScale"
-                    className="w-full h-12 p-2 border rounded mb-4"
+                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-4"
                     required
                 >
                     <option value="">Selecciona una escala</option>
@@ -78,7 +81,7 @@ export const GuidesCreate = () => {
 
             <button
                 type="submit"
-                className="bg-indigo-900 hover:bg-indigo-800 text-white font-semibold px-6 py-2 rounded"
+                className="bg-[#392F5A] hover:bg-indigo-800 text-white rounded-lg font-semibold px-6 py-2 "
             >
                 Crear Guía
             </button>

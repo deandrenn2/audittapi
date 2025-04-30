@@ -67,11 +67,12 @@ export const useDataCuts = () => {
 	});
 
 	return {
+		dataCuts: queryDataCuts.data?.data,
 		queryDataCuts,
 		createDataCut,
 		updateDataCut,
 		deleteDataCut,
-		dataCuts: queryDataCuts.data?.data,
+		
 	};
 };
 
