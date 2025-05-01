@@ -10,11 +10,14 @@ import Swal from "sweetalert2";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 import { FunctionaryUpdate } from "./FunctionaryUpdate";
 import { ButtonUpdate } from "../../../shared/components/Buttons/ButtonDetail";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Functionary = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
     const { functionarys, queryFunctionary, deleteFunctionary } = useFunctionary();
     const [functionary, setFunctionary] = useState<FunctionaryModel>();
+    const [searFunctionarys, setSearFunctionarys] = useState('');
 
     const handleClickDetail = (functionarySelected: FunctionaryModel) => {
         if (functionarySelected) {
@@ -38,12 +41,16 @@ export const Functionary = () => {
         });
     };
 
-    if (queryFunctionary.isLoading)
-        return <Bar />
-
     const handleClose = () => {
         setVisible(false);
     }
+    
+    if (queryFunctionary.isLoading)
+        return <Bar />
+
+    const filteredFunctionnarys = (functionarys ?? []).filter(functionary =>
+        `${functionary.lastName} ${functionary.firstName} ${functionary.identification}`.toLocaleLowerCase().includes(searFunctionarys.toLowerCase())
+    )
 
     return (
         <div className="w-full p-6">
@@ -51,12 +58,28 @@ export const Functionary = () => {
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
                 </div>
-                <h2 className="text-2xl font-semibold mb-4">Profesionales </h2>
-                <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
-                    Crear Profesionales
-                </button>
+
+                <div className="flex">
+                    <button onClick={() => setVisible(true)} className="cursor-pointer bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
+                        Crear Profesional
+                    </button>
+                    <div className="relative mr-4"  >
+                        <div className=" inline-flex">
+                            <input type="text"
+                                value={searFunctionarys}
+                                onChange={(e) => setSearFunctionarys(e.target.value)}
+                                placeholder="Buscar Profecional"
+                                className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400"/>
+                        </div>
+                    </div>
+
+                    <h2 className="text-2xl font-semibold mb-4">Profesionales </h2>
+                </div>
+
                 <div>
-                    <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full">
+                    <div className="grid grid-cols-4 w-full">
                         <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
                         <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">APELLIDO</div>
                         <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">IDENTIFICACION</div>
@@ -64,16 +87,16 @@ export const Functionary = () => {
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
-                        {functionarys?.map((functionary) => (
-                            <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
+                        {filteredFunctionnarys?.map((functionary) => (
+                            <div className="grid grid-cols-4 w-full hover:bg-[#F4EDEE] transition-colors">
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.firstName}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.lastName}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{functionary.identification}</div>
                                 <div className="flex justify-center text-sm px-2 b text-center border border-gray-300 py-1">
-                                    <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                     <div onClick={() => handleClickDetail(functionary)}>
                                         <ButtonUpdate />
                                     </div>
+                                    <ButtonDelete id={functionary.id ?? 0} onDelete={handleDelete} />
                                 </div>
                             </div>
                         ))}
@@ -86,7 +109,7 @@ export const Functionary = () => {
             </OffCanvas>
             {
                 functionary &&
-                <OffCanvas titlePrincipal='Detalle Profesionales' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
+                <OffCanvas titlePrincipal='Actualizar Profesional' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
                     <FunctionaryUpdate data={functionary} />
                 </OffCanvas>
             }

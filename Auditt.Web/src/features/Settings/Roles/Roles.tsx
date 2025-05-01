@@ -14,7 +14,7 @@ export const Roles = () => {
             <div>
                 <input type="text" placeholder="Crear" className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500
                  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 mb-2"  />
-                <button className="bg-indigo-500 hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold">Crear Roles</button>
+                <button className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold">Crear Roles</button>
             </div>
 
             <div className="w-4xl border rounded p-4 mb-4">

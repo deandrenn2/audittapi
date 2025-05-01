@@ -10,11 +10,14 @@ import { PatientsModel } from "./PantientsModel";
 import { PatientsUpdate } from "./PatientsUpdate";
 import { Bar } from "../../../shared/components/Progress/Bar";
 import { ButtonUpdate } from "../../../shared/components/Buttons/ButtonDetail";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 export const Patients = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
     const { patients, queryPatients, deletePatients, } = usePatients();
     const [patient, setPatient] = useState<PatientsModel>();
+    const [searPantients, setSearPantients] = useState('');
 
     const handleClickDetail = (patientSelected: PatientsModel) => {
         if (patientSelected) {
@@ -48,6 +51,10 @@ export const Patients = () => {
     if (queryPatients.isLoading)
         return <Bar />
 
+    const filteredPatients = patients?.filter(patient =>
+        `${patient.identification}  ${patient.birthDate} ${patient.eps}`.toLowerCase().includes(searPantients.toLowerCase())
+    )
+
     return (
         <div className="w-full p-6">
             <div>
@@ -55,31 +62,43 @@ export const Patients = () => {
                     <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                         <LinkClients />
                     </div>
-                    <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
 
-                    <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg  font-semibold mb-2">
-                        Crear Paciente
-                    </button>
+                    <div className="flex">
+                        <button onClick={() => setVisible(true)} className="cursor-pointer mr-2 bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg  font-semibold mb-3">
+                            Crear Paciente
+                        </button>
+                        <div className="relative mr-4"  >
+                            <div className=" inline-flex">
+                                <input type="text"
+                                    value={searPantients}
+                                    onChange={(e) => setSearPantients(e.target.value)}
+                                    placeholder="Buscar Pacientes"
+                                    className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+                            </div>
+                        </div>
+                        <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
+                    </div>
+
                     <div>
-
-                        <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full">
+                        <div className="grid grid-cols-4">
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID PACIENTE </div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">FECHA DE NACIMIENTO</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">EPS</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
                         </div>
-
                         <div className="bg-white px-2 py-2 border border-gray-200">
-                            {patients?.map((patient) => (
-                                <div className="grid grid-cols-[4fr_4fr_3fr_1fr] w-full hover:bg-[#F4EDEE] transition-colors">
+                            {filteredPatients?.map((patient) => (
+                                <div className="grid grid-cols-4 hover:bg-[#F4EDEE] transition-colors">
                                     <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.identification}</div>
                                     <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.birthDate}</div>
                                     <div className="text-sm px-2 py-2 border border-gray-300 text-center">{patient.eps}</div>
                                     <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
+                                        <div onClick={() => handleClickDetail(patient)}  >
+                                            <ButtonUpdate />
+                                        </div>
                                         <ButtonDelete id={patient.id ?? 0} onDelete={handleDelete} />
-                                       <div onClick={() => handleClickDetail(patient)}  >
-                                       <ButtonUpdate />
-                                       </div> 
                                     </div>
                                 </div>
                             ))}
@@ -92,7 +111,7 @@ export const Patients = () => {
                 <PatientsCreate />
             </OffCanvas>{
                 patient &&
-                <OffCanvas titlePrincipal='Detalle Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
+                <OffCanvas titlePrincipal='Actualizar Paciente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
                     <PatientsUpdate data={patient} />
                 </OffCanvas>
             }

@@ -39,15 +39,15 @@ export const DashboradStatistcs = () => {
             </h1>
 
             <div className="mt-10 flex space-x-3 gap-3">
-                <button onClick={() => setVisibleClient(true)} className="hover:bg-indigo-900 bg-[#392F5A] text-white px-6 py-2 rounded-lg font-semibold">
+                <button onClick={() => setVisibleClient(true)} className="cursor-pointer hover:bg-indigo-900 bg-[#392F5A] text-white px-6 py-2 rounded-lg font-semibold">
                     Crear Clientes
                 </button>
 
-                <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">
+                <button onClick={() => setVisible(true)} className="cursor-pointer bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">
                     Crear Pacientes
                 </button>
 
-                <button onClick={() => setVisibleInstrument(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">
+                <button onClick={() => setVisibleInstrument(true)} className="cursor-pointer bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold">
                     Crear Instrumentos
                 </button>
             </div>

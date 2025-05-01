@@ -10,12 +10,15 @@ import { GuideModel } from "./GuideModel";
 import { GuideUpdate } from "./GuideUpdate";
 import { ButtonPlay } from "../../shared/components/Buttons/ButtonPlay";
 import { ButtonUpdate } from "../../shared/components/Buttons/ButtonDetail";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export const Guide = () => {
     const [visible, setVisible] = useState(false);
     const [visibleUpdate, setUpdateVisible] = useState(false);
     const { guides, queryGuide, deleteGuide } = useGuide();
     const [guide, setGuide] = useState<GuideModel>();
+    const [searGuide, setSearGuide] = useState('');
 
     const handleGuideDetail = (guideSelected: GuideModel) => {
         setGuide(guideSelected);
@@ -39,17 +42,35 @@ export const Guide = () => {
         })
     }
 
-    if (queryGuide.isLoading) return <Bar />;
+    if (queryGuide.isLoading) return <Bar />
+
+    const filterdGuide = guides?.filter(guide =>
+        `${guide?.name}`.toLocaleLowerCase().includes(searGuide.toLowerCase())
+    )
 
     return (
         <div className="p-6 w-full">
             <div>
-                <h2 className="text-2xl font-semibold mb-6 mr-2">Instrumentos o GUIAS</h2>
-                <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2">
-                    Crear Instrumento
-                </button>
+                <div className="flex">
+                    <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
+                        Crear Instrumento
+                    </button>
+                    <div>
+                    <div className=" inline-flex mb-6 mr-2">
+                    <input type="text"
+                                value={searGuide}
+                                onChange={(e) => setSearGuide(e.target.value)}
+                                placeholder="Buscar Instrumento"
+                                className="border rounded px-2 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+                    </div>
+                    </div>
+                    <h2 className="text-2xl font-semibold mb-4">Instrumentos o Guias</h2>
+                </div>
+
                 <div>
-                    <div className="grid grid-cols-[2fr_3fr_2fr_1fr] w-full">
+                    <div className="grid grid-cols-4">
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Nombre</div>
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Descripción</div>
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Preguntas</div>
@@ -57,17 +78,17 @@ export const Guide = () => {
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">
-                        {guides?.map((guide) => (
-                            <div className="grid grid-cols-[2fr_3fr_2fr_1fr] w-ful hover:bg-[#F4EDEE] transition-colorsl" 
+                        {filterdGuide?.map((guide) => (
+                            <div className="grid grid-cols-4 hover:bg-[#F4EDEE] transition-colorsl"
                                 key={guide.id}>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.name}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.description}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">80</div>
                                 <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
                                     <div onClick={() => handleGuideDetail(guide)}>
-                                        <ButtonUpdate/>
+                                        <ButtonUpdate />
                                     </div>
-                                        <ButtonPlay url={"Questions"} />
+                                    <ButtonPlay url={"Questions"} />
                                     <ButtonDelete id={guide.id ?? 0} onDelete={handleDelete} />
                                 </div>
                             </div>
