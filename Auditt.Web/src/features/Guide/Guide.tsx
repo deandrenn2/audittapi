@@ -48,7 +48,6 @@ export const Guide = () => {
         text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     const search = normalizeText(searGuide.trim());
-
     const filterdGuide = guides?.filter(guide => {
         const fields = `${guide?.name}`;
         const words = normalizeText(fields).split(/\s+/);
@@ -59,11 +58,8 @@ export const Guide = () => {
         <div className="p-6 w-full">
             <div>
                 <div className="flex">
-                    <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
-                        Crear Instrumento
-                    </button>
-                    <div>
-                        <div className=" inline-flex mb-6 mr-2">
+                    <div className="relative">
+                        <div className=" inline-flex mb-5 mr-2">
                             <input type="text"
                                 value={searGuide}
                                 onChange={(e) => setSearGuide(e.target.value)}
@@ -73,7 +69,10 @@ export const Guide = () => {
                             <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
                         </div>
                     </div>
-                    <h2 className="text-2xl font-semibold mb-4">Instrumentos o Guias</h2>
+                    <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
+                        Crear Instrumento
+                    </button>
+                    <h2 className="text-2xl font-semibold ">Instrumentos o Guias</h2>
                 </div>
 
                 <div>

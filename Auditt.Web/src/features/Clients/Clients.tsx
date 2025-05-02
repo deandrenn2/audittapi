@@ -64,10 +64,7 @@ export const Clients = () => {
                     <LinkClients />
                 </div>
                 <div className="flex">
-                    <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
-                        Crear Cliente
-                    </button>
-                    <div className="relative mr-4"  >
+                    <div className="relative mb-3 mr-2"  >
                         <div className=" inline-flex">
                             <input type="text"
                                 value={searClients}
@@ -78,7 +75,10 @@ export const Clients = () => {
                             <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
                         </div>
                     </div>
-                    <h2 className="text-2xl font-semibold mb-4">Clientes o Instituciones</h2>
+                    <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
+                        Crear Cliente
+                    </button>
+                    <h2 className="text-2xl font-semibold mb-3">Clientes o Instituciones</h2>
                 </div>
                 <div>
                     <div className="grid grid-cols-5">

@@ -77,12 +77,7 @@ export const DataCuts = () => {
                 </div>
             </div>
             <div className="flex">
-                <button
-                    onClick={handleCreateClick}
-                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2 mr-2">
-                    Crear Trimestrales
-                </button>
-                <div className="relative mr-4"  >
+                <div className="relative mr-2 mb-4"  >
                     <div className=" inline-flex">
                         <input type="text"
                             value={searDataCuts}
@@ -93,7 +88,12 @@ export const DataCuts = () => {
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
                     </div>
                 </div>
-                <h1 className="text-2xl font-semibold mb-4">Cortes trimestrales de auditoría</h1>
+                <button
+                    onClick={handleCreateClick}
+                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-1 rounded-lg font-semibold mb-5 mr-2">
+                    Crear Trimestrales
+                </button>
+                <h1 className="text-2xl font-semibold mb-3">Cortes trimestrales de auditoría</h1>
             </div>
             <div>
                 <div className="grid grid-cols-5">
