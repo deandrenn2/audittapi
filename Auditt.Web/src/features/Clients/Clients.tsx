@@ -44,7 +44,7 @@ export const Clients = () => {
     }
 
     if (queryClients.isLoading)
-        return <Bar />
+        return <Bar/>
 
     const normalizeText = (text: string) =>
         text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();

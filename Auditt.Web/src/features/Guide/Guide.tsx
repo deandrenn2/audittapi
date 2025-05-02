@@ -10,8 +10,8 @@ import { GuideModel } from "./GuideModel";
 import { GuideUpdate } from "./GuideUpdate";
 import { ButtonPlay } from "../../shared/components/Buttons/ButtonPlay";
 import { ButtonUpdate } from "../../shared/components/Buttons/ButtonDetail";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Guide = () => {
     const [visible, setVisible] = useState(false);
@@ -44,9 +44,16 @@ export const Guide = () => {
 
     if (queryGuide.isLoading) return <Bar />
 
-    const filterdGuide = guides?.filter(guide =>
-        `${guide?.name}`.toLocaleLowerCase().includes(searGuide.toLowerCase())
-    )
+    const normalizeText = (text: string) =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const search = normalizeText(searGuide.trim());
+
+    const filterdGuide = guides?.filter(guide => {
+        const fields = `${guide?.name}`;
+        const words = normalizeText(fields).split(/\s+/);
+        return words.some(word => word.startsWith(search));
+    })
 
     return (
         <div className="p-6 w-full">
@@ -56,15 +63,15 @@ export const Guide = () => {
                         Crear Instrumento
                     </button>
                     <div>
-                    <div className=" inline-flex mb-6 mr-2">
-                    <input type="text"
+                        <div className=" inline-flex mb-6 mr-2">
+                            <input type="text"
                                 value={searGuide}
                                 onChange={(e) => setSearGuide(e.target.value)}
-                                placeholder="Buscar Instrumento"
-                                className="border rounded px-2 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                placeholder="Buscar Cliente"
+                                className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
                                  hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
                             <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
-                    </div>
+                        </div>
                     </div>
                     <h2 className="text-2xl font-semibold mb-4">Instrumentos o Guias</h2>
                 </div>

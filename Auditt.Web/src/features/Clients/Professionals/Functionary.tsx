@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 import { FunctionaryUpdate } from "./FunctionaryUpdate";
 import { ButtonUpdate } from "../../../shared/components/Buttons/ButtonDetail";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Functionary = () => {
     const [visible, setVisible] = useState(false);
@@ -48,9 +48,17 @@ export const Functionary = () => {
     if (queryFunctionary.isLoading)
         return <Bar />
 
-    const filteredFunctionnarys = (functionarys ?? []).filter(functionary =>
-        `${functionary.lastName} ${functionary.firstName} ${functionary.identification}`.toLocaleLowerCase().includes(searFunctionarys.toLowerCase())
-    )
+    const normalizeText = (text: string) =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const search = normalizeText(searFunctionarys.trim());
+
+    const filteredFunctionnarys = (functionarys ?? []).filter(functionary =>{
+      const fields =  `${functionary.lastName} ${functionary.firstName}
+        ${functionary.identification}`;
+        const words = normalizeText(fields).split(/\s+/);
+        return words.some(word => word.startsWith(search));
+});
 
     return (
         <div className="w-full p-6">
