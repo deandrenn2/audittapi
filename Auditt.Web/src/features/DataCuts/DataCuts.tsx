@@ -77,8 +77,8 @@ export const DataCuts = () => {
                 </div>
             </div>
             <div className="flex">
-                <div className="relative mr-2 mb-4"  >
-                    <div className=" inline-flex">
+                <div className="relative mr-2"  >
+                    <div className=" inline-flex mb-5">
                         <input type="text"
                             value={searDataCuts}
                             onChange={(e) => setSearDataCuts(e.target.value)}
@@ -90,7 +90,7 @@ export const DataCuts = () => {
                 </div>
                 <button
                     onClick={handleCreateClick}
-                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-1 rounded-lg font-semibold mb-5 mr-2">
+                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-1 rounded-lg font-semibold mb-5 mr-2">
                     Crear Trimestrales
                 </button>
                 <h1 className="text-2xl font-semibold mb-3">Cortes trimestrales de auditoría</h1>

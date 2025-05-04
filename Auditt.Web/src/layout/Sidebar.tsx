@@ -1,21 +1,29 @@
 import { faHouse, faUser, faUsers, faGear, faClipboardCheck, faBoxesStacked, faLockOpen } from '@fortawesome/free-solid-svg-icons';
 import { MenuItem } from './MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useUserContext from '../shared/context/useUserContext';
 export const Sidebar = () => {
    const urlApi = import.meta.env.VITE_API_URL;
+   const { user } = useUserContext();
    return (
       <div
          id="sidebar"
          className=" w-68 bg-gray-800 text-white flex flex-col">
          <div>
-            <div className="flex flex-col items-center p-6 justify-center">
-               <div className="">
-                  <img src="" alt="Logo" className="w-16 h-16 bg-pink-300 rounded-full mb-2" />
+            <div className="flex flex-col items-center p-4 justify-center">
+               <div>
+                  <img
+                     src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
+                     alt="logo"
+                     className="min-w-16 rounded-full w-20 h-20"/>
                </div>
-               <p className="text-center text-sm mb-2">Deimer Andrés...</p>
-               <p className='text-center text-sm text-gray-600 '>NAVEGACIÓN</p>
+               <div>
+                  <h4 className="text-white font-semibold">
+                     {user?.firstName} {user?.lastName}
+                  </h4>
+               </div>
             </div>
-
+               <p className='text-center text-sm text-gray-300 '>NAVEGACIÓN</p>
             <nav>
                <ul className="space-y-1">
                   <MenuItem icon={faHouse} path='/' text='Inicio' />
@@ -37,7 +45,6 @@ export const Sidebar = () => {
                   </a>
                </ul>
             </nav>
-
          </div>
       </div>
    );

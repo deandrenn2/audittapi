@@ -1,40 +1,48 @@
 import { useState } from "react";
-import OffCanvas from "../../shared/components/OffCanvas/Index"
-import { LinkSettings } from "../Dashboard/LinkSenttings"
-import { UserCreate } from "./Users/UsersCreate"
+import { LinkSettings } from "../Dashboard/LinkSenttings";
 import { Direction } from "../../shared/components/OffCanvas/Models";
+import OffCanvas from "../../shared/components/OffCanvas/Index";
+import { UserCreate } from "./Users/UsersCreate";
+import useUserContext from "../../shared/context/useUserContext";
 
 export const Settings = () => {
-   const [visible, setVisible] = useState(false);
+   const {user} = useUserContext();
+    const [visible, setVisible] = useState(false);
+
    
-       const hadbleClick = () => {
-           setVisible(true);
-       }
-   
-       const handleClose = () => {
-           setVisible(false);
-       }
-   
-   
+   const hadbleClick = () => {
+       setVisible(true);
+   }
+
+   const handleClose = () => {
+       setVisible(false);
+   }
     return (
         <div className="p-6">
             <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
-                <LinkSettings />
+                <LinkSettings/>
             </div>
 
             <div>
-                <button onClick={hadbleClick} className="bg-indigo-500 hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold mb-2">Crear Usuario</button>
+                <button onClick={hadbleClick} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold mb-2 cursor-pointer">
+                    Crear Usuario
+                </button>
             </div>
             <div>
                 <div className="flex items-center space-x-6 border p-4 rounded-xl shadow-md w-max">
 
-                    <div className="w-14 h-14 rounded-full bg-red-200"></div>
-
-                    <div className="flex flex-col">
-                        <span className="font-semibold text-sm text-gray-800 uppercase">Deimer Andrés Núñez Novoa</span>
-                        <span className="text-sm text-red-500">deandre.nn@gmail.com</span>
+                    <div className="w-14 h-14 rounded-full bg-red-200">
+                        <div>
+                            <img
+                                src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
+                                alt="logo"
+                                className="min-w-16 rounded-full w-20 h-20" />
+                        </div>
                     </div>
-
+                    <div className="flex flex-col">
+                        <span className="font-semibold text-sm text-gray-800 uppercase">{user?.firstName} {user?.lastName}</span>
+                        <span className="text-sm text-red-500">{user?.email}</span>
+                    </div>
 
                     <div className="font-bold text-sm text-indigo-900 uppercase">Super Admin</div>
 
@@ -65,8 +73,9 @@ export const Settings = () => {
                     </div>
                 </div>
             </div>
+
             <OffCanvas titlePrincipal='Crear Usuario' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                <UserCreate />
+                <UserCreate/>
             </OffCanvas>
         </div>
         )
