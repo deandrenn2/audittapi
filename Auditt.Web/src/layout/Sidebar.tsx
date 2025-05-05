@@ -5,6 +5,7 @@ import useUserContext from '../shared/context/useUserContext';
 export const Sidebar = () => {
    const urlApi = import.meta.env.VITE_API_URL;
    const { user } = useUserContext();
+   console.log("Avatar ID:", user?.idAvatar);
    return (
       <div
          id="sidebar"
@@ -14,7 +15,7 @@ export const Sidebar = () => {
                <div>
                   <img
                      src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
-                     alt="logo"
+                     alt="avatar"
                      className="min-w-16 rounded-full w-20 h-20"/>
                </div>
                <div>

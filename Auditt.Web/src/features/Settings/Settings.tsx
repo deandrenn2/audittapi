@@ -31,7 +31,7 @@ export const Settings = () => {
             <div>
                 <div className="flex items-center space-x-6 border p-4 rounded-xl shadow-md w-max">
 
-                    <div className="w-14 h-14 rounded-full bg-red-200">
+                    <div>
                         <div>
                             <img
                                 src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
