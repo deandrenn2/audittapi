@@ -77,6 +77,7 @@ export const DataCuts = () => {
                 </div>
             </div>
             <div className="flex">
+                <h1 className="text-2xl mr-2 font-semibold mb-3">Cortes trimestrales de auditoría</h1>
                 <div className="relative mr-2"  >
                     <div className=" inline-flex mb-5">
                         <input type="text"
@@ -93,7 +94,6 @@ export const DataCuts = () => {
                     className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-1 rounded-lg font-semibold mb-5 mr-2">
                     Crear Trimestrales
                 </button>
-                <h1 className="text-2xl font-semibold mb-3">Cortes trimestrales de auditoría</h1>
             </div>
             <div>
                 <div className="grid grid-cols-5">
