@@ -20,7 +20,12 @@ export const usePatients = () => {
 		mutationFn: createPatientsServices,
 		onSuccess: (data) => {
 			if (!data.isSuccess) {
-				toast.info(data.message);
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
 			} else {
 				if (data.isSuccess) {
 					toast.success(data.message);
@@ -34,7 +39,12 @@ export const usePatients = () => {
 		mutationFn: updatePatientsServices,
 		onSuccess: (data) => {
 			if (!data.isSuccess) {
-				toast.info(data.message);
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
 			} else {
 				if (data.isSuccess) {
 					toast.success(data.message);
@@ -48,7 +58,12 @@ export const usePatients = () => {
 		mutationFn: deletePatientsServices,
 		onSuccess: async (data) => {
 			if (!data.isSuccess) {
-				toast.info(data.message);
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
 			} else {
 				if (data.isSuccess) {
 					toast.success(data.message);
@@ -75,10 +90,33 @@ export const usePatientById = (id: number) => {
 	return { queryPatient, patient: queryPatient.data?.data };
 };
 
+export const usePatientByDocumentMutation = () => {
+	const getPatientByDocumentMutation = useMutation({
+		mutationFn: getPatientByDocument,
+		onSuccess: (data) => {
+			if (!data.isSuccess) {
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
+			} else {
+				if (data.isSuccess) {
+					toast.success(data.message);
+				}
+			}
+		},
+	});
+
+	return { getPatientByDocumentMutation };
+};
+
 export const usePatientByDocument = (identity: string) => {
 	const queryPatient = useQuery({
 		queryKey: [`${KEY}`, identity],
 		queryFn: () => getPatientByDocument(identity),
+		enabled: false,
 	});
 	return { queryPatient, patient: queryPatient.data?.data };
 };

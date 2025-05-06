@@ -3,6 +3,7 @@ using System;
 using Auditt.Application.Infrastructure.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auditt.Application.Infrastructure.Sqlite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502025506_assesmentsIdRelation")]
+    partial class assesmentsIdRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -69,12 +72,11 @@ namespace Auditt.Application.Infrastructure.Sqlite.Migrations
 
                     b.HasIndex("GuideId");
 
+                    b.HasIndex("InstitutionId");
+
                     b.HasIndex("PatientId");
 
-                    b.HasIndex("InstitutionId", "DataCutId", "FunctionaryId", "PatientId", "GuideId")
-                        .IsUnique();
-
-                    b.ToTable("Assessments", (string)null);
+                    b.ToTable("Assessments");
                 });
 
             modelBuilder.Entity("Auditt.Application.Domain.Entities.DataCut", b =>
@@ -329,6 +331,7 @@ namespace Auditt.Application.Infrastructure.Sqlite.Migrations
             modelBuilder.Entity("Auditt.Application.Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -337,12 +340,11 @@ namespace Auditt.Application.Infrastructure.Sqlite.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Auditt.Application.Domain.Entities.Scale", b =>
@@ -477,6 +479,12 @@ namespace Auditt.Application.Infrastructure.Sqlite.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("EquivalenceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdAssessment")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdEquivalence")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("IdQuestion")

@@ -27,9 +27,9 @@ public class CreateAssessment : ICarterModule
     }
     public record CreateAssessmentCommand : IRequest<IResult>
     {
+        public int Id { get; set; }
         public int IdInstitucion { get; set; }
         public int IdDataCut { get; set; }
-
         public int IdFunctionary { get; set; }
         public int IdPatient { get; set; }
         public int IdGuide { get; set; }
@@ -47,8 +47,15 @@ public class CreateAssessment : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.ValidationProblem(result.GetValidationProblems());
             }
+
+            var findAssessment = await context.Assessments.Where(x => x.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
+            if (findAssessment != null)
+            {
+                return Results.Ok(Result.Failure(new Error("Login.ErrorCreateAssessment", "La evaluación ya existe")));
+            }
+
             var newAssessment = Assessment.Create(0, request.IdInstitucion, request.IdDataCut, request.IdFunctionary, request.IdPatient, request.YearOld, request.Date, request.Eps, request.IdUser, request.IdGuide);
 
             var guide = await context.Guides.Include(x => x.Scale).ThenInclude(x => x.Equivalences).Where(x => x.Id == request.IdGuide).FirstOrDefaultAsync(cancellationToken);
@@ -74,7 +81,7 @@ public class CreateAssessment : ICarterModule
                 }
 
 
-                await context.Valuations.AddRangeAsync(valuations, cancellationToken);
+                newAssessment.AddValuations(valuations);
             }
 
 
@@ -82,7 +89,7 @@ public class CreateAssessment : ICarterModule
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
-                var resModel = new CreateAssessmentResponse(newAssessment.Id, newAssessment.IdDataCut);
+                var resModel = new CreateAssessmentResponse(newAssessment.Id, newAssessment.DataCutId);
                 return Results.Ok(Result<CreateAssessmentResponse>.Success(resModel, "Evaluación creada correctamente"));
             }
             else

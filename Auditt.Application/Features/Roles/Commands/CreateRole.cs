@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Features.Roles;
 
@@ -35,13 +36,17 @@ public class CreateRole : ICarterModule
             {
                 return Results.ValidationProblem(result.GetValidationProblems());
             }
+            var idRolNext = 1;
+            var idRol = await context.Roles.MaxAsync(x => x.Id, cancellationToken);
+            idRolNext = idRol + 1;
+
             var role = Role.Create(0, request.Name, request.Description);
             await context.Roles.AddAsync(role);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)
             {
                 var resModel = new CreateRoleResponse(role.Id, role.Name, role.Description);
-                return Results.Ok(Result<CreateRoleResponse>.Success(resModel,"Rol creado correctamente"));
+                return Results.Ok(Result<CreateRoleResponse>.Success(resModel, "Rol creado correctamente"));
             }
             else
             {

@@ -17,7 +17,7 @@ public class GetPatientByDocument : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/patients/{identity}", async (IMediator mediator, string identity) =>
+        app.MapGet("api/patients/history/{identity}", async (IMediator mediator, string identity) =>
         {
             return await mediator.Send(new GetPatientQuery(identity));
         })
@@ -35,7 +35,7 @@ public class GetPatientByDocument : ICarterModule
             var patient = await context.Patients.Where(x => x.Identification == request.identity).FirstOrDefaultAsync(cancellationToken);
             if (patient == null)
             {
-                return Results.Ok(Result.Failure(new Error("Login.ErrorGetPaciente", "Error al obtener el paciente")));
+                return Results.Ok(Result.Failure(new Error("Patient.ErrorGetPaciente", "No se encontró historia con el identificador")));
             }
             var resModel = new GetPatientResponse(patient.Id, patient.FirstName, patient.LastName, patient.Identification, patient.BirthDate, patient.Eps);
             return Results.Ok(Result<Patient>.Success(patient, "Paciente obtenido correctamente"));

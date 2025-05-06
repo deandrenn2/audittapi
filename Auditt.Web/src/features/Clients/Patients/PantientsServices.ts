@@ -105,7 +105,7 @@ export const getPatientById = async (
 export const getPatientByDocument = async (
 	identity: string
 ): Promise<MsgResponse<PatientsModel>> => {
-	const url = `api/patients/${identity}`;
+	const url = `api/patients/history/${identity}`;
 	const response = await ApiClient.get<MsgResponse<PatientsModel>>(url);
 
 	if (response.status !== 200) {

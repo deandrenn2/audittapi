@@ -9,8 +9,8 @@ public class Valuation : AggregateRoot
     {
         Order = order;
         Text = text;
-        IdEquivalence = idEquivalence;
-        IdAssessment = idAssessment;
+        EquivalenceId = idEquivalence;
+        AssessmentId = idAssessment;
         IdUserCreated = idUser;
         IdUserUpdate = idUser;
         UpdateDate = new DateTime();
@@ -21,9 +21,9 @@ public class Valuation : AggregateRoot
     public int Order { get; private set; }
     public string Text { get; private set; }
 
-    public int IdEquivalence { get; private set; }
+    public int EquivalenceId { get; private set; }
     public Equivalence Equivalence { get; private set; }
-    public int IdAssessment { get; private set; }
+    public int AssessmentId { get; private set; }
     public Assessment Assessment { get; private set; }
     public int IdUserCreated { get; private set; }
     public int IdUserUpdate { get; private set; }
@@ -40,8 +40,8 @@ public class Valuation : AggregateRoot
     {
         Order = order;
         Text = text;
-        IdEquivalence = idEquivalence;
-        IdAssessment = idAssessment;
+        EquivalenceId = idEquivalence;
+        AssessmentId = idAssessment;
         IdUserUpdate = idUser;
         UpdateDate = new DateTime();
     }

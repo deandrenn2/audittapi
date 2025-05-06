@@ -30,7 +30,28 @@ export const GetAssessments = async (): Promise<
 export const GetAssessmentById = async (
 	id: number
 ): Promise<MsgResponse<AssessmentDetailModel>> => {
-	const url = `api/assessment/${id}`;
+	const url = `api/assessments/${id}`;
+	const response = await ApiClient.get<MsgResponse<AssessmentDetailModel>>(url);
+
+	if (response.status !== 200) {
+		return {
+			isSuccess: false,
+			message: "Error al obtener el paciente",
+			isFailure: true,
+			error: {
+				code: response.status.toString(),
+				message: response.statusText,
+			},
+		};
+	}
+
+	return response.data;
+};
+
+export const getAssessmentByDocument = async (
+	identity: string
+): Promise<MsgResponse<AssessmentDetailModel>> => {
+	const url = `api/assessments/patients/${identity}`;
 	const response = await ApiClient.get<MsgResponse<AssessmentDetailModel>>(url);
 
 	if (response.status !== 200) {
@@ -51,7 +72,7 @@ export const GetAssessmentById = async (
 export const createAssessmentServices = async (
 	model: AssessmentCreateModel
 ): Promise<MsgResponse<AssessmentCreateModel>> => {
-	const url = "api/assessment";
+	const url = "api/assessments";
 	const response = await ApiClient.post<MsgResponse<AssessmentCreateModel>>(
 		url,
 		model
@@ -75,7 +96,7 @@ export const createAssessmentServices = async (
 export const deleteAssessmentServices = async (
 	id: number
 ): Promise<MsgResponse<AssessmentCreateModel>> => {
-	const url = `api/assessment/${id}`;
+	const url = `api/assessments/${id}`;
 	const response = await ApiClient.delete<MsgResponse<AssessmentCreateModel>>(
 		url
 	);

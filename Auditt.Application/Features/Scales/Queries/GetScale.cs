@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Features.Scales;
 
@@ -22,10 +23,11 @@ public class GetScale : ICarterModule
         .WithName(nameof(GetScale))
         .WithTags(nameof(Scale))
         .ProducesValidationProblem()
-        .Produces<GetScaleResponse>(StatusCodes.Status200OK);
+        .Produces<GetScaleResponseModel>(StatusCodes.Status200OK);
     }
     public record GetScaleQuery(int Id) : IRequest<IResult>;
-    public record GetScaleResponse(int Id, string Name);
+    public record GetScaleResponseModel(int Id, string Name, List<EquivalenceModel> Equivalences);
+    public record EquivalenceModel(int Id, string Name, decimal Value);
     public class GetScaleHandler(AppDbContext context, IValidator<GetScaleQuery> validator) : IRequestHandler<GetScaleQuery, IResult>
     {
         public async Task<IResult> Handle(GetScaleQuery request, CancellationToken cancellationToken)
@@ -35,13 +37,16 @@ public class GetScale : ICarterModule
             {
                 return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
             }
-            var scale = await context.Scales.FindAsync(request.Id);
+            var scale = await context.Scales.Include(x => x.Equivalences).FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (scale == null)
             {
                 return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Escala no encontrada")));
             }
-            var resModel = new GetScaleResponse(scale.Id, scale.Name);
-            return Results.Ok(Result<Scale>.Success(scale, "Escala obtenida correctamente"));
+
+            var equivalences = scale.Equivalences.Select(x => new EquivalenceModel(x.Id, x.Name, x.Value)).ToList();
+
+            var resModel = new GetScaleResponseModel(scale.Id, scale.Name, equivalences);
+            return Results.Ok(Result<GetScaleResponseModel>.Success(resModel, "Escala obtenida correctamente"));
         }
     }
     public class GetScaleValidator : AbstractValidator<GetScaleQuery>

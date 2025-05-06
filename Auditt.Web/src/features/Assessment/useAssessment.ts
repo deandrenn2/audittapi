@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
 	createAssessmentServices,
 	deleteAssessmentServices,
+	getAssessmentByDocument,
 	GetAssessmentById,
 	GetAssessments,
 } from "./AssessmentServices";
@@ -61,4 +62,26 @@ export const useAssessmentById = (id: number) => {
 		queryFn: () => GetAssessmentById(id),
 	});
 	return { queryAssessment, assessment: queryAssessment.data?.data };
+};
+
+export const useAssessmentByDocumentMutation = () => {
+	const getAssessmentByDocumentMutation = useMutation({
+		mutationFn: getAssessmentByDocument,
+		onSuccess: (data) => {
+			if (!data.isSuccess) {
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
+			} else {
+				if (data.isSuccess) {
+					toast.success(data.message);
+				}
+			}
+		},
+	});
+
+	return { getAssessmentByDocumentMutation };
 };

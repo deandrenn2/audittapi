@@ -26,10 +26,18 @@ public class GetPatient : ICarterModule
     }
     public record GetPatientQuery(int Id) : IRequest<IResult>;
     public record GetPatientResponse(int Id, string FirstName, string LastName, string Identification, DateTime BirthDate, string Eps);
-    public class GetPatientHandler(AppDbContext context) : IRequestHandler<GetPatientQuery, IResult>
+    public class GetPatientHandler(AppDbContext context, IValidator<GetPatientQuery> validator) : IRequestHandler<GetPatientQuery, IResult>
     {
         public async Task<IResult> Handle(GetPatientQuery request, CancellationToken cancellationToken)
         {
+            var result = validator.Validate(request);
+            if (!result.IsValid)
+            {
+                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
+                result.GetValidationProblems(),
+                new Error("Patient.ErrorValidation", "Se presentaron errores de validación")
+            ));
+            }
             var patient = await context.Patients.FindAsync(request.Id);
             if (patient == null)
             {
