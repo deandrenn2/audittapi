@@ -68,6 +68,7 @@ export const Functionary = () => {
                 </div>
 
                 <div className="flex">
+                    <h2 className="text-2xl font-semibold mb-3 mr-2">Profesionales </h2>
                     <div className="relative mb-2 mr-2">
                         <div className=" inline-flex">
                             <input type="text"
@@ -82,8 +83,6 @@ export const Functionary = () => {
                     <button onClick={() => setVisible(true)} className="cursor-pointer bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
                         Crear Profesional
                     </button>
-
-                    <h2 className="text-2xl font-semibold mb-4">Profesionales </h2>
                 </div>
 
                 <div>
