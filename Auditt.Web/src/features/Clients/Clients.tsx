@@ -64,6 +64,7 @@ export const Clients = () => {
                     <LinkClients />
                 </div>
                 <div className="flex">
+                    <h2 className="text-2xl font-semibold mb-3 mr-2">Clientes o Instituciones</h2>
                     <div className="relative mb-3 mr-2"  >
                         <div className=" inline-flex">
                             <input type="text"
@@ -78,7 +79,6 @@ export const Clients = () => {
                     <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
                         Crear Cliente
                     </button>
-                    <h2 className="text-2xl font-semibold mb-3">Clientes o Instituciones</h2>
                 </div>
                 <div>
                     <div className="grid grid-cols-5">

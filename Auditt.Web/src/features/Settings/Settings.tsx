@@ -40,8 +40,8 @@ export const Settings = () => {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-semibold text-sm text-gray-800 uppercase">{user?.firstName} {user?.lastName}</span>
-                        <span className="text-sm text-red-500">{user?.email}</span>
+                        <span className=" text-sm text-gray-900 font-bold">{user?.firstName} {user?.lastName}</span>
+                        <span className="text-sm text-gray-500">{user?.email}</span>
                     </div>
 
                     <div className="font-bold text-sm text-indigo-900 uppercase">Super Admin</div>

@@ -64,6 +64,7 @@ export const Patients = () => {
                     </div>
 
                     <div className="flex">
+                        <h2 className="text-2xl font-semibold mb-3 mr-2">Pacientes o historias </h2>
                         <div className="relative mr-2"  >
                             <div className=" inline-flex">
                                 <input type="text"
@@ -78,7 +79,6 @@ export const Patients = () => {
                         <button onClick={() => setVisible(true)} className="cursor-pointer mr-2 bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg  font-semibold mb-3">
                             Crear Paciente
                         </button>
-                        <h2 className="text-2xl font-semibold mb-4">Pacientes o historias </h2>
                     </div>
 
                     <div>
