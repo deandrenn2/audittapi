@@ -31,7 +31,7 @@ export const Users = () => {
             <div>
                 <div className="flex items-center space-x-6 border p-4 rounded-xl shadow-md w-max">
 
-                    <div className="w-14 h-14 rounded-full bg-red-200">
+                    <div>
                         <div>
                             <img
                                 src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
@@ -40,8 +40,8 @@ export const Users = () => {
                         </div>
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-semibold text-sm text-gray-800 uppercase">{user?.firstName} {user?.lastName}</span>
-                        <span className="text-sm text-red-500">{user?.email}</span>
+                        <span className="font-bold text-sm text-gray-900 uppercase">{user?.firstName} {user?.lastName}</span>
+                        <span className="text-sm text-gray-500">{user?.email}</span>
                     </div>
 
 
