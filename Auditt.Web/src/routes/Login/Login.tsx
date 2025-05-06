@@ -9,7 +9,7 @@ export const Login = () => {
       <div className="flex justify-center items-center h-screen bg-gray-200">
          <div className="flex h-screen w-full">
             <div className="w-1/2 bg-white flex flex-col justify-center items-center">
-               <h1 className="text-7xl">
+               <h1 className="text-8xl">
                   <span className="text-[#FF677D] font-bold">Auditt</span><span className="text-gray-800">Api</span>
                </h1>
                <button

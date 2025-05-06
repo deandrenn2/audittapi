@@ -59,7 +59,8 @@ export const UserCreate = () => {
                      value={user?.firstName}
                      onChange={(e) => handleChange(e)}
                      required
-                     className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500"
+                     className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-2"
                      placeholder="Nombres"
                   />
                </div>
@@ -78,7 +79,8 @@ export const UserCreate = () => {
                      value={user?.lastName}
                      onChange={(e) => handleChange(e)}
                      required
-                     className="w-full px-5 py-2 border border-gray-700 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                     className="w-full border border-gray-300 rounded mb-2 px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                      placeholder="Apellidos"
                   />
                </div>
@@ -99,7 +101,8 @@ export const UserCreate = () => {
                      value={user?.email}
                      onChange={(e) => handleChange(e)}
                      required
-                     className="w-full px-5 py-2 border border-gray-700 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                     className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-3"
                      placeholder="Correo electrónico"
                   />
                </div>
@@ -107,7 +110,7 @@ export const UserCreate = () => {
     
             <button
                type="submit"
-               className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold">
+               className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold cursor-pointer">
                Crear Usuario
             </button>
          </form>

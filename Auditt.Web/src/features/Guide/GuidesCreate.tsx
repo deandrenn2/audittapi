@@ -81,9 +81,8 @@ export const GuidesCreate = () => {
 
             <button
                 type="submit"
-                className="bg-[#392F5A] hover:bg-indigo-800 text-white rounded-lg font-semibold px-6 py-2 "
-            >
-                Crear Guía
+                className=" cursor-pointer bg-[#392F5A] hover:bg-indigo-800 text-white rounded-lg font-semibold px-6 py-2 ">
+                Crear
             </button>
         </form>
     );

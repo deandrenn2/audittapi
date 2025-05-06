@@ -4,12 +4,12 @@ export const LinkClients = () => {
     const location = useLocation(); 
 
     return (
-        <div className="flex gap-4">
+        <div className="flex gap-4 mb-3">
             <Link
                 to="/Clients"
                 className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/Clients"
-                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        ? "text-[#FF677D] border-[#FF677D] "
                         : "text-gray-800"
                 }`}>
                 Clientes
@@ -19,7 +19,7 @@ export const LinkClients = () => {
                 to="/patients"
                 className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/patients"
-                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        ? "text-[#FF677D] border-[#FF677D]"
                         : "text-gray-800"
                 }`}>
                 Pacientes
@@ -29,7 +29,7 @@ export const LinkClients = () => {
                 to="/Functionary"
                 className={`border-b-2 pb-1 px-2 transition-colors duration-300 ${
                     location.pathname === "/Functionary"
-                        ? "text-[#FF677D] border-[#FF677D] text-2xl"
+                        ? "text-[#FF677D] border-[#FF677D]"
                         : "text-gray-800"
                 }`}>
                 Profesionales

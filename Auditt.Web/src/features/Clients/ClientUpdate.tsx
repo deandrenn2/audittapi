@@ -78,7 +78,7 @@ export const ClientUpdate = ({ data }: { data: ClientModel }) => {
                 </div>
 
                 <div>
-                    <button type="submit" className=" bg-[#392F5A] hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
+                    <button type="submit" className="cursor-pointer  bg-[#392F5A] hover:bg-indigo-900 text-white px-8 py-2 rounded-lg font-semibold">
                         {updateClient.isPending ? "Actualizando..." : "Actualizar"}
                     </button>
                 </div>
