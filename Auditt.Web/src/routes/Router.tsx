@@ -64,22 +64,22 @@ export const router = createBrowserRouter([
                 path: 'Quarterly/:Id',
                 element: <QuarterlyDetail />,
             },
-
             {
                 path: '/Assessments',
                 element: <Assessments />,
             },
-
             {
                 path: 'Assessments/Create/:Id',
                 element: <AssessmentDetail />,
             },
-
+            {
+                path: 'Assessments/Create',
+                element: <AssessmentDetail />,
+            },
             {
                 path: '/Settings',
                 element: <Settings />,
             },
-
             {
                 path: '/Users',
                 element: <Users />,

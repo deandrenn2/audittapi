@@ -34,7 +34,7 @@ public class GetAssessments : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Login.ErrorValidation", "Se presentaron errores de validación")));
+                return Results.ValidationProblem(result.GetValidationProblems());
             }
             var assessments = await context.Assessments.Include(x => x.Patient).Include(x => x.Functionary).Include(x => x.Valuations).ToListAsync(cancellationToken);
             var response = assessments.Select(x => new GetAssessmentsResponse(x.Id, x.Patient.Identification, $"{x.Functionary.LastName} {x.Functionary.FirstName}", x.Date)).ToList();

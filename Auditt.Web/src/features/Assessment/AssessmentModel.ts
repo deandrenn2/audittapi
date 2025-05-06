@@ -25,11 +25,13 @@ export interface AssessmentDetailModel {
 	idPatient: number;
 	date: string;
 	eps: string;
+	yearOld: string;
 	idUserCreated: number;
 	idUserUpdate: number;
 	updateDate: string;
 	createDate: string;
 	valuations: ValuationModel[];
+	idScale: number;
 }
 
 export interface ValuationModel {

@@ -32,10 +32,7 @@ public class UpdatePatient : ICarterModule
             var result = validator.Validate(request);
             if (!result.IsValid)
             {
-                return Results.Ok(Result<Dictionary<string, string[]>>.Failure(
-                result.GetValidationProblems(),
-                new Error("Patient.ErrorValidation", "Se presentaron errores de validación")
-            ));
+                return Results.ValidationProblem(result.GetValidationProblems());
             }
             var patient = await context.Patients.FindAsync(request.Id);
             if (patient == null)

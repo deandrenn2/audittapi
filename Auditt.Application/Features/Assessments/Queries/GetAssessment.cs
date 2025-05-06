@@ -46,10 +46,10 @@ public class GetAssessment : ICarterModule
                 return Results.NotFound(Result<IResult>.Failure(Results.NotFound(), new Error("Assessment.NotFound", "No se encontró la evaluación")));
             }
 
-            var valuations = assessment.Valuations.Select(x => new ValuationModel(x.Id, x.Order, x.Text, x.IdAssessment, x.IdEquivalence, x.IdQuestion)).ToList();
+            var valuations = assessment.Valuations.Select(x => new ValuationModel(x.Id, x.Order, x.Text, x.AssessmentId, x.EquivalenceId, x.IdQuestion)).ToList();
 
 
-            var response = new GetAssessmentResponse(assessment.Id, assessment.IdDataCut, assessment.IdFunctionary, assessment.IdPatient, assessment.YearOld, assessment.Date, assessment.Eps, assessment.IdUserCreated, assessment.IdUserUpdate, assessment.UpdateDate, assessment.CreateDate, valuations);
+            var response = new GetAssessmentResponse(assessment.Id, assessment.DataCutId, assessment.FunctionaryId, assessment.PatientId, assessment.YearOld, assessment.Date, assessment.Eps, assessment.IdUserCreated, assessment.IdUserUpdate, assessment.UpdateDate, assessment.CreateDate, valuations);
             return Results.Ok(Result<GetAssessmentResponse>.Success(response, "Se obtuvo la evaluación correctamente"));
         }
     }

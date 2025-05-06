@@ -68,7 +68,8 @@ public class AppDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new DataCutConfiguration());
-
+        modelBuilder.ApplyConfiguration(new RolesConfiguration());
+        modelBuilder.ApplyConfiguration(new AssessmentConfiguration());
     }
 
 }
