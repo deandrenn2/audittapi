@@ -44,7 +44,7 @@ export const Roles = () => {
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar esta escala?',
+            title: '¿Estás seguro de eliminar esta roles?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -81,7 +81,7 @@ export const Roles = () => {
                 </button>
             </form>
 
-            <div className="w-4xl border rounded p-4 mb-4">
+            <div className="w-4xl  p-4 mb-4">
                 <div>
                     {roles?.map((role) => (
                         <div key={role.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
@@ -101,12 +101,12 @@ export const Roles = () => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                
+                                <h2>hola</h2>
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
+            </div> 
             <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <Management/>
             </OffCanvas>

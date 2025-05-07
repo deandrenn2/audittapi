@@ -58,8 +58,9 @@ export const Guide = () => {
         <div className="p-6 w-full">
             <div>
                 <div className="flex">
+                     <h2 className="text-2xl font-semibold mr-2 mb-5 ">Instrumentos o Guias</h2>
                     <div className="relative">
-                        <div className=" inline-flex mb-5 mr-2">
+                        <div className=" inline-flex  mr-2">
                             <input type="text"
                                 value={searGuide}
                                 onChange={(e) => setSearGuide(e.target.value)}
@@ -72,7 +73,6 @@ export const Guide = () => {
                     <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
                         Crear Instrumento
                     </button>
-                    <h2 className="text-2xl font-semibold ">Instrumentos o Guias</h2>
                 </div>
 
                 <div>
@@ -101,6 +101,7 @@ export const Guide = () => {
                         ))}
                     </div>
                 </div>
+                
                 <OffCanvas titlePrincipal="Crear Instrumentos" visible={visible} xClose={() => setVisible(false)} position={Direction.Right}>
                     <GuidesCreate />
                 </OffCanvas>

@@ -34,7 +34,7 @@ export const Users = () => {
                     <div>
                         <div>
                             <img
-                                src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
+                                src={user?.urlProfile}
                                 alt="logo"
                                 className="min-w-16 rounded-full w-20 h-20" />
                         </div>

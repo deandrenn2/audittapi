@@ -61,7 +61,6 @@ export const Questions = () => {
             <div>
                 <section className=" p-2 bg-white">
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold mb-2">Instrumento de Adherencia a GPC</label>
                         <div className="flex">
                             <select
                                 name="idGuide"
@@ -81,25 +80,25 @@ export const Questions = () => {
                             </div>
                         </div>
                     </div>
-
                     {selectedGuide && (
                         <div className="mb-4">
                             <h3 className="text-lg font-semibold">Preguntas de la guía: {selectedGuide.name}</h3>
                         </div>
                     )}
-
                     {questions
                         ?.filter((question) => question.idGuide === selectedIdguide)
                         .map((question) => (
-                            <div key={question.id} className="flex  space-x-1 mb-4 w-full">
-                                <div className=" bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden w-full">
-                                    {question.text}
-                                </div>
-                                <div className="flex ">
-                                    <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
-                                    <div onClick={() => handleClickDetail(question)}>
-                                        <ButtonUpdate />
+                            <div key={question.id} className="flex space-x-1 mb-4 w-full">
+                                <div className="bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden w-full">
+                                   <div className="flex justify-between items-center ">
+                                    <div>{question.text}</div>
+                                    <div className="mt-2 flex space-x-2">
+                                        <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
+                                        <div onClick={() => handleClickDetail(question)}>
+                                            <ButtonUpdate />
+                                        </div>
                                     </div>
+                                   </div>
                                 </div>
                             </div>
                         ))}
