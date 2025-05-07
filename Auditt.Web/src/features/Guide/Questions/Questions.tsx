@@ -90,7 +90,7 @@ export const Questions = () => {
                         .map((question) => (
                             <div key={question.id} className="flex space-x-1 mb-4 w-full">
                                 <div className="bg-green-100 text-gray-900 p-2 rounded break-words whitespace-pre-wrap overflow-hidden w-full">
-                                   <div className="flex justify-between items-start ">
+                                   <div className="flex justify-between items-center ">
                                     <div>{question.text}</div>
                                     <div className="mt-2 flex space-x-2">
                                         <ButtonDelete id={question.id ?? 0} onDelete={handleDelete} />
