@@ -15,8 +15,9 @@ export const Sidebar = () => {
                   <img
                      src={`${user?.urlProfile}`}
                      alt="avatar"
-                     className="min-w-16 rounded-full w-20 h-20" />
+                  className="min-w-16 rounded-full w-20 h-20"/>
                </div>
+               
                <div>
                   <h4 className="text-white font-semibold w-64 truncate overflow-hidden whitespace-nowra p-2 text-center">
                      {user?.firstName} {user?.lastName}
