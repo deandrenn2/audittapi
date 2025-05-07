@@ -26,19 +26,22 @@ public class GetRoles : ICarterModule
         .Produces<List<GetRolesResponse>>(StatusCodes.Status200OK);
     }
     public record GetRolesCommand() : IRequest<IResult>;
-    public record GetRolesResponse(int Id, string Name, string Description);
+    public record GetRolesResponse(int Id, string Name, string Description, List<PermissionModel> Permissions);
+
+    public record PermissionModel(int Id, string Name, string Code, string? Description);
 
     public class GetRolesHandler(AppDbContext context) : IRequestHandler<GetRolesCommand, IResult>
     {
         public async Task<IResult> Handle(GetRolesCommand request, CancellationToken cancellationToken)
         {
 
-            var roles = await context.Roles.ToListAsync(cancellationToken);
+            var roles = await context.Roles.Include(x => x.Permissions).ToListAsync(cancellationToken);
             if (roles == null || roles.Count == 0)
             {
                 return Results.NotFound(new { Message = "No se encontraron roles" });
             }
-            var resModel = roles.Select(role => new GetRolesResponse(role.Id, role.Name, role.Description)).ToList();
+            var resModel = roles.Select(role => new GetRolesResponse(role.Id, role.Name, role.Description,
+            [.. role.Permissions.Select(permission => new PermissionModel(permission.Id, permission.Name, permission.Code, permission.Description))])).ToList();
             return Results.Ok(Result<List<GetRolesResponse>>.Success(resModel, "Roles encontrados correctamente"));
         }
     }

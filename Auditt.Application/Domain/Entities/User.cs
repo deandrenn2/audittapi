@@ -3,6 +3,7 @@ using Auditt.Application.Domain.Extensions;
 using Auditt.Application.Domain.Primitives;
 using Auditt.Domain.Extensions;
 using Auditt.Domain.Shared;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Auditt.Application.Domain.Entities;
 
@@ -37,6 +38,7 @@ public class User : AggregateRoot
     public string SecurePharse { get; private set; }
     public int StatusId { get; private set; } = 1;
     public int IdAvatar { get; private set; } = NumberRandom.Random(1, 20);
+    public string UrlProfile { get; private set; }
 
     public static User Create(int id,
     string firstName,
@@ -98,6 +100,11 @@ public class User : AggregateRoot
     public void SetAvatar(int id)
     {
         IdAvatar = id;
+    }
+
+    public void SetProfileUrl(string url)
+    {
+        UrlProfile = url;
     }
 }
 

@@ -13,16 +13,19 @@ import Swal from "sweetalert2";
 import { DataCutUpdateForm } from "./DataCutUpdateForm";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useUserContext from "../../shared/context/useUserContext";
+import { DataCutModel } from "./DataCutModels";
 
 export const DataCuts = () => {
+    const { client } = useUserContext();
     const [visibleCreate, setVisibleCreate] = useState(false);
     const [visibleUpdate, setVisibleUpdate] = useState(false);
-    const [selectedDataCut, setSelectedDataCut] = useState(null);
+    const [selectedDataCut, setSelectedDataCut] = useState<DataCutModel | null>(null);
     const { queryDataCuts, dataCuts, deleteDataCut } = useDataCuts();
     const [searDataCuts, setSearDataCuts] = useState('');
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un cliente",
+        value: client?.id?.toString(),
+        label: client?.name,
     }));
 
 
@@ -37,7 +40,7 @@ export const DataCuts = () => {
         });
     };
 
-    const handleUpdateClick = (item: any) => {
+    const handleUpdateClick = (item: DataCutModel) => {
         setSelectedDataCut(item);
         setVisibleUpdate(true);
     };
@@ -59,9 +62,9 @@ export const DataCuts = () => {
     }
 
     if (queryDataCuts.isLoading) return <Bar />;
-    
+
     const filteredDataCut = dataCuts?.filter(item =>
-         `${item.name} `.toLocaleLowerCase().includes(searDataCuts.toLowerCase()) )
+        `${item.name} `.toLocaleLowerCase().includes(searDataCuts.toLowerCase()))
 
     return (
         <div className="flex-1 p-8">

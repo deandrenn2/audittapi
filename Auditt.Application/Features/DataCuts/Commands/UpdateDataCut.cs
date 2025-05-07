@@ -38,7 +38,7 @@ public class UpdateDataCut : ICarterModule
             }
             dataCut.Update(request.Name, request.Cycle, request.InitialDate, request.FinalDate, request.MaxHistory);
             await _context.SaveChangesAsync(cancellationToken);
-            return Results.Ok(new UpdateDataCutResponse(dataCut.Id, dataCut.Name, dataCut.Cycle, dataCut.InitialDate, dataCut.FinalDate, dataCut.MaxHistory));
+            return Results.Ok(Result<UpdateDataCutResponse>.Success(new UpdateDataCutResponse(dataCut.Id, dataCut.Name, dataCut.Cycle, dataCut.InitialDate, dataCut.FinalDate, dataCut.MaxHistory), "Actualizado correctamente"));
         }
     }
 

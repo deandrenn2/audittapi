@@ -14,13 +14,13 @@ namespace Auditt.Application.Features.Users;
 
 public class GetCurrentUser : ICarterModule
 {
-    public record GetCurrentUserResponse(int Id, string? FirstName, string? LastName, string? Email, int? IdAvatar);
+    public record GetCurrentUserResponse(int Id, string? FirstName, string? LastName, string? Email, int? IdAvatar, string UrlProfile);
     public record GetCurrentUserQuery(string Token) : IRequest<IResult>;
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/api/user/me", async (HttpContext req, IMediator mediator) =>
         {
-            return await mediator.Send(new GetCurrentUserQuery(req.Request.Cookies["access_token"]?? ""));
+            return await mediator.Send(new GetCurrentUserQuery(req.Request.Cookies["access_token"] ?? ""));
         })
         .WithName(nameof(GetCurrentUser))
         .WithTags(nameof(User))
@@ -31,7 +31,7 @@ public class GetCurrentUser : ICarterModule
         public async Task<IResult> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
         {
 
-            if (string.IsNullOrWhiteSpace(request.Token)) 
+            if (string.IsNullOrWhiteSpace(request.Token))
                 return Results.Unauthorized();
 
             var email = managerToken.ValidateToken(request.Token);
@@ -41,14 +41,15 @@ public class GetCurrentUser : ICarterModule
             var user = await context.Users.FirstOrDefaultAsync();
             if (user == null)
             {
-                return Results.Ok( Result.Failure( new Error("User.GetCurrent", "No se encontró el usuario actual")));
+                return Results.Ok(Result.Failure(new Error("User.GetCurrent", "No se encontró el usuario actual")));
             }
             var currentUser = new GetCurrentUserResponse(
                 user.Id,
                 user.FirstName,
                 user.LastName,
                 user.Email,
-                user.IdAvatar
+                user.IdAvatar,
+                user.UrlProfile
             );
             return Results.Ok(Result<GetCurrentUserResponse>.Success(currentUser, "Usuario actual"));
         }

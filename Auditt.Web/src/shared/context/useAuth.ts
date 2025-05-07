@@ -1,12 +1,10 @@
 // stores/useAuth.ts
 import { create } from "zustand";
+import { UserResponseModel } from "../../routes/Login/LoginModel";
 const apiUrl = import.meta.env.VITE_API_URL;
-type User = {
-	email: string;
-};
 
 type AuthStore = {
-	user: User | null;
+	user: UserResponseModel | null;
 	loading: boolean;
 	checkAuth: () => Promise<void>;
 	logout: () => Promise<void>;
@@ -27,7 +25,7 @@ export const useAuth = create<AuthStore>((set) => ({
 				set({ user: null });
 			} else {
 				const data = await res.json();
-				set({ user: data });
+				set({ user: data?.data });
 			}
 		} catch {
 			set({ user: null });

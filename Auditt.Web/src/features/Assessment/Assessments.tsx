@@ -5,12 +5,14 @@ import { SingleValue } from "react-select";
 import { Link } from "react-router-dom";
 import { useAssessments } from "./useAssessment";
 import { Bar } from "../../shared/components/Progress/Bar";
+import useUserContext from "../../shared/context/useUserContext";
 
 export const Assessments = () => {
     const { queryAssessments, assessments, deleteAssessment } = useAssessments();
+    const { client } = useUserContext();
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un cliente",
+        value: client?.id?.toString(),
+        label: client?.name,
     }));
 
     const handleChangeClient = (newValue: SingleValue<Option>) => {
