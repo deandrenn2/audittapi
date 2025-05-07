@@ -34,11 +34,11 @@ public class GetCurrentUser : ICarterModule
             if (string.IsNullOrWhiteSpace(request.Token))
                 return Results.Unauthorized();
 
-            var email = managerToken.ValidateToken(request.Token);
-            if (email == null) return Results.Unauthorized();
+            var idUser = managerToken.ValidateToken(request.Token);
+            if (idUser == null) return Results.Unauthorized();
 
 
-            var user = await context.Users.FirstOrDefaultAsync();
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(idUser), cancellationToken);
             if (user == null)
             {
                 return Results.Ok(Result.Failure(new Error("User.GetCurrent", "No se encontró el usuario actual")));
