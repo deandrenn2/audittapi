@@ -5,7 +5,6 @@ import useUserContext from '../shared/context/useUserContext';
 export const Sidebar = () => {
    const urlApi = import.meta.env.VITE_API_URL;
    const { user } = useUserContext();
-   console.log("Avatar ID:", user?.idAvatar);
    return (
       <div
          id="sidebar"
