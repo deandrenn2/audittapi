@@ -5,7 +5,7 @@ import { useAuth } from '../shared/context/useAuth';
 import { useEffect } from 'react';
 
 export default function Root() {
-   const { setIsAuthenticated } = useUserContext();
+   const { setIsAuthenticated, setUser } = useUserContext();
    const { checkAuth, loading, user } = useAuth();
    const navigate = useNavigate();
 
@@ -19,8 +19,9 @@ export default function Root() {
          navigate('/login', { replace: true });
       } else {
          setIsAuthenticated(true);
+         setUser(user);
       }
-   }, [user, loading, navigate, setIsAuthenticated]);
+   }, [user, loading, navigate, setIsAuthenticated, setUser]);
 
    if (loading) {
       return <div className="flex justify-center items-center h-screen">Loading...</div>;

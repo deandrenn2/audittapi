@@ -7,11 +7,13 @@ import {
 	GetAssessments,
 } from "./AssessmentServices";
 import { toast } from "react-toastify";
+import useUserContext from "../../shared/context/useUserContext";
 
 export const useAssessments = () => {
+	const { client } = useUserContext();
 	const queryAssessments = useQuery({
 		queryKey: ["Assessments"],
-		queryFn: GetAssessments,
+		queryFn: () => GetAssessments(client?.id ?? 0),
 	});
 
 	const createAssessment = useMutation({

@@ -72,6 +72,7 @@ public class GoogleCallbackEndPoint : ICarterModule
             var email = userRes.GetProperty("email").GetString();
             var firstName = userRes.GetProperty("given_name").GetString() ?? "";
             var lastName = userRes.GetProperty("family_name").GetString() ?? "";
+            var urlProfile = userRes.GetProperty("picture").GetString();
 
             var user = await context.Users.Where(x => x.Email == email).FirstOrDefaultAsync(ct);
             var guidPass = Guid.NewGuid().ToString();
@@ -80,8 +81,9 @@ public class GoogleCallbackEndPoint : ICarterModule
                 if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(email))
                 {
                     user = User.Create(0, firstName, lastName, email, guidPass, "Auth Google", 1);
+                    user.SetProfileUrl(urlProfile ?? "");
                     context.Add(user);
-                    var resCount = await context.SaveChangesAsync();
+                    var resCount = await context.SaveChangesAsync(ct);
 
                     if (resCount == 0)
                     {

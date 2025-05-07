@@ -6,10 +6,10 @@ import {
 	AssessmentListModel,
 } from "./AssessmentModel";
 
-export const GetAssessments = async (): Promise<
-	MsgResponse<AssessmentListModel[]>
-> => {
-	const url = `api/assessments`;
+export const GetAssessments = async (
+	idInstitution: number
+): Promise<MsgResponse<AssessmentListModel[]>> => {
+	const url = `api/assessments/${idInstitution}`;
 	const response = await ApiClient.get<MsgResponse<AssessmentListModel[]>>(url);
 
 	if (response.status !== 200) {

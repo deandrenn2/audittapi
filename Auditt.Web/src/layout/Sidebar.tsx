@@ -13,17 +13,17 @@ export const Sidebar = () => {
             <div className="flex flex-col items-center p-4 justify-center">
                <div>
                   <img
-                     src={`${import.meta.env.BASE_URL}images/avatars/bigSmile-${user?.idAvatar}.svg`}
+                     src={`${user?.urlProfile}`}
                      alt="avatar"
-                     className="min-w-16 rounded-full w-20 h-20"/>
+                     className="min-w-16 rounded-full w-20 h-20" />
                </div>
                <div>
-                  <h4 className="text-white font-semibold">
+                  <h4 className="text-white font-semibold w-64 truncate overflow-hidden whitespace-nowra p-2 text-center">
                      {user?.firstName} {user?.lastName}
                   </h4>
                </div>
             </div>
-               <p className='text-center text-sm text-gray-300 '>NAVEGACIÓN</p>
+            <p className='text-center text-sm text-gray-300 '>NAVEGACIÓN</p>
             <nav>
                <ul className="space-y-1">
                   <MenuItem icon={faHouse} path='/' text='Inicio' />

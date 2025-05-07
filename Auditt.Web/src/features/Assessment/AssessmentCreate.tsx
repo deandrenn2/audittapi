@@ -11,15 +11,17 @@ import { usePatientByDocumentMutation } from "../Clients/Patients/UsePatients";
 import { parseISO, differenceInYears } from "date-fns";
 import { AssessmentDetailModel } from "./AssessmentModel";
 import { AssessmentValuations } from "./AssessmentValuations";
+import useUserContext from "../../shared/context/useUserContext";
 
 export const AssessmentCreate = () => {
+    const { client } = useUserContext();
     const { createAssessment } = useAssessments();
     const { getPatientByDocumentMutation } = usePatientByDocumentMutation();
     const { getAssessmentByDocumentMutation } = useAssessmentByDocumentMutation();
     const [assessment, setAssessment] = useState<AssessmentDetailModel | undefined>(undefined);
     const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un cliente",
+        value: client?.id?.toString(),
+        label: client?.name,
     }));
 
     const [selectedDataCut, setSelectedDataCut] = useState<Option | undefined>(() => ({
@@ -116,6 +118,10 @@ export const AssessmentCreate = () => {
 
     return (
         <div className="w-full">
+            <div className="flex items-center space-x-4 mb-4">
+                <span className="font-medium">IPS</span>
+                <ClientSelect className="w-lg" selectedValue={selectedClient} xChange={handleChangeClient} isSearchable={true} />
+            </div>
             <div className="flex space-x-4 mb-4 p-4">
                 <h1 className="text-2xl font-semibold mb-4">Medición de Adherencia</h1>
                 <Link to={'/Assessments/Create'} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2" >
@@ -125,10 +131,7 @@ export const AssessmentCreate = () => {
                 <div>
 
 
-                    <div className="flex items-center space-x-4 mb-4">
-                        <span className="font-medium">IPS</span>
-                        <ClientSelect className="w-lg" selectedValue={selectedClient} xChange={handleChangeClient} isSearchable={true} />
-                    </div>
+
                     <div className="flex items-center space-x-4 mb-4">
                         <span className="font-medium">Corte de Auditoria</span>
                         <DataCutSelect className="w-lg" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />

@@ -16,16 +16,16 @@ public class GetAssessmentByPatient : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/assessments/patients/{identity}", async (HttpRequest req, IMediator mediator, string identity) =>
+        app.MapGet("api/assessments/patients/{identity}", async (HttpRequest req, IMediator mediator, string identity, int idDataCut, int idFunctionary, int idPatient, int idInstitution) =>
         {
-            return await mediator.Send(new GetAssessmentByPatientQuery(identity));
+            return await mediator.Send(new GetAssessmentByPatientQuery(identity, idDataCut, idFunctionary, idPatient, idInstitution));
         })
         .WithName(nameof(GetAssessmentByPatient))
         .WithTags(nameof(Assessment))
         .ProducesValidationProblem()
         .Produces<GetAssessmentByPatientResponse>(StatusCodes.Status200OK);
     }
-    public record GetAssessmentByPatientQuery(string Identification) : IRequest<IResult>;
+    public record GetAssessmentByPatientQuery(string Identification, int IdDataCut, int IdFunctionary, int IdPatient, int IdInstitution) : IRequest<IResult>;
     public record GetAssessmentByPatientResponse(int Id, int IdDataCut, int IdFunctionary, int IdPatient, string YearOld, DateTime Date, string Eps, int IdUserCreated, int IdUserUpdate, DateTime UpdateDate, DateTime CreateDate, List<ValuationModel> Valuations, int IdScale);
     public record ValuationModel(int Id, int Order, string Text, int IdAssessment, int IdEquivalence, int? IdQuestion);
     public class GetAssessmentByPatientHandler(AppDbContext context, IValidator<GetAssessmentByPatientQuery> validator) : IRequestHandler<GetAssessmentByPatientQuery, IResult>
