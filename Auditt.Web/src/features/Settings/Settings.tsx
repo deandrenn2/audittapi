@@ -8,7 +8,7 @@ import useUserContext from "../../shared/context/useUserContext";
 export const Settings = () => {
    const {user} = useUserContext();
     const [visible, setVisible] = useState(false);
-
+    console.log('datos 2', user)
    
    const hadbleClick = () => {
        setVisible(true);
@@ -30,7 +30,6 @@ export const Settings = () => {
             </div>
             <div>
                 <div className="flex items-center space-x-6 border p-4 rounded-xl shadow-md w-max">
-
                     <div>
                         <div>
                             <img

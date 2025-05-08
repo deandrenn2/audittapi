@@ -8,7 +8,8 @@ import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
-import { Management } from "./Management";
+import { Permission } from "./Permission/Permission";
+import { PermissionCreate } from "./Permission/PermissionCreate";
 
 export const Roles = () => {
     const { roles, createRole, queryRoles, deleteRole } = useRoles();
@@ -101,14 +102,14 @@ export const Roles = () => {
                                 )}
                             </div>
                             <div className="mb-4">
-                                <h2>hola</h2>
+                                <Permission/>
                             </div>
                         </div>
                     ))}
                 </div>
             </div> 
-            <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                <Management/>
+            <OffCanvas titlePrincipal='Crear Permisos' visible={visible} xClose={handleClose} position={Direction.Right}  >
+                <PermissionCreate />
             </OffCanvas>
         </div>
     );

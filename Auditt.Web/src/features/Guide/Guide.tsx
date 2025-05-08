@@ -77,9 +77,9 @@ export const Guide = () => {
 
                 <div>
                     <div className="grid grid-cols-4">
-                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Nombre</div>
-                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Descripción</div>
-                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Preguntas</div>
+                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
+                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center"> DESCRIPCION</div>
+                        <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">PREGUNTAS</div>
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Opciones</div>
                     </div>
 

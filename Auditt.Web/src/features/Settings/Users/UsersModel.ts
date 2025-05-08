@@ -5,6 +5,7 @@ export interface UsersModel {
 	email: string;
 	password?: string;
 	securePharse?: string;
+	
 }
 
 export interface UsersResponseModel {
@@ -14,6 +15,8 @@ export interface UsersResponseModel {
 	email: string;
 	password?: string;
 	securePharse?: string;
+	idAvatar?: number;
+	urlProfile?: string;
 }
 
 export interface UsersAvatarModel {
