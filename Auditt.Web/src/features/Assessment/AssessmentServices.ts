@@ -4,6 +4,7 @@ import {
 	AssessmentCreateModel,
 	AssessmentDetailModel,
 	AssessmentListModel,
+	AssessmentModel,
 } from "./AssessmentModel";
 
 export const GetAssessments = async (
@@ -49,10 +50,19 @@ export const GetAssessmentById = async (
 };
 
 export const getAssessmentByDocument = async (
-	identity: string
+	model: AssessmentModel
 ): Promise<MsgResponse<AssessmentDetailModel>> => {
-	const url = `api/assessments/patients/${identity}`;
-	const response = await ApiClient.get<MsgResponse<AssessmentDetailModel>>(url);
+	const url = `api/assessments/patients/${model.identity}`;
+	const params = new URLSearchParams();
+	params.append("idDataCut", model.idDataCut.toString());
+	params.append("idFunctionary", model.idFunctionary.toString());
+	params.append("idPatient", model.idPatient.toString());
+	params.append("idInstitution", model.idInstitution.toString());
+	params.append("idGuide", model.idGuide.toString());
+	const response = await ApiClient.get<MsgResponse<AssessmentDetailModel>>(
+		url,
+		{ params }
+	);
 
 	if (response.status !== 200) {
 		return {

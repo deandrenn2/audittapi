@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Auditt.Application.Features.DataCuts;
 
@@ -26,17 +27,23 @@ public class GetDataCut : ICarterModule
     }
     public record GetDataCutQuery(int Id) : IRequest<IResult>;
     public record GetDataCutResponse(string Name, string Cycle, DateTime InitialDate, DateTime FinalDate, int MaxHistory, int InstitutionId);
-    public class GetDataCutHandler(AppDbContext context) : IRequestHandler<GetDataCutQuery, IResult>
+    public class GetDataCutHandler(AppDbContext context, IValidator<GetDataCutQuery> validator) : IRequestHandler<GetDataCutQuery, IResult>
     {
+
         public async Task<IResult> Handle(GetDataCutQuery request, CancellationToken cancellationToken)
         {
+            var result = validator.Validate(request);
+            if (!result.IsValid)
+            {
+                return Results.ValidationProblem(result.GetValidationProblems());
+            }
             var dataCut = await context.DataCuts.FindAsync(new object[] { request.Id }, cancellationToken);
             if (dataCut == null)
             {
                 return Results.NotFound(Result.Failure(new Error("Login.ErrorNotFound", "Corte no encontrado")));
             }
             var response = new GetDataCutResponse(dataCut.Name, dataCut.Cycle, dataCut.InitialDate, dataCut.FinalDate, dataCut.MaxHistory, dataCut.InstitutionId);
-            return Results.Ok(Result<GetDataCutResponse>.Success(response,"Lista de cortes de datos"));
+            return Results.Ok(Result<GetDataCutResponse>.Success(response, "Lista de cortes de datos"));
         }
     }
     public class GetDataCutValidator : AbstractValidator<GetDataCutQuery>

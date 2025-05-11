@@ -40,7 +40,7 @@ public class CreateRole : ICarterModule
             var idRol = await context.Roles.MaxAsync(x => x.Id, cancellationToken);
             idRolNext = idRol + 1;
 
-            var role = Role.Create(0, request.Name, request.Description);
+            var role = Role.Create(idRolNext, request.Name, request.Description);
             await context.Roles.AddAsync(role);
             var resCount = await context.SaveChangesAsync();
             if (resCount > 0)

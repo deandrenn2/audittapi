@@ -11,7 +11,7 @@ interface UserContext {
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 	setUser: (user: UserResponseModel | null) => void;
 	setToken: (token: TokenModel | null) => void;
-	setInstitution: (client: ClientModel | null) => void;
+	setClient: (client: ClientModel | null) => void;
 }
 
 const useUserContext = create(
@@ -25,7 +25,7 @@ const useUserContext = create(
 				set((state) => ({ ...state, isAuthenticated })),
 			setToken: (token: TokenModel | null) =>
 				set((state) => ({ ...state, token })),
-			setInstitution: (client: ClientModel | null) =>
+			setClient: (client: ClientModel | null) =>
 				set((state) => ({ ...state, client })),
 			setUser: (user: UserResponseModel | null) =>
 				set((state) => ({ ...state, user })),

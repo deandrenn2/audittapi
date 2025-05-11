@@ -1,5 +1,5 @@
 export interface AssessmentCreateModel {
-	idInstitucion: number;
+	idInstitution: number;
 	idDataCut: number;
 	idFunctionary: number;
 	idPatient: number;
@@ -16,6 +16,15 @@ export interface AssessmentListModel {
 	identificationPatient: string;
 	functionaryName: string;
 	date: Date;
+}
+
+export interface AssessmentModel {
+	idDataCut: number;
+	idFunctionary: number;
+	idPatient: number;
+	idInstitution: number;
+	identity: string;
+	idGuide: number;
 }
 
 export interface AssessmentDetailModel {

@@ -9,21 +9,29 @@ export interface Option {
 }
 
 
-export const ClientSelect = ({ selectedValue, name, className, xChange, required, isSearchable, isDisabled }: { selectedValue?: Option, name?: string, className?: string, xChange: (newValue: SingleValue<Option>) => void, required?: boolean, isSearchable?: boolean, isDisabled?: boolean }) => {
+export const ClientSelect = ({ selectedValue, name, className, xChange, required, isSearchable, isDisabled }: { selectedValue?: Option, name?: string, className?: string, xChange?: (newValue: SingleValue<Option>) => void, required?: boolean, isSearchable?: boolean, isDisabled?: boolean }) => {
     const { queryClients, clients } = useClient();
-    const { client, setInstitution } = useUserContext();
+    const { client, setClient } = useUserContext();
 
     useEffect(() => {
         if (!client && clients) {
-            setInstitution(clients[0]);
+            setClient(clients[0]);
         }
-    }, [client, setInstitution, clients]);
+    }, [client, setClient, clients]);
 
     const options: readonly Option[] | undefined = clients?.map((item) => ({
         value: item?.id?.toString(),
         label: isSearchable ? `${item.name} - ${item.nit} ` : (item.name + ' ' + item.nit),
     }));
 
+    const handleChangeClient = (newValue: SingleValue<Option>) => {
+        const newClient = clients?.find(x => x.id === Number(newValue?.value));
+        setClient(newClient ?? null);
+
+        if (xChange) {
+            xChange(newValue);
+        }
+    }
 
     if (options)
         return (
@@ -31,7 +39,7 @@ export const ClientSelect = ({ selectedValue, name, className, xChange, required
                 name={name || 'idClient'}
                 className={className}
                 value={selectedValue}
-                onChange={xChange}
+                onChange={handleChangeClient}
                 required={required}
                 loadingMessage={() => 'Cargando...'}
                 isDisabled={queryClients?.isLoading || isDisabled}

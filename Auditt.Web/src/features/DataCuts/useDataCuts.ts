@@ -7,12 +7,14 @@ import {
 	updateDataCutServices,
 } from "./DataCutServices";
 import { toast } from "react-toastify";
+import useUserContext from "../../shared/context/useUserContext";
 
 const KEY = "DataCut";
 export const useDataCuts = () => {
+	const { client } = useUserContext();
 	const queryDataCuts = useQuery({
-		queryKey: [KEY],
-		queryFn: GetDataCuts,
+		queryKey: [KEY, client?.id],
+		queryFn: () => GetDataCuts(client?.id ?? 0),
 	});
 
 	const createDataCut = useMutation({
@@ -72,7 +74,6 @@ export const useDataCuts = () => {
 		createDataCut,
 		updateDataCut,
 		deleteDataCut,
-		
 	};
 };
 

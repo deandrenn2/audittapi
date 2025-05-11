@@ -29,10 +29,10 @@ public class Assessment : AggregateRoot
     public Functionary Functionary { get; private set; }
     public int PatientId { get; private set; }
     public Patient Patient { get; private set; }
-    public string YearOld { get; private set; }
-    public DateTime Date { get; private set; }
     public int GuideId { get; private set; }
     public Guide Guide { get; private set; }
+    public DateTime Date { get; private set; }
+    public string YearOld { get; private set; }
     public string Eps { get; private set; }
     public int IdUserCreated { get; private set; }
     public int IdUserUpdate { get; private set; }
@@ -64,6 +64,15 @@ public class Assessment : AggregateRoot
         Eps = eps;
         IdUserUpdate = idUser;
         GuideId = idGuide;
+        UpdateDate = DateTime.Now;
+    }
+
+    public void Update(string yearOld, DateTime date, string eps, int idUser)
+    {
+        YearOld = yearOld;
+        Date = date;
+        Eps = eps;
+        IdUserUpdate = idUser;
         UpdateDate = DateTime.Now;
     }
 }
