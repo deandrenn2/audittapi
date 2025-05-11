@@ -2,8 +2,10 @@ import { ApiClient } from "../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../shared/model";
 import { DataCutModel } from "./DataCutModels";
 
-export const GetDataCuts = async (): Promise<MsgResponse<DataCutModel[]>> => {
-	const url = `api/datacuts`;
+export const GetDataCuts = async (
+	idInstitution: number
+): Promise<MsgResponse<DataCutModel[]>> => {
+	const url = `api/datacuts/${idInstitution}`;
 	const response = await ApiClient.get<MsgResponse<DataCutModel[]>>(url);
 	if (response.status !== 200) {
 		return {
@@ -81,22 +83,21 @@ export const updateDataCutServices = async (
 
 export const deleteDataCutServices = async (
 	id: number
-  ): Promise<MsgResponse<string>> => {
+): Promise<MsgResponse<string>> => {
 	const url = `api/datacut/${id}`;
 	const response = await ApiClient.delete<MsgResponse<string>>(url);
-  
+
 	if (response.status !== 200) {
-	  return {
-		isSuccess: false,
-		message: "Error al eliminar el corte",
-		isFailure: true,
-		error: {
-		  code: response.status.toString(),
-		  message: response.statusText,
-		},
-	  };
+		return {
+			isSuccess: false,
+			message: "Error al eliminar el corte",
+			isFailure: true,
+			error: {
+				code: response.status.toString(),
+				message: response.statusText,
+			},
+		};
 	}
-  
+
 	return response.data;
-  };
-  
+};

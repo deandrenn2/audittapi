@@ -12,7 +12,7 @@ import useUserContext from "../../shared/context/useUserContext";
 export const useAssessments = () => {
 	const { client } = useUserContext();
 	const queryAssessments = useQuery({
-		queryKey: ["Assessments"],
+		queryKey: ["Assessments", client?.id],
 		queryFn: () => GetAssessments(client?.id ?? 0),
 	});
 

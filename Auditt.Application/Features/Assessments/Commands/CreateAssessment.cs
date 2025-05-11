@@ -28,7 +28,7 @@ public class CreateAssessment : ICarterModule
     public record CreateAssessmentCommand : IRequest<IResult>
     {
         public int Id { get; set; }
-        public int IdInstitucion { get; set; }
+        public int IdInstitution { get; set; }
         public int IdDataCut { get; set; }
         public int IdFunctionary { get; set; }
         public int IdPatient { get; set; }
@@ -56,7 +56,7 @@ public class CreateAssessment : ICarterModule
                 return Results.Ok(Result.Failure(new Error("Login.ErrorCreateAssessment", "La evaluación ya existe")));
             }
 
-            var newAssessment = Assessment.Create(0, request.IdInstitucion, request.IdDataCut, request.IdFunctionary, request.IdPatient, request.YearOld, request.Date, request.Eps, request.IdUser, request.IdGuide);
+            var newAssessment = Assessment.Create(0, request.IdInstitution, request.IdDataCut, request.IdFunctionary, request.IdPatient, request.YearOld, request.Date, request.Eps, request.IdUser, request.IdGuide);
 
             var guide = await context.Guides.Include(x => x.Scale).ThenInclude(x => x.Equivalences).Where(x => x.Id == request.IdGuide).FirstOrDefaultAsync(cancellationToken);
             var valuations = new List<Valuation>();
@@ -102,14 +102,10 @@ public class CreateAssessment : ICarterModule
     {
         public CreateAssessmentValidator()
         {
-            RuleFor(x => x.IdInstitucion).NotEmpty().WithMessage("La institución es requerida");
-            RuleFor(x => x.IdInstitucion).GreaterThan(0).WithMessage("La institución es requerida");
+            RuleFor(x => x.IdInstitution).GreaterThan(0).WithMessage("La institución es requerida");
             RuleFor(x => x.IdDataCut).NotEmpty().WithMessage("El corte de datos es requerido");
             RuleFor(x => x.IdFunctionary).NotEmpty().WithMessage("El funcionario es requerido");
             RuleFor(x => x.IdPatient).NotEmpty().WithMessage("El paciente es requerido");
-            RuleFor(x => x.YearOld).NotEmpty().WithMessage("La edad es requerida");
-            RuleFor(x => x.Date).NotEmpty().WithMessage("La fecha es requerida");
-            RuleFor(x => x.Eps).NotEmpty().WithMessage("La EPS es requerida");
             RuleFor(x => x.IdUser).NotEmpty().WithMessage("El usuario es requerido");
         }
     }

@@ -45,4 +45,9 @@ public class Valuation : AggregateRoot
         IdUserUpdate = idUser;
         UpdateDate = new DateTime();
     }
+
+    public void UpdateEqui(int idEquivalence)
+    {
+        EquivalenceId = idEquivalence;
+    }
 }

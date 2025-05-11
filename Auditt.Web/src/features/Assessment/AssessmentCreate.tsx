@@ -1,28 +1,27 @@
 import { useState } from "react";
 import { Option } from "../../shared/model";
-import { ClientSelect } from "../Clients/ClientSelect"
 import { SingleValue } from "react-select";
 import { DataCutSelect } from "../DataCuts/DataCutsSelect";
 import { FunctionarySelect } from "../Clients/Professionals/FunctionarySelect";
 import { GuideSelect } from "../Guide/GuideSelect";
-import { Link } from "react-router-dom";
 import { useAssessmentByDocumentMutation, useAssessments } from "./useAssessment";
 import { usePatientByDocumentMutation } from "../Clients/Patients/UsePatients";
 import { parseISO, differenceInYears } from "date-fns";
-import { AssessmentDetailModel } from "./AssessmentModel";
+import { AssessmentDetailModel, AssessmentModel } from "./AssessmentModel";
 import { AssessmentValuations } from "./AssessmentValuations";
 import useUserContext from "../../shared/context/useUserContext";
 
 export const AssessmentCreate = () => {
     const { client } = useUserContext();
+
     const { createAssessment } = useAssessments();
     const { getPatientByDocumentMutation } = usePatientByDocumentMutation();
     const { getAssessmentByDocumentMutation } = useAssessmentByDocumentMutation();
     const [assessment, setAssessment] = useState<AssessmentDetailModel | undefined>(undefined);
-    const [selectedClient, setSelectedClient] = useState<Option | undefined>(() => ({
+    const selectedClient: Option | undefined = {
         value: client?.id?.toString(),
         label: client?.name,
-    }));
+    };
 
     const [selectedDataCut, setSelectedDataCut] = useState<Option | undefined>(() => ({
         value: "0",
@@ -40,12 +39,7 @@ export const AssessmentCreate = () => {
     }));
 
 
-    const handleChangeClient = (newValue: SingleValue<Option>) => {
-        setSelectedClient({
-            value: newValue?.value,
-            label: newValue?.label,
-        });
-    }
+
 
     const handleChangeDataCut = (newValue: SingleValue<Option>) => {
         setSelectedDataCut({
@@ -75,14 +69,20 @@ export const AssessmentCreate = () => {
         const formData = new FormData(form);
         const client = Object.fromEntries(formData.entries());
         const documentSearch = client["document"].toString();
+
         const patientRes = await getPatientByDocumentMutation.mutateAsync(documentSearch);
-
-
 
         if (patientRes.isSuccess) {
             const patient = patientRes?.data;
-
-            const assessment = await getAssessmentByDocumentMutation.mutateAsync(documentSearch);
+            const patientSearch: AssessmentModel = {
+                identity: documentSearch,
+                idDataCut: Number(selectedDataCut?.value),
+                idFunctionary: Number(selectedFunctionary?.value),
+                idPatient: Number(selectedClient?.value),
+                idInstitution: Number(selectedClient?.value),
+                idGuide: Number(selectedGuide?.value),
+            };
+            const assessment = await getAssessmentByDocumentMutation.mutateAsync(patientSearch);
 
             if (assessment.isSuccess) {
                 setAssessment(assessment?.data);
@@ -94,7 +94,7 @@ export const AssessmentCreate = () => {
                 const age = differenceInYears(today, birthDate);
 
                 const res = await createAssessment.mutateAsync({
-                    idInstitucion: Number(selectedClient?.value),
+                    idInstitution: Number(selectedClient?.value),
                     idDataCut: Number(selectedDataCut?.value),
                     idFunctionary: Number(selectedFunctionary?.value),
                     idPatient: patient?.id ?? 0,
@@ -106,7 +106,7 @@ export const AssessmentCreate = () => {
                 });
 
                 if (res.isSuccess) {
-                    const assessment = await getAssessmentByDocumentMutation.mutateAsync(documentSearch);
+                    const assessment = await getAssessmentByDocumentMutation.mutateAsync(patientSearch);
                     if (assessment.isSuccess)
                         setAssessment(assessment?.data);
 
@@ -118,83 +118,80 @@ export const AssessmentCreate = () => {
 
     return (
         <div className="w-full">
-            <div className="flex items-center space-x-4 mb-4">
-                <span className="font-medium">IPS</span>
-                <ClientSelect className="w-lg" selectedValue={selectedClient} xChange={handleChangeClient} isSearchable={true} />
+
+            <div className="flex py-2">
+                <h1 className="text-2xl font-semibold mb-2">Medición de Adherencia</h1>
+
             </div>
-            <div className="flex space-x-4 mb-4 p-4">
-                <h1 className="text-2xl font-semibold mb-4">Medición de Adherencia</h1>
-                <Link to={'/Assessments/Create'} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2" >
-                    Ir a Indicadores e informes</Link>
-            </div>
-            <div className="grid grid-cols-2">
-                <div>
-
-
-
-                    <div className="flex items-center space-x-4 mb-4">
-                        <span className="font-medium">Corte de Auditoria</span>
-                        <DataCutSelect className="w-lg" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
+            <div className="grid grid-cols-2 gap-4">
+                <div className="p-1">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="flex flex-col space-x-4 mb-4">
+                            <span className="font-medium">Corte de Auditoria</span>
+                            <DataCutSelect className="w-full" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
+                        </div>
+                        <div className="flex flex-col space-x-4 mb-4">
+                            <span className="font-medium">Profesiona evaluado</span>
+                            <FunctionarySelect className="w-full" selectedValue={selectedFunctionary} xChange={handleChangeFunctionary} isSearchable={true} />
+                        </div>
                     </div>
-                    <div className="flex items-center space-x-4 mb-4">
-                        <span className="font-medium">Profesiona evaluado</span>
-                        <FunctionarySelect className="w-lg" selectedValue={selectedFunctionary} xChange={handleChangeFunctionary} isSearchable={true} />
-                    </div>
-                    <div className="flex items-center space-x-4 mb-4">
+
+                    <div className="flex flex-col space-x-4 mb-4">
                         <span className="font-medium">Instrumento de adherencia a GPC</span>
-                        <GuideSelect className="w-lg" selectedValue={selectedGuide} xChange={handleChangeGuide} isSearchable={true} />
+                        <GuideSelect className="w-full" selectedValue={selectedGuide} xChange={handleChangeGuide} isSearchable={true} />
                     </div>
 
                 </div>
-                <div>
+                <div className=" bg-gray-200 rounded-2xl p-2">
 
-                    <div className="flex flex-col space-y-4 p-4">
-                        <form onSubmit={handlePatientFind} className="flex flex-col space-y-4">
-                            <div className="flex flex-col">
-                                <label htmlFor="licenseInput" className="font-medium mb-2">Id del Paciente</label>
+                    <div className="flex flex-col space-y-4 p-1 bg-gray">
+                        <div className="flex flex-col">
+                            <label htmlFor="licenseInput" className="font-medium ">Id del Paciente</label>
+                            <form onSubmit={handlePatientFind} className="flex">
                                 <input
                                     id="licenseInput"
                                     type="text"
                                     name="document"
                                     placeholder="Ingrese el número de identificación del paciente"
-                                    className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    className="border border-gray-300 bg-white rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
-                            </div>
-                            <button
-                                className="bg-[#392F5A] hover:bg-purple-950 text-white px-6 py-2 rounded-lg font-semibold cursor-pointer"
-                                disabled={createAssessment.isPending}
-                            >
-                                {createAssessment.isPending ? "Generando..." : "Diligenciar"}
-                            </button>
-                        </form>
+                                <button
+                                    className="bg-[#392F5A] hover:bg-purple-950 text-white px-6 py-2 rounded-r-lg font-semibold cursor-pointer"
+                                    disabled={createAssessment.isPending}
+                                >
+                                    {createAssessment.isPending ? "Generando..." : "Diligenciar"}
+                                </button>
+                            </form>
+                        </div>
                         <div className="flex">
                             <div>
                                 <label htmlFor="licenseInput" className="font-medium mb-2">Edad</label>
                                 <input
-                                    disabled
                                     type="text"
+                                    disabled={!assessment?.yearOld}
                                     value={assessment?.yearOld}
                                     placeholder="Edad"
-                                    className="border disabled:bg-gray-200 border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    className="border disabled:bg-gray-200  bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
                             </div>
                             <div>
                                 <label htmlFor="licenseInput" className="font-medium mb-2">Fecha de Atención</label>
                                 <input
                                     type="text"
+                                    disabled={!assessment?.date}
                                     value={assessment?.date}
                                     placeholder="Fecha de Atención"
-                                    className="border disabled:bg-gray-200 border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    className="border disabled:bg-gray-200 bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
                             </div>
                             <div>
                                 <label htmlFor="licenseInput" className="font-medium mb-2">Eps</label>
                                 <input
-                                    disabled
                                     type="text"
+                                    disabled={!assessment?.eps}
                                     value={assessment?.eps}
                                     placeholder="Eps"
-                                    className="border disabled:bg-gray-200 border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    className="border disabled:bg-gray-200  bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
                             </div>
                         </div>
@@ -202,9 +199,7 @@ export const AssessmentCreate = () => {
                 </div>
 
             </div>
-            <div className="bg-white text-2xl font-semibold mb-4">
-                <h1>Evaluación de adherencia</h1>
-            </div>
+
             <AssessmentValuations idScale={assessment?.idScale} valuations={assessment?.valuations} />
         </div>
     )
