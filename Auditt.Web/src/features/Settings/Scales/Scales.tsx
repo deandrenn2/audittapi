@@ -22,11 +22,9 @@ export const Scales = () => {
         setScaleId(id);
     }
 
-
     const handleClose = () => {
         setVisible(false);
     }
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -65,7 +63,7 @@ export const Scales = () => {
     return (
         <div className="p-6">
             <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
-                <LinkSettings />
+                <LinkSettings/>
             </div>
 
             <form onSubmit={handleSubmit} ref={refForm} className="mb-4">
@@ -85,7 +83,7 @@ export const Scales = () => {
                 <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
                         <div className="flex items-center ">
-                            <ButtonPlay url={""} />
+                            <ButtonPlay/>
                             <input
                                 value={scale.name}
                                 readOnly

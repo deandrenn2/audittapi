@@ -4,7 +4,6 @@ import { LinkSettings } from "../../Dashboard/LinkSenttings";
 import { UserCreate } from "./UsersCreate";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import useUserContext from "../../../shared/context/useUserContext";
-
 export const Users = () => {
     const { user } = useUserContext();
     const [visible, setVisible] = useState(false);
@@ -22,7 +21,6 @@ export const Users = () => {
             <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                 <LinkSettings />
             </div>
-
             <div>
                 <button onClick={hadbleClick} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold mb-2 cursor-pointer">
                     Crear Usuario
@@ -30,7 +28,6 @@ export const Users = () => {
             </div>
             <div>
                 <div className="flex items-center space-x-6 border p-4 rounded-xl shadow-md w-max">
-
                     <div>
                         <div>
                             <img
@@ -39,19 +36,16 @@ export const Users = () => {
                                 className="min-w-16 rounded-full w-20 h-20" />
                         </div>
                     </div>
+
                     <div className="flex flex-col">
                         <span className="font-bold text-sm text-gray-900 uppercase">{user?.firstName} {user?.lastName}</span>
                         <span className="text-sm text-gray-500">{user?.email}</span>
                     </div>
-
-
                     <div className="font-bold text-sm text-indigo-900 uppercase">Super Admin</div>
-
                     <div className="flex items-center space-x-1">
                         <div className="w-4 h-4 rounded-full bg-lime-500"></div>
                         <span className="text-sm font-semibold text-lime-600">Activo</span>
                     </div>
-
                     <div className="flex items-center space-x-2">
                         <div className="w-8 h-8 flex items-center justify-center rounded-full border border-blue-300 text-blue-900">
 
@@ -74,7 +68,6 @@ export const Users = () => {
                     </div>
                 </div>
             </div>
-
             <OffCanvas titlePrincipal='Crear Usuario' visible={visible} xClose={handleClose} position={Direction.Right}  >
                 <UserCreate />
             </OffCanvas>

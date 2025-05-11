@@ -1,4 +1,9 @@
+import { usePermission } from "./usePermission";
+
+
 export const Permission = () => {
+    const {permissions} = usePermission();
+    console.log('datos', permissions)
     return (
         <div>
             <div className="pl-8 space-y-2 text-sm">
