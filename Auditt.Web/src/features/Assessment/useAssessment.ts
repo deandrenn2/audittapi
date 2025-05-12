@@ -5,6 +5,7 @@ import {
 	getAssessmentByDocument,
 	GetAssessmentById,
 	GetAssessments,
+	saveAssessmentServices,
 } from "./AssessmentServices";
 import { toast } from "react-toastify";
 import useUserContext from "../../shared/context/useUserContext";
@@ -86,4 +87,24 @@ export const useAssessmentByDocumentMutation = () => {
 	});
 
 	return { getAssessmentByDocumentMutation };
+};
+
+export const useSaveAssessment = () => {
+	const saveAssessment = useMutation({
+		mutationFn: saveAssessmentServices,
+		onSuccess: (data) => {
+			if (!data.isSuccess) {
+				if (data?.message) {
+					toast.info(data.message);
+				}
+				if (data?.error) {
+					toast.info(data.error.message);
+				}
+			} else {
+				toast.success(data.message);
+			}
+		},
+	});
+
+	return { saveAssessment };
 };

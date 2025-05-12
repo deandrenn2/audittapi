@@ -51,3 +51,13 @@ export interface ValuationModel {
 	idEquivalence: number;
 	idQuestion: number;
 }
+
+export interface AssessmentValuationsModel {
+	id: number;
+	idPatient: number;
+	yearOld: string;
+	date: string; // Fecha ISO, ej. "2025-05-09T14:15:22Z"
+	eps: string;
+	valuations: ValuationModel[];
+	idUser: number;
+}

@@ -4,7 +4,6 @@ import { useScaleById } from "../useScales";
 export const EquivalenceSelect = ({ idScale, selectedValue, name, className, xChange, required, isDisabled }: { idScale: number, selectedValue?: string, name?: string, className?: string, xChange?: (value: HTMLSelectElement) => void, required?: boolean, isDisabled?: boolean }) => {
     const { queryScale, scale: equivalences } = useScaleById(idScale);
 
-    console.log(equivalences, "Equivalencias");
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (xChange)

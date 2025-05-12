@@ -83,10 +83,10 @@ export const Patients = () => {
 
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID PACIENTE </div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">FECHA DE NACIMIENTO</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID Paciente </div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Fecha de Nacimiento</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">EPS</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center"></div>
                         </div>
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {filteredPatients?.map((patient) => (

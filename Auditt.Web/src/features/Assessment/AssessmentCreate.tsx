@@ -1,23 +1,26 @@
+
 import { useState } from "react";
 import { Option } from "../../shared/model";
 import { SingleValue } from "react-select";
 import { DataCutSelect } from "../DataCuts/DataCutsSelect";
 import { FunctionarySelect } from "../Clients/Professionals/FunctionarySelect";
 import { GuideSelect } from "../Guide/GuideSelect";
-import { useAssessmentByDocumentMutation, useAssessments } from "./useAssessment";
+import { useAssessmentByDocumentMutation, useAssessments, useSaveAssessment } from "./useAssessment";
 import { usePatientByDocumentMutation } from "../Clients/Patients/UsePatients";
 import { parseISO, differenceInYears } from "date-fns";
-import { AssessmentDetailModel, AssessmentModel } from "./AssessmentModel";
+import { AssessmentDetailModel, AssessmentModel, AssessmentValuationsModel, ValuationModel } from "./AssessmentModel";
 import { AssessmentValuations } from "./AssessmentValuations";
 import useUserContext from "../../shared/context/useUserContext";
+import { toast } from "react-toastify";
 
 export const AssessmentCreate = () => {
-    const { client } = useUserContext();
-
+    const { client, user } = useUserContext();
+    const { saveAssessment } = useSaveAssessment();
     const { createAssessment } = useAssessments();
     const { getPatientByDocumentMutation } = usePatientByDocumentMutation();
     const { getAssessmentByDocumentMutation } = useAssessmentByDocumentMutation();
     const [assessment, setAssessment] = useState<AssessmentDetailModel | undefined>(undefined);
+
     const selectedClient: Option | undefined = {
         value: client?.id?.toString(),
         label: client?.name,
@@ -38,14 +41,12 @@ export const AssessmentCreate = () => {
         label: "Seleccione un corte",
     }));
 
-
-
-
     const handleChangeDataCut = (newValue: SingleValue<Option>) => {
         setSelectedDataCut({
             value: newValue?.value,
             label: newValue?.label,
         });
+        setAssessment(undefined);
     }
 
     const handleChangeFunctionary = (newValue: SingleValue<Option>) => {
@@ -53,6 +54,8 @@ export const AssessmentCreate = () => {
             value: newValue?.value,
             label: newValue?.label,
         });
+
+        setAssessment(undefined);
     }
 
     const handleChangeGuide = (newValue: SingleValue<Option>) => {
@@ -60,15 +63,38 @@ export const AssessmentCreate = () => {
             value: newValue?.value,
             label: newValue?.label,
         });
+
+        setAssessment(undefined);
     }
 
     const handlePatientFind = async (e: React.FormEvent<HTMLFormElement>) => {
+        setAssessment(undefined);
         e.preventDefault();
         const form = e.target as HTMLFormElement;
+
+        if (selectedClient?.value === "0") {
+            toast.warning("Seleccione un paciente");
+            return;
+        }
+
+        if (selectedDataCut?.value === "0") {
+            toast.warning("Seleccione un corte");
+            return;
+        }
+
+        if (selectedFunctionary?.value === "0") {
+            toast.warning("Seleccione un funcionario");
+            return;
+        }
 
         const formData = new FormData(form);
         const client = Object.fromEntries(formData.entries());
         const documentSearch = client["document"].toString();
+
+        if (documentSearch === "") {
+            toast.warning("Ingrese el número de identificación del paciente");
+            return;
+        }
 
         const patientRes = await getPatientByDocumentMutation.mutateAsync(documentSearch);
 
@@ -115,6 +141,19 @@ export const AssessmentCreate = () => {
         }
     }
 
+    const handleSave = async (values: ValuationModel[]) => {
+        const assessmentUpdate: AssessmentValuationsModel = {
+            id: assessment?.id ?? 0,
+            idPatient: assessment?.idPatient ?? 0,
+            yearOld: assessment?.yearOld ?? "",
+            date: assessment?.date?.toString() ?? "",
+            eps: assessment?.eps ?? "",
+            valuations: values,
+            idUser: user?.id ?? 0,
+        };
+
+        await saveAssessment.mutateAsync(assessmentUpdate);
+    }
 
     return (
         <div className="w-full">
@@ -131,7 +170,7 @@ export const AssessmentCreate = () => {
                             <DataCutSelect className="w-full" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
                         </div>
                         <div className="flex flex-col space-x-4 mb-4">
-                            <span className="font-medium">Profesiona evaluado</span>
+                            <span className="font-medium">Profesional evaluado</span>
                             <FunctionarySelect className="w-full" selectedValue={selectedFunctionary} xChange={handleChangeFunctionary} isSearchable={true} />
                         </div>
                     </div>
@@ -200,7 +239,7 @@ export const AssessmentCreate = () => {
 
             </div>
 
-            <AssessmentValuations idScale={assessment?.idScale} valuations={assessment?.valuations} />
+            <AssessmentValuations xSave={handleSave} idScale={assessment?.idScale} idAssessment={assessment?.id} valuations={assessment?.valuations} />
         </div>
     )
 }

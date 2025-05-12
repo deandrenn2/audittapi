@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { EquivalenceSelect } from "../Settings/Scales/Equivalence/EquivalenceSelect"
 import { ValuationModel } from "./AssessmentModel"
+import { useAssessments } from "./useAssessment";
+import Swal from "sweetalert2";
 
-export const AssessmentValuations = ({ valuations, idScale, xSave }: { valuations: ValuationModel[] | undefined, idScale: number | undefined, xSave?: (valuation: ValuationModel[]) => void }) => {
+export const AssessmentValuations = ({ valuations, idScale, idAssessment, xSave }:
+    {
+        valuations: ValuationModel[] | undefined,
+        idScale: number | undefined,
+        idAssessment?: number,
+        xSave?: (valuation: ValuationModel[]) => void
+    }) => {
 
     const [values, setValues] = useState<ValuationModel[]>([]);
+    const { deleteAssessment } = useAssessments();
 
     useEffect(() => {
         if (!valuations) {
@@ -19,7 +28,7 @@ export const AssessmentValuations = ({ valuations, idScale, xSave }: { valuation
 
     const handleChange = (newValue: HTMLSelectElement, valuation: ValuationModel) => {
         const newValueNumber = values.map((x) => {
-            if (x.idEquivalence === valuation.idEquivalence) {
+            if (x.id === valuation.id) {
                 x.idEquivalence = Number(newValue.value);
                 return x;
             }
@@ -33,24 +42,37 @@ export const AssessmentValuations = ({ valuations, idScale, xSave }: { valuation
         if (xSave)
             xSave(values);
     }
+
+    function handleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: number): void {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estás seguro que deseas eliminar esta evaluación?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            preConfirm: async () => {
+                await deleteAssessment.mutate(id);
+            }
+        })
+    }
+
     return (
         <>
             <div className="bg-whitefont-semibold mb-4 flex gap-4">
                 <h1 className=" text-2xl ">Evaluación de adherencia</h1>
-                <button
-                    className="bg-[#392F5A] hover:bg-purple-950 text-white px-6 py-2 rounded-lg font-semibold cursor-pointer"
-                >
-                    Guardar y nuevo
-                </button>
 
                 <button
-                    className="border-[#392F5A] border-2 hover:bg-purple-100 transition-all hover:border-purple-950 text-[#392F5A]  px-6 py-2 rounded-lg font-semibold cursor-pointer"
+                    className="bg-[#392F5A] border-2 transition-all hover:bg-purple-950 text-white  px-6 py-2 rounded-lg font-semibold cursor-pointer"
                     onClick={handleSave}
                 >
                     Guardar
                 </button>
                 <button
-                    className="bg-[#FF677D] hover:bg-[#ff677ec4] transition-all text-white px-6 py-2 rounded-lg font-semibold cursor-pointer"
+                    className="border-[#FF677D] border-2 hover:bg-[#ff677e88] transition-all text-[#921729c4]  px-6 py-2 rounded-lg font-semibold cursor-pointer"
+                    onClick={(e) => handleDelete(e, idAssessment ?? 0)}
                 >
                     Eliminar
                 </button>

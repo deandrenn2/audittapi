@@ -19,7 +19,6 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
         if (response.isSuccess) {
             refForm.current?.reset();
         }
-        console.log('no hay datos para actualizar', DataCut)
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

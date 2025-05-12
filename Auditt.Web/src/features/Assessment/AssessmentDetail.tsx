@@ -27,8 +27,10 @@ export const AssessmentDetail = () => {
                     <span className="font-medium">IPS</span>
                     <ClientSelect className="w-lg" selectedValue={selectedClient} isSearchable={true} />
                 </div>
-                <Link to={'/Assessments/Create'} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2" >
-                    Ir a Indicadores e informes</Link>
+                <div className="flex items-center">
+                    <Link to={'/Reports'} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 py-2 rounded-lg font-semibold mb-2" >
+                        Ir a Indicadores e informes</Link>
+                </div>
             </div>
             <div className="bg-white p-4 rounded-lg">
                 <AssessmentCreate />

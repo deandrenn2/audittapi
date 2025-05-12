@@ -5,6 +5,7 @@ import {
 	AssessmentDetailModel,
 	AssessmentListModel,
 	AssessmentModel,
+	AssessmentValuationsModel,
 } from "./AssessmentModel";
 
 export const GetAssessments = async (
@@ -122,5 +123,29 @@ export const deleteAssessmentServices = async (
 			},
 		};
 	}
+	return response.data;
+};
+
+export const saveAssessmentServices = async (
+	model: AssessmentValuationsModel
+): Promise<MsgResponse<AssessmentValuationsModel>> => {
+	const url = `api/assessments/save`;
+	const response = await ApiClient.put<MsgResponse<AssessmentValuationsModel>>(
+		url,
+		model
+	);
+
+	if (response.status !== 200 && response.status !== 201) {
+		return {
+			isSuccess: false,
+			message: "Error al crear el paciente",
+			isFailure: true,
+			error: {
+				code: response.status.toString(),
+				message: response.statusText,
+			},
+		};
+	}
+
 	return response.data;
 };

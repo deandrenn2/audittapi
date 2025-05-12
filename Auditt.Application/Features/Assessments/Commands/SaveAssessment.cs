@@ -14,7 +14,7 @@ public class SaveAssessment : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/assessments/{id}/save", async (HttpRequest req, IMediator mediator, SaveAssessmentCommand command) =>
+        app.MapPut("api/assessments/save", async (HttpRequest req, IMediator mediator, SaveAssessmentCommand command) =>
         {
             return await mediator.Send(command);
         })
