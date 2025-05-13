@@ -12,24 +12,24 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Auditt.Application.Features.Reports;
-public class GetReportGlobal : ICarterModule
+public class ReportQuestionAdherence : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/reports/{idDataCut:int}", async (HttpRequest req, IMediator mediator, int idDataCut, int idInstitution, int idGuide) =>
+        app.MapGet("api/reports/question/{idDataCut:int}", async (HttpRequest req, IMediator mediator, int idDataCut, int idInstitution, int idGuide) =>
         {
-            return await mediator.Send(new GetReportGlobalQuery(idDataCut, idInstitution, idGuide));
+            return await mediator.Send(new ReportQuestionAdherenceQuery(idDataCut, idInstitution, idGuide));
         })
-        .WithName(nameof(GetReportGlobal))
+        .WithName(nameof(ReportQuestionAdherence))
         .WithTags("Report")
         .ProducesValidationProblem()
-        .Produces<GetReportGlobalResponse>(StatusCodes.Status200OK);
+        .Produces<ReportQuestionAdherenceResponse>(StatusCodes.Status200OK);
     }
-    public record GetReportGlobalQuery(int IdDataCut, int IdInstitution, int IdGuide) : IRequest<IResult>;
-    public record GetReportGlobalResponse(int CountHistories, int CountHistoriesStrictAdherence, int GlobalAdherence, int StrictAdherence);
-    public class GetReportGlobalHandler(AppDbContext context, IValidator<GetReportGlobalQuery> validator) : IRequestHandler<GetReportGlobalQuery, IResult>
+    public record ReportQuestionAdherenceQuery(int IdDataCut, int IdInstitution, int IdGuide) : IRequest<IResult>;
+    public record ReportQuestionAdherenceResponse(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int percentSuccess);
+    public class ReportQuestionAdherenceHandler(AppDbContext context, IValidator<ReportQuestionAdherenceQuery> validator) : IRequestHandler<ReportQuestionAdherenceQuery, IResult>
     {
-        public async Task<IResult> Handle(GetReportGlobalQuery request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(ReportQuestionAdherenceQuery request, CancellationToken cancellationToken)
         {
             var result = validator.Validate(request);
             if (!result.IsValid)
@@ -54,45 +54,37 @@ public class GetReportGlobal : ICarterModule
             var idNoApply = scale?.Equivalences.Find(x => x.Name == "No Aplica")?.Id ?? 0;
             var idNoSuccess = scale?.Equivalences.Find(x => x.Name == "No Cumple")?.Id ?? 0;
 
-
             var AdherencePatients = assessments.SelectMany(z => z.Valuations).GroupBy(x => new
             {
-                x.Assessment.PatientId,
-
+                x.IdQuestion,
+                x.Text
             }).Select(d => new
             {
                 CountSuccess = d.Count(x => x.EquivalenceId == idSuccess),
                 CountNoApply = d.Count(x => x.EquivalenceId == idNoApply),
                 CountNoSuccess = d.Count(x => x.EquivalenceId == idNoSuccess),
                 ValuationsCount = d.Count(),
-                d.Key.PatientId
+                d.Key.IdQuestion,
+                d.Key.Text,
             }).ToList();
 
-            var AdherencePatientsPercent = AdherencePatients.Select(x => new
-            {
+            var AdherenceQuestionPercent = AdherencePatients.Select(x => new
+           ReportQuestionAdherenceResponse(
                 x.CountNoApply,
                 x.CountSuccess,
                 x.CountNoSuccess,
                 x.ValuationsCount,
-                x.PatientId,
-                percentSuccess = x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess),
-            }).ToList();
+                x.IdQuestion,
+                x.Text,
+                 x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess)
+            )).ToList();
 
-            var AdherenceGlobal = new GetReportGlobalResponse
-            (
-                AdherencePatientsPercent.Count(),
-                AdherencePatientsPercent.Count(x => x.percentSuccess == 100),
-                AdherencePatientsPercent.Sum(x => x.percentSuccess) / AdherencePatientsPercent.Count(),
-                  AdherencePatientsPercent.Count(x => x.percentSuccess == 100) / AdherencePatientsPercent.Count() * 100
-            );
-
-
-            return Results.Ok(Result<GetReportGlobalResponse>.Success(AdherenceGlobal, "Se obtuvo la evaluación correctamente"));
+            return Results.Ok(Result<List<ReportQuestionAdherenceResponse>>.Success(AdherenceQuestionPercent, "Se obtuvo la evaluación correctamente"));
         }
     }
-    public class GetReportGlobalValidator : AbstractValidator<GetReportGlobalQuery>
+    public class ReportQuestionAdherenceValidator : AbstractValidator<ReportQuestionAdherenceQuery>
     {
-        public GetReportGlobalValidator()
+        public ReportQuestionAdherenceValidator()
         {
             RuleFor(x => x.IdDataCut).NotEmpty().WithMessage("El id del corte es requerido");
             RuleFor(x => x.IdInstitution).NotEmpty().WithMessage("El id de la institución es requerido");

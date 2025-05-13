@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Option } from "../../shared/model";
 import { SingleValue } from "react-select";
 import { DataCutSelect } from "../DataCuts/DataCutsSelect";
@@ -20,6 +20,12 @@ export const AssessmentCreate = () => {
     const { getPatientByDocumentMutation } = usePatientByDocumentMutation();
     const { getAssessmentByDocumentMutation } = useAssessmentByDocumentMutation();
     const [assessment, setAssessment] = useState<AssessmentDetailModel | undefined>(undefined);
+
+    useEffect(() => {
+        if (client?.id) {
+            setAssessment(undefined);
+        }
+    }, [client?.id]);
 
     const selectedClient: Option | undefined = {
         value: client?.id?.toString(),
