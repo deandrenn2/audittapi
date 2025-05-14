@@ -82,23 +82,19 @@ Adherencia Estricta(Adherencia global o no estricta) y Por Criterio`,
                     </div>
                 </div>
             </div>
-            <div className="w-full p-4 ">
+            <div className="w-full">
 
-                <div className="flex py-2">
+                <div className="flex py-2 bg-white px-4">
                     <h1 className="text-2xl font-semibold mb-2">Medición de Adherencia</h1>
-
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="p-1">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex flex-col space-x-4 mb-4">
-                                <span className="font-medium">Corte de Auditoria</span>
-                                <DataCutSelect className="w-full" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
-                            </div>
-
+                <div className=" bg-white px-4">
+                    <div className=" flex justify-center gap-4 p-2">
+                        <div className="flex flex-col ">
+                            <span className="font-medium">Corte de Auditoria</span>
+                            <DataCutSelect className="w-full min-w-60" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
                         </div>
 
-                        <div className="flex flex-col space-x-4 mb-4">
+                        <div className="flex flex-col ">
                             <span className="font-medium">Instrumento de adherencia a GPC</span>
                             <GuideSelect className="w-full" selectedValue={selectedGuide} xChange={handleChangeGuide} isSearchable={true} />
                         </div>
@@ -108,12 +104,12 @@ Adherencia Estricta(Adherencia global o no estricta) y Por Criterio`,
                         <ReportDashboard dataCut={parseInt(selectedDataCut?.value ?? "0")} idGuide={parseInt(selectedGuide?.value ?? "0")} />
                     </div>
                 </div>
-                <div>
+                <div className="px-4">
                     <div className="flex flex-col space-y-4">
                         <ReportList listReports={REPORT_LIST} setSelected={setSelectedReport} idSelected={selectedReport} />
                     </div>
                 </div>
-                <div>
+                <div className="px-4">
                     {
                         selectedReport == 1 && <ReportGeneral dataCut={parseInt(selectedDataCut?.value ?? "0")} idGuide={parseInt(selectedGuide?.value ?? "0")} />
                     }

@@ -44,7 +44,7 @@ export const ClientSelect = ({ selectedValue, name, className, xChange, required
                 loadingMessage={() => 'Cargando...'}
                 isDisabled={queryClients?.isLoading || isDisabled}
                 isLoading={queryClients?.isLoading}
-                isClearable
+                isClearable={false}
                 options={options}
             />
         )
