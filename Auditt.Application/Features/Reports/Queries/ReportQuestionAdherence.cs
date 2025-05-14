@@ -26,7 +26,7 @@ public class ReportQuestionAdherence : ICarterModule
         .Produces<ReportQuestionAdherenceResponse>(StatusCodes.Status200OK);
     }
     public record ReportQuestionAdherenceQuery(int IdDataCut, int IdInstitution, int IdGuide) : IRequest<IResult>;
-    public record ReportQuestionAdherenceResponse(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int percentSuccess);
+    public record ReportQuestionAdherenceResponse(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int PercentSuccess);
     public class ReportQuestionAdherenceHandler(AppDbContext context, IValidator<ReportQuestionAdherenceQuery> validator) : IRequestHandler<ReportQuestionAdherenceQuery, IResult>
     {
         public async Task<IResult> Handle(ReportQuestionAdherenceQuery request, CancellationToken cancellationToken)
