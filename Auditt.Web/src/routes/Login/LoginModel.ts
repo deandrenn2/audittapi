@@ -15,6 +15,7 @@ export interface TokenModel {
 }
 
 export interface UserResponseModel {
+    active: any;
 	id?: number | undefined;
 	firstName?: string;
 	lastName?: string;
