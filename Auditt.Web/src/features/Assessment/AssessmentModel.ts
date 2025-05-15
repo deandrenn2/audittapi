@@ -27,6 +27,12 @@ export interface AssessmentModel {
 	idGuide: number;
 }
 
+export interface AssessmentFilterModel {
+	idDataCut: number;
+	idGuide: number;
+	idInstitution: number;
+}
+
 export interface AssessmentDetailModel {
 	id: number;
 	idDataCut: number;

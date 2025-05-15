@@ -3,16 +3,23 @@ import { MsgResponse } from "../../shared/model";
 import {
 	AssessmentCreateModel,
 	AssessmentDetailModel,
+	AssessmentFilterModel,
 	AssessmentListModel,
 	AssessmentModel,
 	AssessmentValuationsModel,
 } from "./AssessmentModel";
 
 export const GetAssessments = async (
-	idInstitution: number
+	model: AssessmentFilterModel
 ): Promise<MsgResponse<AssessmentListModel[]>> => {
-	const url = `api/assessments/${idInstitution}`;
-	const response = await ApiClient.get<MsgResponse<AssessmentListModel[]>>(url);
+	const url = `api/assessments/${model.idInstitution}/${model.idDataCut}`;
+	const params = new URLSearchParams();
+	params.append("idGuide", model.idGuide.toString());
+
+	const response = await ApiClient.get<MsgResponse<AssessmentListModel[]>>(
+		url,
+		{ params }
+	);
 
 	if (response.status !== 200) {
 		return {

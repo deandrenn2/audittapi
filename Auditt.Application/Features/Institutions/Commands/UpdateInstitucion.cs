@@ -31,6 +31,8 @@ public class UpdateInstitucion : ICarterModule
         public string Abbreviation { get; init; } = string.Empty;
         public string Nit { get; init; } = string.Empty;
         public string City { get; init; } = string.Empty;
+        public string Manager { get; init; } = string.Empty;
+        public string AssistantManager { get; init; } = string.Empty;
     }
     public record UpdateInstitucionResponse(string Name, string Abbreviation, string Nit, string City);
 
@@ -52,8 +54,8 @@ public class UpdateInstitucion : ICarterModule
             {
                 return Results.Ok(Result.Failure(new Error("Login.ErrorUpdateInstitucion", "Error al actualizar la institución")));
             }
-            institucion.Update(request.Name, request.Abbreviation, request.Nit, request.City);
-            var resCount = await context.SaveChangesAsync();
+            institucion.Update(request.Name, request.Abbreviation, request.Nit, request.City, request.Manager, request.AssistantManager);
+            var resCount = await context.SaveChangesAsync(cancellationToken);
             if (resCount > 0)
             {
                 var resModel = new UpdateInstitucionResponse(institucion.Name, institucion.Abbreviation, institucion.Nit, institucion.City);
