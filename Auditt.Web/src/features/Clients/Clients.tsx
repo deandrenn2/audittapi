@@ -66,7 +66,7 @@ export const Clients = () => {
                 <div className="flex justify-between">
                     <h2 className="text-2xl font-semibold mb-3 mr-2">Clientes o Instituciones</h2>
                     <div className="flex">
-                        <div className="relative  mr-4"  >
+                        <div className="relative mr-4">
                             <div className=" inline-flex">
                                 <input type="text"
                                     value={searClients}
@@ -74,14 +74,13 @@ export const Clients = () => {
                                     placeholder="Buscar Cliente"
                                     className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
                                  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
-                                <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400" />
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400"/>
                             </div>
                         </div>
                         <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
                             Crear Cliente
                         </button>
                     </div>
-
                 </div>
                 <div>
                     <div className="grid grid-cols-5">

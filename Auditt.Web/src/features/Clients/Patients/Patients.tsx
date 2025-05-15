@@ -62,23 +62,24 @@ export const Patients = () => {
                     <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                         <LinkClients />
                     </div>
-
-                    <div className="flex">
-                        <h2 className="text-2xl font-semibold mb-3 mr-2">Pacientes o historias </h2>
-                        <div className="relative mr-2"  >
-                            <div className=" inline-flex">
-                                <input type="text"
-                                    value={searPantients}
-                                    onChange={(e) => setSearPantients(e.target.value)}
-                                    placeholder="Buscar Paciente"
-                                    className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                    <div className="flex justify-between">
+                            <h2 className="text-2xl font-semibold mb-3 mr-2">Pacientes o historias </h2>
+                        <div className="flex">
+                            <div className="relative mr-4">
+                                <div className=" inline-flex">
+                                    <input type="text"
+                                        value={searPantients}
+                                        onChange={(e) => setSearPantients(e.target.value)}
+                                        placeholder="Buscar Paciente"
+                                        className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
-                                <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400"/>
+                                </div>
                             </div>
+                            <button onClick={() => setVisible(true)} className="cursor-pointer mr-2 bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg  font-semibold mb-3">
+                                Crear Paciente
+                            </button>
                         </div>
-                        <button onClick={() => setVisible(true)} className="cursor-pointer mr-2 bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg  font-semibold mb-3">
-                            Crear Paciente
-                        </button>
                     </div>
 
                     <div>

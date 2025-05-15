@@ -1,4 +1,3 @@
-import { ButtonPlay } from "../../../shared/components/Buttons/ButtonPlay";
 import { LinkSettings } from "../../Dashboard/LinkSenttings";
 import { useRoles } from "./UseRoles";
 import { useRef, useState } from "react";
@@ -10,6 +9,7 @@ import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { Permission } from "./Permission/Permission";
 import { PermissionCreate } from "./Permission/PermissionCreate";
+import { ButtonPlays } from "../../../shared/components/Buttons/ButtonPlays";
 
 export const Roles = () => {
     const { roles, createRole, queryRoles, deleteRole } = useRoles();
@@ -102,7 +102,7 @@ export const Roles = () => {
                         <div key={role.id} className="w-96 p-4 mb-2 border rounded-lg shadow">
                             <div className="flex items-center mb-2 mr-2">
                                 <div className="flex items-center ">
-                                    <ButtonPlay
+                                    <ButtonPlays
                                         xClick={() => togglePermissions(role.id ?? 0)}
                                         isOpen={role.id !== undefined && openPermissionRoles.has(role.id)}/>
                                     <input
@@ -112,7 +112,7 @@ export const Roles = () => {
                                 </div>
                                 
                                 <div onClick={() => handleEdit(role.id ?? 0)}>
-                                    <ButtonPlus />
+                                    <ButtonPlus/>
                                 </div>
                                 {typeof role.id === 'number' && (
                                     <ButtonDelete id={role.id} onDelete={handleDelete} />
