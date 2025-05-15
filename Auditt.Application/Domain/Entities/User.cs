@@ -85,11 +85,12 @@ public class User : AggregateRoot
         Password = password.EncryptPassword();
     }
 
-    public void Update(string firstName, string lastName, string email)
+    public void Update(string firstName, string lastName, int idEstado, int idRol)
     {
         FirstName = firstName;
         LastName = lastName;
-        Email = email;
+        StatusId = idEstado;
+        RoleId = idRol;
     }
 
     public void UpdateRole(int idRol)

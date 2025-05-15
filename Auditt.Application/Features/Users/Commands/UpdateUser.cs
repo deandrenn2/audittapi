@@ -24,7 +24,7 @@ public class UpdateUser : ICarterModule
         .Produces(StatusCodes.Status200OK);
     }
 
-    public record UpdateUserCommand(string FirstName, string LastName, string Email) : IRequest<Result>;
+    public record UpdateUserCommand(string FirstName, string LastName, string Email, int IdEstado, int IdRol) : IRequest<Result>;
 
     public class UpdateUserHandler(AppDbContext context, IValidator<UpdateUserCommand> validator) : IRequestHandler<UpdateUserCommand, Result>
     {
@@ -44,7 +44,7 @@ public class UpdateUser : ICarterModule
                 return Result.Failure(new Error("User.ErrorUpdateUser", "El usuario no existe"));
             }
 
-            user.Update(request.FirstName, request.LastName, request.Email);
+            user.Update(request.FirstName, request.LastName, request.IdEstado, request.IdRol);
 
             var resCount = await context.SaveChangesAsync();
 

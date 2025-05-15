@@ -9,9 +9,10 @@ using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
 
 namespace Auditt.Application.Features.Users.Queries;
+
 public class GetUsers : ICarterModule
 {
-    public record GetUsersResponse(int Id, string? FirstName, string? LastName, string? Email);
+    public record GetUsersResponse(int Id, string? FirstName, string? LastName, int IdEstado, string Email, string? UrlProfile, string? RoleName);
 
     public record GetUsersQuery() : IRequest<Result>;
 
@@ -30,13 +31,16 @@ public class GetUsers : ICarterModule
     {
         public async Task<Result> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await context.Users.ToListAsync();
+            var users = await context.Users.Include(x => x.Role).ToListAsync(cancellationToken);
 
             var userList = users.Select(x => new GetUsersResponse(
                 x.Id,
                 x.FirstName,
                 x.LastName,
-                x.Email
+                x.StatusId,
+                x.Email,
+                x.UrlProfile,
+                x.Role.Name
                 )).ToList();
 
             return Result<List<GetUsersResponse>>.Success(userList, "Listado de usuarios");
