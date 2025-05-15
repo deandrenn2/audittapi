@@ -11,6 +11,7 @@ using Auditt.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Features.Guides;
+
 public class GetGuides : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -25,14 +26,13 @@ public class GetGuides : ICarterModule
         .Produces<GetGuidesResponse>(StatusCodes.Status200OK);
     }
     public record GetGuidesCommand() : IRequest<IResult>;
-    public record GetGuidesResponse(int Id, string Name, string Description, int IdScale);
+    public record GetGuidesResponse(int Id, string Name, string Description, int IdScale, int QuestionsCount);
     public class GetGuidesHandler(AppDbContext context) : IRequestHandler<GetGuidesCommand, IResult>
     {
         public async Task<IResult> Handle(GetGuidesCommand request, CancellationToken cancellationToken)
         {
-           
-            var guides = await context.Guides.ToListAsync();
-            var resModel = guides.Select(g => new GetGuidesResponse(g.Id, g.Name, g.Description, g.ScaleId)).ToList();
+            var guides = await context.Guides.Include(x => x.Questions).ToListAsync(cancellationToken);
+            var resModel = guides.Select(g => new GetGuidesResponse(g.Id, g.Name, g.Description, g.ScaleId, g.Questions.Count)).ToList();
             return Results.Ok(Result<List<GetGuidesResponse>>.Success(resModel, "Guías obtenidas correctamente"));
         }
     }

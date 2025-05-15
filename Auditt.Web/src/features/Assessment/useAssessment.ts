@@ -9,12 +9,22 @@ import {
 } from "./AssessmentServices";
 import { toast } from "react-toastify";
 import useUserContext from "../../shared/context/useUserContext";
+import useAssessmentContext from "../../shared/context/useAssessmentContext";
 
 export const useAssessments = () => {
 	const { client } = useUserContext();
+	const { selectedDataCut, selectedGuide } = useAssessmentContext();
+
 	const queryAssessments = useQuery({
-		queryKey: ["Assessments", client?.id],
-		queryFn: () => GetAssessments(client?.id ?? 0),
+		queryKey: ["Assessments", client?.id, selectedDataCut, selectedGuide],
+		queryFn: () =>
+			GetAssessments({
+				idInstitution: client?.id ?? 0,
+				idDataCut: selectedDataCut,
+				idGuide: selectedGuide,
+			}),
+		enabled:
+			client?.id != null && selectedDataCut != null && selectedGuide != null,
 	});
 
 	const createAssessment = useMutation({

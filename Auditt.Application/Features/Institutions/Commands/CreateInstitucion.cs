@@ -32,6 +32,8 @@ public class CreateInstitucion : ICarterModule
         public string Abbreviation { get; init; } = string.Empty;
         public string Nit { get; init; } = string.Empty;
         public string City { get; init; } = string.Empty;
+        public string Manager { get; init; } = string.Empty;
+        public string AssistantManager { get; init; } = string.Empty;
     }
 
     public record CreateInstitucionResponse(string Name, string Abbreviation, string Nit, string City);
@@ -48,9 +50,9 @@ public class CreateInstitucion : ICarterModule
                 new Error("Intitution.ErrorValidation", "Se presentaron errores de validación")
             ));
             }
-            var newInstitucion = Institution.Create(0, request.Name, request.Abbreviation, request.Nit, request.City);
+            var newInstitucion = Institution.Create(0, request.Name, request.Abbreviation, request.Nit, request.City, request.Manager, request.AssistantManager);
             context.Add(newInstitucion);
-            var resCount = await context.SaveChangesAsync();
+            var resCount = await context.SaveChangesAsync(cancellationToken);
             if (resCount > 0)
             {
                 var resModel = new CreateInstitucionResponse(newInstitucion.Name, newInstitucion.Abbreviation, newInstitucion.Nit, newInstitucion.City);
