@@ -18,6 +18,7 @@ import { Roles } from '../features/Settings/Roles/Roles.tsx';
 import { DataCuts } from '../features/DataCuts/DataCuts.tsx';
 import { Assessments } from '../features/Assessment/Assessments.tsx';
 import { AssessmentDetail } from '../features/Assessment/AssessmentDetail.tsx';
+import { ReportContainer } from '../features/Reports/ReportContainer.tsx';
 export const router = createBrowserRouter([
     {
         path: '/',
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
             {
                 path: 'Assessments/Create',
                 element: <AssessmentDetail />,
+            },
+            {
+                path: '/Reports',
+                element: <ReportContainer />,
             },
             {
                 path: '/Settings',

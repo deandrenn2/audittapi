@@ -44,7 +44,7 @@ export const Clients = () => {
     }
 
     if (queryClients.isLoading)
-        return <Bar/>
+        return <Bar />
 
     const normalizeText = (text: string) =>
         text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -63,30 +63,33 @@ export const Clients = () => {
                 <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
                     <LinkClients />
                 </div>
-                <div className="flex">
+                <div className="flex justify-between">
                     <h2 className="text-2xl font-semibold mb-3 mr-2">Clientes o Instituciones</h2>
-                    <div className="relative mb-3 mr-2"  >
-                        <div className=" inline-flex">
-                            <input type="text"
-                                value={searClients}
-                                onChange={(e) => setSearClients(e.target.value)}
-                                placeholder="Buscar Cliente"
-                                className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
-                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+                    <div className="flex">
+                        <div className="relative  mr-4"  >
+                            <div className=" inline-flex">
+                                <input type="text"
+                                    value={searClients}
+                                    onChange={(e) => setSearClients(e.target.value)}
+                                    placeholder="Buscar Cliente"
+                                    className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400" />
+                            </div>
                         </div>
+                        <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
+                            Crear Cliente
+                        </button>
                     </div>
-                    <button onClick={() => setVisible(true)} className=" cursor-pointer bg-[#392f5a] cursor-por hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
-                        Crear Cliente
-                    </button>
+
                 </div>
                 <div>
                     <div className="grid grid-cols-5">
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">RAZON SOCIAL</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ABREVIATURA</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Razón Social</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Abreviatura</div>
                         <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">NIT</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">CIUDAD</div>
-                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Ciudad</div>
+                        <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Opciones</div>
                     </div>
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {filteredClient?.map((client) => (

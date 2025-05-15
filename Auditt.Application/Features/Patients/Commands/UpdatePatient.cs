@@ -57,8 +57,6 @@ public class UpdatePatient : ICarterModule
     {
         public UpdatePatientValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().WithMessage("El nombre es requerido");
-            RuleFor(x => x.LastName).NotEmpty().WithMessage("El apellido es requerido");
             RuleFor(x => x.Identification).NotEmpty().WithMessage("El número de documento es requerido");
             RuleFor(x => x.BirthDate).NotEmpty().WithMessage("La fecha de nacimiento es requerida");
             RuleFor(x => x.Eps).NotEmpty().WithMessage("La EPS es requerida");

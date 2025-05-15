@@ -95,16 +95,16 @@ export const DataCuts = () => {
                 <button
                     onClick={handleCreateClick}
                     className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-1 rounded-lg font-semibold mb-5 mr-2">
-                    Crear Trimestrales
+                    Crear Cortes
                 </button>
             </div>
             <div>
                 <div className="grid grid-cols-5">
-                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
-                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">MAX HISTORIAS</div>
-                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">FECHA INICIAL</div>
-                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">FECHA FINAL</div>
-                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Nombre</div>
+                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Max Historias</div>
+                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Fecha Inicial</div>
+                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Fecha Final</div>
+                    <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center"></div>
                 </div>
                 <div className="bg-white px-2 py-2 border border-gray-200">
                     {filteredDataCut?.map((item) => (

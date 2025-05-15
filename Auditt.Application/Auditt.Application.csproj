@@ -27,4 +27,8 @@
     <Folder Include="Features\Guides\Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Auditt.Reports\Auditt.Reports.csproj" />
+  </ItemGroup>
+
 </Project>

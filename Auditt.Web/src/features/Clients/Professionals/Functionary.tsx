@@ -44,7 +44,7 @@ export const Functionary = () => {
     const handleClose = () => {
         setVisible(false);
     }
-    
+
     if (queryFunctionary.isLoading)
         return <Bar />
 
@@ -53,12 +53,12 @@ export const Functionary = () => {
 
     const search = normalizeText(searFunctionarys.trim());
 
-    const filteredFunctionnarys = (functionarys ?? []).filter(functionary =>{
-      const fields =  `${functionary.lastName} ${functionary.firstName}
+    const filteredFunctionnarys = (functionarys ?? []).filter(functionary => {
+        const fields = `${functionary.lastName} ${functionary.firstName}
         ${functionary.identification}`;
         const words = normalizeText(fields).split(/\s+/);
         return words.some(word => word.startsWith(search));
-});
+    });
 
     return (
         <div className="w-full p-6">
@@ -77,7 +77,7 @@ export const Functionary = () => {
                                 placeholder="Buscar Profecional"
                                 className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
                                  hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400"/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
                         </div>
                     </div>
                     <button onClick={() => setVisible(true)} className="cursor-pointer bg-[#392F5A] hover:bg-indigo-900 text-white px-5 rounded-lg font-semibold mb-3 mr-2">
@@ -87,10 +87,10 @@ export const Functionary = () => {
 
                 <div>
                     <div className="grid grid-cols-4 w-full">
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">NOMBRE</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">APELLIDO</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">IDENTIFICACION</div>
-                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">OPCIONES</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Nombres</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Apellidos</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Identificación</div>
+                        <div className="font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Opciones</div>
                     </div>
 
                     <div className="bg-white px-2 py-2 border border-gray-200">

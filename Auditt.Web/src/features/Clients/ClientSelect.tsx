@@ -8,7 +8,6 @@ export interface Option {
     label?: string;
 }
 
-
 export const ClientSelect = ({ selectedValue, name, className, xChange, required, isSearchable, isDisabled }: { selectedValue?: Option, name?: string, className?: string, xChange?: (newValue: SingleValue<Option>) => void, required?: boolean, isSearchable?: boolean, isDisabled?: boolean }) => {
     const { queryClients, clients } = useClient();
     const { client, setClient } = useUserContext();
@@ -44,7 +43,7 @@ export const ClientSelect = ({ selectedValue, name, className, xChange, required
                 loadingMessage={() => 'Cargando...'}
                 isDisabled={queryClients?.isLoading || isDisabled}
                 isLoading={queryClients?.isLoading}
-                isClearable
+                isClearable={false}
                 options={options}
             />
         )
