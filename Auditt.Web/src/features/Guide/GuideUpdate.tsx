@@ -44,7 +44,7 @@ export const GuideUpdate = ({ data }: { data: GuideModel }) => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium mb-1">Pregunta</label>
+                    <label className="block text-sm font-medium mb-1">Descripción                    </label>
                     <input
                         type="text"
                         name="description"
