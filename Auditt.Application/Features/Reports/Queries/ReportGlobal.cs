@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Auditt.Application.Features.Reports;
+
 public class GetReportGlobal : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -26,7 +27,21 @@ public class GetReportGlobal : ICarterModule
         .Produces<GetReportGlobalResponse>(StatusCodes.Status200OK);
     }
     public record GetReportGlobalQuery(int IdDataCut, int IdInstitution, int IdGuide) : IRequest<IResult>;
-    public record GetReportGlobalResponse(int CountHistories, int CountHistoriesStrictAdherence, int GlobalAdherence, int StrictAdherence);
+    public record GetReportGlobalResponse
+    {
+        public int CountHistories { get; set; }
+        public int CountHistoriesStrictAdherence { get; set; }
+        public int GlobalAdherence { get; set; }
+        public int StrictAdherence
+        {
+            get
+            {
+                double value = (double)CountHistoriesStrictAdherence / CountHistories;
+                int percent = (int)Math.Round(value * 100);
+                return percent;
+            }
+        }
+    };
     public class GetReportGlobalHandler(AppDbContext context, IValidator<GetReportGlobalQuery> validator) : IRequestHandler<GetReportGlobalQuery, IResult>
     {
         public async Task<IResult> Handle(GetReportGlobalQuery request, CancellationToken cancellationToken)
@@ -79,12 +94,11 @@ public class GetReportGlobal : ICarterModule
             }).ToList();
 
             var AdherenceGlobal = new GetReportGlobalResponse
-            (
-                AdherencePatientsPercent.Count(),
-                AdherencePatientsPercent.Count(x => x.percentSuccess == 100),
-                AdherencePatientsPercent.Sum(x => x.percentSuccess) / AdherencePatientsPercent.Count(),
-                  AdherencePatientsPercent.Count(x => x.percentSuccess == 100) / AdherencePatientsPercent.Count() * 100
-            );
+            {
+                CountHistories = AdherencePatientsPercent.Count,
+                CountHistoriesStrictAdherence = AdherencePatientsPercent.Count(x => x.percentSuccess == 100),
+                GlobalAdherence = AdherencePatientsPercent.Sum(x => x.percentSuccess) / AdherencePatientsPercent.Count,
+            };
 
 
             return Results.Ok(Result<GetReportGlobalResponse>.Success(AdherenceGlobal, "Se obtuvo la evaluación correctamente"));

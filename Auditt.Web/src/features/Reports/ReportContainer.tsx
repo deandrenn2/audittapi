@@ -3,7 +3,6 @@ import { Option } from "../../shared/model";
 import { DataCutSelect } from "../DataCuts/DataCutsSelect"
 import { GuideSelect } from "../Guide/GuideSelect"
 import useUserContext from "../../shared/context/useUserContext";
-import { SingleValue } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -34,31 +33,7 @@ Adherencia Estricta(Adherencia global o no estricta) y Por Criterio`,
         label: client?.name,
     };
 
-    const [selectedDataCut, setSelectedDataCut] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un corte",
-    }));
 
-
-
-    const [selectedGuide, setSelectedGuide] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione una guía",
-    }));
-
-    const handleChangeDataCut = (newValue: SingleValue<Option>) => {
-        setSelectedDataCut({
-            value: newValue?.value,
-            label: newValue?.label,
-        });
-    }
-
-    const handleChangeGuide = (newValue: SingleValue<Option>) => {
-        setSelectedGuide({
-            value: newValue?.value,
-            label: newValue?.label,
-        });
-    }
 
     return (
         <>
@@ -91,17 +66,17 @@ Adherencia Estricta(Adherencia global o no estricta) y Por Criterio`,
                     <div className=" flex justify-center gap-4 p-2">
                         <div className="flex flex-col ">
                             <span className="font-medium">Corte de Auditoria</span>
-                            <DataCutSelect className="w-full min-w-60" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
+                            <DataCutSelect className="w-full min-w-60" isSearchable={true} />
                         </div>
 
                         <div className="flex flex-col ">
                             <span className="font-medium">Instrumento de adherencia a GPC</span>
-                            <GuideSelect className="w-full" selectedValue={selectedGuide} xChange={handleChangeGuide} isSearchable={true} />
+                            <GuideSelect className="w-full" isSearchable={true} />
                         </div>
 
                     </div>
                     <div>
-                        <ReportDashboard dataCut={parseInt(selectedDataCut?.value ?? "0")} idGuide={parseInt(selectedGuide?.value ?? "0")} />
+                        <ReportDashboard />
                     </div>
                 </div>
                 <div className="px-4">
@@ -111,10 +86,10 @@ Adherencia Estricta(Adherencia global o no estricta) y Por Criterio`,
                 </div>
                 <div className="px-4">
                     {
-                        selectedReport == 1 && <ReportGeneral dataCut={parseInt(selectedDataCut?.value ?? "0")} idGuide={parseInt(selectedGuide?.value ?? "0")} />
+                        selectedReport == 1 && <ReportGeneral />
                     }
                     {
-                        selectedReport == 2 && <ReportFunctionaries dataCut={parseInt(selectedDataCut?.value ?? "0")} idGuide={parseInt(selectedGuide?.value ?? "0")} />
+                        selectedReport == 2 && <ReportFunctionaries />
                     }
                 </div>
             </div>
