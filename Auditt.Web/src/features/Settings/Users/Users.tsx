@@ -7,14 +7,15 @@ import { useUser } from "./useUser";
 import { UserUpdate } from "./UserUpdate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPen, faUser } from "@fortawesome/free-solid-svg-icons";
-import { UserResponseModel } from "../../../routes/Login/LoginModel";
+import { UsersResponseModel } from "./UsersModel";
+
 export const Users = () => {
     const { users } = useUser();
     const [visible, setVisible] = useState(false);
-    const [user, setUser] = useState<UserResponseModel>();
+    const [user, setUser] = useState<UsersResponseModel>();
     const [visibleUpdate, setVisibleUpdate] = useState(false);
 
-    const handleClickDetail = (userSelected: UserResponseModel) => {
+    const handleClickDetail = (userSelected: UsersResponseModel) => {
         if (userSelected) {
             setUser(userSelected);
             setVisibleUpdate(true)

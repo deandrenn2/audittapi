@@ -1,10 +1,11 @@
-import { UserResponseModel } from "../../../routes/Login/LoginModel";
+
 import { ApiClient } from "../../../shared/helpers/ApiClient";
 import { MsgResponse } from "../../../shared/model";
+import { UsersResponseModel } from "./UsersModel";
 
-export const getUser = async (): Promise<MsgResponse<UserResponseModel[]>> => {
+export const getUser = async (): Promise<MsgResponse<UsersResponseModel[]>> => {
     const url = `api/users`;
-    const response = await ApiClient.get<MsgResponse<UserResponseModel[]>>(url);
+    const response = await ApiClient.get<MsgResponse<UsersResponseModel[]>>(url);
     if (response.status !== 200) {
         return {
             isSuccess: false,
@@ -21,10 +22,10 @@ export const getUser = async (): Promise<MsgResponse<UserResponseModel[]>> => {
 }
 
 export const createUsertServices = async (
-    model: UserResponseModel
-): Promise<MsgResponse<UserResponseModel>> => {
+    model: UsersResponseModel
+): Promise<MsgResponse<UsersResponseModel>> => {
     const url = "api/users";
-    const response = await ApiClient.post<MsgResponse<UserResponseModel>>(url, model);
+    const response = await ApiClient.post<MsgResponse<UsersResponseModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
         return {
@@ -41,10 +42,10 @@ export const createUsertServices = async (
 };
 
 export const updateUserServices = async (
-    model: UserResponseModel 
-): Promise<MsgResponse<UserResponseModel>> => {
+    model: UsersResponseModel 
+): Promise<MsgResponse<UsersResponseModel>> => {
     const url = "api/users";
-    const response = await ApiClient.put<MsgResponse<UserResponseModel>>(url, model);
+    const response = await ApiClient.put<MsgResponse<UsersResponseModel>>(url, model);
 
     if (response.status !== 200 && response.status !== 201) {
         return {

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UserResponseModel } from "../../../routes/Login/LoginModel";
 import { useUser } from "./useUser";
+import { UsersResponseModel } from "./UsersModel";
 
-export const UserUpdate = ({data}: {data: UserResponseModel}) =>{
+export const UserUpdate = ({data}: {data: UsersResponseModel}) =>{
    const {updateUser} = useUser();
-   const [user ,setUser] = useState<UserResponseModel>(data);
+   const [user ,setUser] = useState<UsersResponseModel>(data);
     const refForm = useRef<HTMLFormElement>(null);
 
     useEffect(() =>{

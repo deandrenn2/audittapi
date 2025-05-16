@@ -93,7 +93,7 @@ export const Clients = () => {
                     </div>
                     <div className=" bg-white px-2 py-2 border border-gray-200">
                         {filteredClient?.map((client) => (
-                            <div className="grid grid-cols-5 hover:bg-[#F4EDEE] transition-colors">
+                            <div key={client.id} className="grid grid-cols-5 hover:bg-[#F4EDEE] transition-colors">
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{client.name}</div>
                                 <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.abbreviation}</div>
                                 <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.nit}</div>

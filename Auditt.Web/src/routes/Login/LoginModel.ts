@@ -15,14 +15,14 @@ export interface TokenModel {
 }
 
 export interface UserResponseModel {
-    roleName: string;
-    idRol: boolean;
-    active: any;
 	id?: number | undefined;
 	firstName?: string;
 	lastName?: string;
 	email?: string;
 	idAvatar?: number;
+    roleName: string;
+	idEstado: Number;
+    active: any;
 	urlProfile?: string;
 }
 
