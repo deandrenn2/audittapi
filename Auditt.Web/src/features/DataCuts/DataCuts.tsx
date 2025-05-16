@@ -79,24 +79,27 @@ export const DataCuts = () => {
                     />
                 </div>
             </div>
-            <div className="flex">
+            <div className="flex justify-between">
                 <h1 className="text-2xl mr-2 font-semibold mb-3">Cortes trimestrales de auditoría</h1>
-                <div className="relative mr-2"  >
-                    <div className=" inline-flex mb-5">
-                        <input type="text"
-                            value={searDataCuts}
-                            onChange={(e) => setSearDataCuts(e.target.value)}
-                            placeholder="Buscar Trimestrales"
-                            className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
-                                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+
+                <div className="flex">
+                    <div className="relative mr-2"  >
+                        <div className=" inline-flex mb-5">
+                            <input type="text"
+                                value={searDataCuts}
+                                onChange={(e) => setSearDataCuts(e.target.value)}
+                                placeholder="Buscar Trimestrales"
+                                className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                                 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400" />
+                        </div>
                     </div>
+                    <button
+                        onClick={handleCreateClick}
+                        className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-1 rounded-lg font-semibold mb-5 mr-2">
+                        Crear Cortes
+                    </button>
                 </div>
-                <button
-                    onClick={handleCreateClick}
-                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-1 rounded-lg font-semibold mb-5 mr-2">
-                    Crear Cortes
-                </button>
             </div>
             <div>
                 <div className="grid grid-cols-5">
@@ -114,9 +117,9 @@ export const DataCuts = () => {
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.initialDate.toString()}</div>
                             <div className="text-sm px-2 py-2 border border-gray-300 text-center">{item.finalDate.toString()}</div>
                             <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
-                                <button onClick={() => handleUpdateClick(item)}>
-                                    <ButtonUpdate />
-                                </button>
+                                <div onClick={() => handleUpdateClick(item)}>
+                                    <ButtonUpdate/>
+                                </div>
                                 <ButtonDelete id={item.id ?? 0} onDelete={handleDelete} />
                             </div>
                         </div>

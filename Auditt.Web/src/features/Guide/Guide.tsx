@@ -57,24 +57,25 @@ export const Guide = () => {
     return (
         <div className="p-6 w-full">
             <div>
-                <div className="flex">
-                     <h2 className="text-2xl font-semibold mr-2 mb-5 ">Instrumentos o Guias</h2>
-                    <div className="relative">
-                        <div className=" inline-flex  mr-2">
-                            <input type="text"
-                                value={searGuide}
-                                onChange={(e) => setSearGuide(e.target.value)}
-                                placeholder="Buscar Cliente"
-                                className="border rounded px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
-                                 hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute left-3 top-3 text-gray-400" />
+                <div className="flex justify-between">
+                    <h2 className="text-2xl font-semibold mr-2 mb-5 ">Instrumentos o Guias</h2>
+                    <div className="flex">
+                        <div className="relative mr-4">
+                            <div className=" inline-flex mr-2">
+                                <input type="text"
+                                    value={searGuide}
+                                    onChange={(e) => setSearGuide(e.target.value)}
+                                    placeholder="Buscar Guidas"
+                                    className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
+                                 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+                                  <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 mr-2 text-gray-400"/>
+                            </div>
                         </div>
+                        <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
+                            Crear Instrumento
+                        </button>
                     </div>
-                    <button onClick={() => setVisible(true)} className="bg-[#392F5A] hover:bg-indigo-900 text-white px-6 rounded-lg font-semibold mb-5 mr-2">
-                        Crear Instrumento
-                    </button>
                 </div>
-
                 <div>
                     <div className="grid grid-cols-4">
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Nombre</div>
@@ -82,20 +83,19 @@ export const Guide = () => {
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Preguntas</div>
                         <div className=" font-semibold bg-gray-300 text-gray-800 px-2 py-1 text-center">Opciones</div>
                     </div>
-
                     <div className="bg-white px-2 py-2 border border-gray-200">
                         {filterdGuide?.map((guide) => (
                             <div className="grid grid-cols-4 hover:bg-[#F4EDEE] transition-colorsl"
                                 key={guide.id}>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.name}</div>
                                 <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.description}</div>
-                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">80</div>
+                                <div className="text-sm px-2 py-2 border border-gray-300 text-center">{guide.questionsCount}</div>
                                 <div className="flex justify-center text-sm px-2 border border-gray-300 py-1">
                                     <div onClick={() => handleGuideDetail(guide)}>
                                         <ButtonUpdate />
                                     </div>
                                     <div>
-                                        <ButtonPlay url={"Questions"}/>
+                                        <ButtonPlay url={"Questions"} />
                                     </div>
                                     <ButtonDelete id={guide.id ?? 0} onDelete={handleDelete} />
                                 </div>
@@ -103,7 +103,6 @@ export const Guide = () => {
                         ))}
                     </div>
                 </div>
-                
                 <OffCanvas titlePrincipal="Crear Instrumentos" visible={visible} xClose={() => setVisible(false)} position={Direction.Right}>
                     <GuidesCreate />
                 </OffCanvas>

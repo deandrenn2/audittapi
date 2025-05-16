@@ -71,10 +71,10 @@ export const Scales = () => {
                     type="text"
                     name="name"
                     placeholder="Crear la escala"
-                    className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2" />
+                    className="shadow appearance-none bg-white border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2" />
                 <button
                     type="submit"
-                    className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold cursor-pointer">
+                    className="bg-[#392F5A] hover:bg-indigo-900  text-white px-4 py-2 rounded-lg font-semibold cursor-pointer">
                     Crear Escala
                 </button>
             </form>
@@ -83,7 +83,7 @@ export const Scales = () => {
                 <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
                         <div className="flex items-center ">
-                            <ButtonPlay/>
+                            <ButtonPlay url={""}/>
                             <input
                                 value={scale.name}
                                 readOnly

@@ -20,3 +20,43 @@ export const getUser = async (): Promise<MsgResponse<UserResponseModel[]>> => {
     return response.data;
 }
 
+export const createUsertServices = async (
+    model: UserResponseModel
+): Promise<MsgResponse<UserResponseModel>> => {
+    const url = "api/users";
+    const response = await ApiClient.post<MsgResponse<UserResponseModel>>(url, model);
+
+    if (response.status !== 200 && response.status !== 201) {
+        return {
+            isSuccess: false,
+            message: "Error al crear el usuario",
+            isFailure: true,
+            error: {
+                code: response.status.toString(),
+                message: response.statusText,
+            },
+        };
+    }
+    return response.data;
+};
+
+export const updateUserServices = async (
+    model: UserResponseModel 
+): Promise<MsgResponse<UserResponseModel>> => {
+    const url = "api/users";
+    const response = await ApiClient.put<MsgResponse<UserResponseModel>>(url, model);
+
+    if (response.status !== 200 && response.status !== 201) {
+        return {
+            isSuccess: false,
+            message: "Error al actualizar el usuario",
+            isFailure: true,
+            error: {
+                code: response.status.toString(),
+                message: response.statusText,
+            },
+        };
+    }
+    return response.data;
+};
+

@@ -44,7 +44,7 @@ export const Clients = () => {
     }
 
     if (queryClients.isLoading)
-        return <Bar />
+        return <Bar/>
 
     const normalizeText = (text: string) =>
         text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -60,14 +60,15 @@ export const Clients = () => {
     return (
         <div className="p-6 w-full">
             <div>
-                <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
-                    <LinkClients />
+                <div className="flex space-x-8 text-lg font-medium mb-4 mr-2">
+                    <LinkClients/>
                 </div>
+
                 <div className="flex justify-between">
-                    <h2 className="text-2xl font-semibold mb-3 mr-2">Clientes o Instituciones</h2>
+                    <h2 className="text-2xl font-semibold mb-3 mr-2">Clientes o Instituciones</h2>    
                     <div className="flex">
                         <div className="relative mr-4">
-                            <div className=" inline-flex">
+                            <div className="inline-flex">
                                 <input type="text"
                                     value={searClients}
                                     onChange={(e) => setSearClients(e.target.value)}
@@ -99,7 +100,7 @@ export const Clients = () => {
                                 <div className=" text-sm px-2 py-2 border border-gray-300 text-center">{client.city}</div>
                                 <div className="flex justify-center text-sm px-2  border border-gray-300 py-1">
                                     <div onClick={() => handleClickDetail(client)}>
-                                        <ButtonUpdate />
+                                        <ButtonUpdate/>
                                     </div>
                                     <ButtonDelete id={client.id ?? 0} onDelete={handleDelete} />
                                 </div>
@@ -107,13 +108,13 @@ export const Clients = () => {
                         ))}
                     </div>
                 </div>
-                <OffCanvas titlePrincipal='Crear Cliente' visible={visible} xClose={() => setVisible(false)} position={Direction.Right}  >
-                    <ClientCreate />
+                <OffCanvas titlePrincipal='Crear Cliente' visible={visible} xClose={() => setVisible(false)} position={Direction.Right}>
+                    <ClientCreate/>
                 </OffCanvas>
                 {
                     client &&
-                    <OffCanvas titlePrincipal='Actualizar Cliente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}  >
-                        <ClientUpdate data={client} />
+                    <OffCanvas titlePrincipal='Actualizar Cliente' visible={visibleUpdate} xClose={() => setVisibleUpdate(false)} position={Direction.Right}>
+                        <ClientUpdate data={client}/>
                     </OffCanvas>
                 }
             </div>

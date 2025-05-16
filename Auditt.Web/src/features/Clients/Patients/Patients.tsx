@@ -49,7 +49,7 @@ export const Patients = () => {
     }
 
     if (queryPatients.isLoading)
-        return <Bar />
+        return <Bar/>
 
     const filteredPatients = patients?.filter(patient =>
         `${patient.identification}  ${patient.birthDate} ${patient.eps}`.toLowerCase().includes(searPantients.toLowerCase())
@@ -59,11 +59,11 @@ export const Patients = () => {
         <div className="w-full p-6">
             <div>
                 <div className="flex-1">
-                    <div className="flex space-x-8 text-lg font-medium mb-6 mr-2">
-                        <LinkClients />
+                    <div className="flex space-x-8 text-lg font-medium mb-4 mr-2">
+                        <LinkClients/>
                     </div>
                     <div className="flex justify-between">
-                            <h2 className="text-2xl font-semibold mb-3 mr-2">Pacientes o historias </h2>
+                            <h2 className="text-2xl font-semibold mb-3 mr-2">Pacientes o historias</h2>
                         <div className="flex">
                             <div className="relative mr-4">
                                 <div className=" inline-flex">
@@ -72,7 +72,7 @@ export const Patients = () => {
                                         onChange={(e) => setSearPantients(e.target.value)}
                                         placeholder="Buscar Paciente"
                                         className="border rounded bg-white px-3 py-1 transition duration-200 border-gray-300 hover:border-indigo-500 
-                                hover:bg-gray-50 focus:outline-none focus:ring-2 text-center focus:ring-indigo-400"/>
+                                 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
                                     <FontAwesomeIcon icon={faMagnifyingGlass} className="fas fa-search absolute right-2 top-2 text-gray-400"/>
                                 </div>
                             </div>
@@ -84,10 +84,11 @@ export const Patients = () => {
 
                     <div>
                         <div className="grid grid-cols-4">
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID Paciente </div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">ID Paciente</div>
                             <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Fecha de Nacimiento</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">EPS</div>
-                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center"></div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center ">Eps</div>
+                            <div className=" font-semibold bg-gray-300  text-gray-800 px-2 py-1 text-center">Opciones
+                            </div>
                         </div>
                         <div className="bg-white px-2 py-2 border border-gray-200">
                             {filteredPatients?.map((patient) => (
