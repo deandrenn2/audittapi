@@ -3,8 +3,10 @@ import { FunctionarySelect } from "../Clients/Professionals/FunctionarySelect"
 import { useState } from "react";
 import { Option } from "../../shared/model";
 import { useReportsFunctionaryAdherence } from "./UseReports";
+import useAssessmentContext from "../../shared/context/useAssessmentContext";
 
-export const ReportFunctionaries = ({ dataCut, idGuide }: { dataCut: number, idGuide: number }) => {
+export const ReportFunctionaries = () => {
+    const { selectedGuide: idGuide, selectedDataCut: dataCut } = useAssessmentContext();
     const [selectedFunctionary, setSelectedFunctionary] = useState<Option | undefined>(() => ({
         value: "0",
         label: "Seleccione un profesional",

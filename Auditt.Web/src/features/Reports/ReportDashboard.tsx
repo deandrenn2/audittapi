@@ -3,8 +3,10 @@ import { useReportsGlobal } from "./UseReports";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import { useFileDownload } from "../../shared/components/FilesDowload";
 import useUserContext from "../../shared/context/useUserContext";
+import useAssessmentContext from "../../shared/context/useAssessmentContext";
 
-export const ReportDashboard = ({ dataCut, idGuide }: { dataCut: number, idGuide: number }) => {
+export const ReportDashboard = () => {
+    const { selectedGuide: idGuide, selectedDataCut: dataCut } = useAssessmentContext();
     const { reportGlobal } = useReportsGlobal(dataCut, idGuide);
     const { client } = useUserContext();
     const { descargarArchivo } = useFileDownload();
@@ -32,7 +34,7 @@ export const ReportDashboard = ({ dataCut, idGuide }: { dataCut: number, idGuide
                         <span className="text-4xl font-bold">{reportGlobal?.countHistories}</span>
                     </div>
                     <div className="flex flex-col gap-2 items-center bg-green-600 hover:bg-green-800 transition-all text-white p-8 rounded-4xl text-2xl cursor-pointer" onClick={() => handleDownload()}>
-                        <span>Report</span>
+                        <span>Reporte</span>
                         <span className="text-2xl font-bold"><FontAwesomeIcon icon={faFileDownload} className="fa-2x" /></span>
                     </div>
                 </div>

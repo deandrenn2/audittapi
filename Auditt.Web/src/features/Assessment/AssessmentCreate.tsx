@@ -7,14 +7,16 @@ import { FunctionarySelect } from "../Clients/Professionals/FunctionarySelect";
 import { GuideSelect } from "../Guide/GuideSelect";
 import { useAssessmentByDocumentMutation, useAssessments, useSaveAssessment } from "./useAssessment";
 import { usePatientByDocumentMutation } from "../Clients/Patients/UsePatients";
-import { parseISO, differenceInYears } from "date-fns";
+import { parseISO, differenceInYears, format } from "date-fns";
 import { AssessmentDetailModel, AssessmentModel, AssessmentValuationsModel, ValuationModel } from "./AssessmentModel";
 import { AssessmentValuations } from "./AssessmentValuations";
 import useUserContext from "../../shared/context/useUserContext";
 import { toast } from "react-toastify";
+import useAssessmentContext from "../../shared/context/useAssessmentContext";
 
 export const AssessmentCreate = () => {
     const { client, user } = useUserContext();
+    const { selectedDataCut, selectedGuide } = useAssessmentContext();
     const { saveAssessment } = useSaveAssessment();
     const { createAssessment } = useAssessments();
     const { getPatientByDocumentMutation } = usePatientByDocumentMutation();
@@ -32,26 +34,15 @@ export const AssessmentCreate = () => {
         label: client?.name,
     };
 
-    const [selectedDataCut, setSelectedDataCut] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un corte",
-    }));
+
 
     const [selectedFunctionary, setSelectedFunctionary] = useState<Option | undefined>(() => ({
         value: "0",
         label: "Seleccione un corte",
     }));
 
-    const [selectedGuide, setSelectedGuide] = useState<Option | undefined>(() => ({
-        value: "0",
-        label: "Seleccione un corte",
-    }));
 
-    const handleChangeDataCut = (newValue: SingleValue<Option>) => {
-        setSelectedDataCut({
-            value: newValue?.value,
-            label: newValue?.label,
-        });
+    const handleChangeDataCut = () => {
         setAssessment(undefined);
     }
 
@@ -64,11 +55,7 @@ export const AssessmentCreate = () => {
         setAssessment(undefined);
     }
 
-    const handleChangeGuide = (newValue: SingleValue<Option>) => {
-        setSelectedGuide({
-            value: newValue?.value,
-            label: newValue?.label,
-        });
+    const handleChangeGuide = () => {
 
         setAssessment(undefined);
     }
@@ -83,8 +70,13 @@ export const AssessmentCreate = () => {
             return;
         }
 
-        if (selectedDataCut?.value === "0") {
+        if (selectedDataCut.toString() === "0") {
             toast.warning("Seleccione un corte");
+            return;
+        }
+
+        if (selectedGuide.toString() === "0") {
+            toast.warning("Seleccione una guía");
             return;
         }
 
@@ -108,16 +100,17 @@ export const AssessmentCreate = () => {
             const patient = patientRes?.data;
             const patientSearch: AssessmentModel = {
                 identity: documentSearch,
-                idDataCut: Number(selectedDataCut?.value),
+                idDataCut: selectedDataCut,
                 idFunctionary: Number(selectedFunctionary?.value),
                 idPatient: Number(selectedClient?.value),
                 idInstitution: Number(selectedClient?.value),
-                idGuide: Number(selectedGuide?.value),
+                idGuide: selectedGuide,
             };
             const assessment = await getAssessmentByDocumentMutation.mutateAsync(patientSearch);
 
             if (assessment.isSuccess) {
                 setAssessment(assessment?.data);
+
             } else {
 
                 const birthDate = parseISO(patient?.birthDate ?? new Date().toString()); // Año, mes (0-indexado), día
@@ -127,13 +120,13 @@ export const AssessmentCreate = () => {
 
                 const res = await createAssessment.mutateAsync({
                     idInstitution: Number(selectedClient?.value),
-                    idDataCut: Number(selectedDataCut?.value),
+                    idDataCut: selectedDataCut,
                     idFunctionary: Number(selectedFunctionary?.value),
                     idPatient: patient?.id ?? 0,
-                    date: new Date(),
+                    date: new Date(new Date().setHours(0, 0, 0, 0)),
                     eps: patient?.eps ?? "",
                     idUser: 1,
-                    idGuide: Number(selectedGuide?.value),
+                    idGuide: selectedGuide,
                     yearOld: age.toString(),
                 });
 
@@ -161,6 +154,19 @@ export const AssessmentCreate = () => {
         await saveAssessment.mutateAsync(assessmentUpdate);
     }
 
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        if (assessment) {
+            setAssessment({ ...assessment, [e.target.name]: value });
+        }
+    }
+
+    const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        if (assessment)
+            setAssessment({ ...assessment, date: new Date(`${value}T00:00:00`).toISOString() });
+    }
+
     return (
         <div className="w-full">
 
@@ -173,17 +179,18 @@ export const AssessmentCreate = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="flex flex-col space-x-4 mb-4">
                             <span className="font-medium">Corte de Auditoria</span>
-                            <DataCutSelect className="w-full" selectedValue={selectedDataCut} xChange={handleChangeDataCut} isSearchable={true} />
+                            <DataCutSelect className="w-full" xChange={handleChangeDataCut} isSearchable={true} />
                         </div>
                         <div className="flex flex-col space-x-4 mb-4">
-                            <span className="font-medium">Profesional evaluado</span>
-                            <FunctionarySelect className="w-full" selectedValue={selectedFunctionary} xChange={handleChangeFunctionary} isSearchable={true} />
+                            <span className="font-medium">Instrumento de adherencia a GPC</span>
+                            <GuideSelect className="w-full" xChange={handleChangeGuide} isSearchable={true} />
+
                         </div>
                     </div>
 
                     <div className="flex flex-col space-x-4 mb-4">
-                        <span className="font-medium">Instrumento de adherencia a GPC</span>
-                        <GuideSelect className="w-full" selectedValue={selectedGuide} xChange={handleChangeGuide} isSearchable={true} />
+                        <span className="font-medium">Profesional evaluado</span>
+                        <FunctionarySelect className="w-full" selectedValue={selectedFunctionary} xChange={handleChangeFunctionary} isSearchable={true} />
                     </div>
 
                 </div>
@@ -214,6 +221,8 @@ export const AssessmentCreate = () => {
                                 <input
                                     type="text"
                                     disabled={!assessment?.yearOld}
+                                    name="yearOld"
+                                    onChange={handleChange}
                                     value={assessment?.yearOld}
                                     placeholder="Edad"
                                     className="border disabled:bg-gray-200  bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -222,9 +231,11 @@ export const AssessmentCreate = () => {
                             <div>
                                 <label htmlFor="licenseInput" className="font-medium mb-2">Fecha de Atención</label>
                                 <input
-                                    type="text"
+                                    type="date"
                                     disabled={!assessment?.date}
-                                    value={assessment?.date}
+                                    value={format(assessment?.date ?? new Date(), "yyyy-MM-dd")}
+                                    name="date"
+                                    onChange={handleChangeDate}
                                     placeholder="Fecha de Atención"
                                     className="border disabled:bg-gray-200 bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
@@ -235,6 +246,8 @@ export const AssessmentCreate = () => {
                                     type="text"
                                     disabled={!assessment?.eps}
                                     value={assessment?.eps}
+                                    name="eps"
+                                    onChange={handleChange}
                                     placeholder="Eps"
                                     className="border disabled:bg-gray-200  bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />

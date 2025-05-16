@@ -32,6 +32,22 @@ public class GenerateReportGerencial : ICarterModule
 
     public record GenerateReportResponse(byte[] Report);
 
+    public record GetReportGlobalResponse
+    {
+        public int CountHistories { get; set; }
+        public int CountHistoriesStrictAdherence { get; set; }
+        public int GlobalAdherence { get; set; }
+        public int StrictAdherence
+        {
+            get
+            {
+                double value = (double)CountHistoriesStrictAdherence / CountHistories;
+                int percent = (int)Math.Round(value * 100);
+                return percent;
+            }
+        }
+    };
+
     public record DataQuery
     {
         public int IdDataCut { get; set; }
@@ -100,12 +116,11 @@ public class GenerateReportGerencial : ICarterModule
                 percentSuccess = x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess),
             }).ToList();
 
-            var AdherenceGlobal = new
+            var AdherenceGlobal = new GetReportGlobalResponse
             {
                 CountHistories = AdherencePatientsPercent.Count(),
                 CountHistoriesStrictAdherence = AdherencePatientsPercent.Count(x => x.percentSuccess == 100),
                 GlobalAdherence = AdherencePatientsPercent.Sum(x => x.percentSuccess) / AdherencePatientsPercent.Count(),
-                StrictAdherence = AdherencePatientsPercent.Count(x => x.percentSuccess == 100) / AdherencePatientsPercent.Count() * 100
             };
 
             var AdherenceQuestions = assessments.SelectMany(z => z.Valuations).GroupBy(x => new

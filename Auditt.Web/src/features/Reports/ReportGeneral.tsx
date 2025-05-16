@@ -1,6 +1,8 @@
+import useAssessmentContext from "../../shared/context/useAssessmentContext";
 import { useReportsQuestionAdherence } from "./UseReports";
 
-export const ReportGeneral = ({ dataCut, idGuide }: { dataCut: number, idGuide: number }) => {
+export const ReportGeneral = () => {
+    const { selectedGuide: idGuide, selectedDataCut: dataCut } = useAssessmentContext();
     const { reportQuestionAdherence } = useReportsQuestionAdherence(dataCut, idGuide);
 
     if (!dataCut || !idGuide) {

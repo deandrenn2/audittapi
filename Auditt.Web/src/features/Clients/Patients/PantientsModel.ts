@@ -1,7 +1,7 @@
 export interface PatientsModel {
 	id: number;
-	firstName: string;
-	lastName: string;
+	firstName?: string;
+	lastName?: string;
 	identification: string;
 	birthDate: string;
 	eps: string;
