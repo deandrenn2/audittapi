@@ -26,8 +26,7 @@ export const MenuItem = ({ path, icon, text, }: MenuItemProps) => {
               icon={icon}
               className={`transition-colors duration-300 w-6 ${
                 isActive ? "text-white" : "text-gray-300"
-              }`}
-            />
+              }`}/>
             <span>{text}</span>
           </>
         )}

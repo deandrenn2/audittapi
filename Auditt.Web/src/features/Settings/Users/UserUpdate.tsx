@@ -2,31 +2,31 @@ import React, { useEffect, useRef, useState } from "react";
 import { useUser } from "./useUser";
 import { UsersResponseModel } from "./UsersModel";
 
-export const UserUpdate = ({data}: {data: UsersResponseModel}) =>{
-   const {updateUser} = useUser();
-   const [user ,setUser] = useState<UsersResponseModel>(data);
-    const refForm = useRef<HTMLFormElement>(null);
+export const UserUpdate = ({ data }: { data: UsersResponseModel }) => {
+   const { updateUser } = useUser();
+   const [user, setUser] = useState<UsersResponseModel>(data);
+   const refForm = useRef<HTMLFormElement>(null);
 
-    useEffect(() =>{
-        if(data){
-            setUser(data);
-        }
-    }, [data, setUser])
+   useEffect(() => {
+      if (data) {
+         setUser(data);
+      }
+   }, [data, setUser])
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const response = await updateUser.mutateAsync(user);
-        if(response.isSuccess) {
-            refForm.current?.reset();
-        }
-    }
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const response = await updateUser.mutateAsync(user);
+      if (response.isSuccess) {
+         refForm.current?.reset();
+      }
+   }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
-    }
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setUser({ ...user, [e.target.name]: e.target.value });
+   }
 
-    return(
-        <div className="flex w-full">
+   return (
+      <div className="flex w-full">
          <form className="w-full" onSubmit={handleSubmit}>
             <div>
                <label
@@ -84,6 +84,25 @@ export const UserUpdate = ({data}: {data: UsersResponseModel}) =>{
             <div>
                <label
                   className="block text-gray-600 text-sm font-bold mb-2">
+                  Estado
+               </label>
+               <div className="relative">
+                  <select
+                     name="idEstado"
+                     value={user.idEstado?.valueOf()}
+                     onChange={handleChange}
+                     className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mb-2">
+                     <option value={1}>Activo</option>
+                     <option value={2}>Inactivo</option>
+                  </select>
+               </div>
+            </div>
+
+
+            <div>
+               <label
+                  className="block text-gray-600 text-sm font-bold mb-2">
                   Email
                </label>
                <div className="relative">
@@ -101,9 +120,9 @@ export const UserUpdate = ({data}: {data: UsersResponseModel}) =>{
             <button
                type="submit"
                className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold cursor-pointer">
-                {updateUser.isPending ? "Actualizando" : "Actualizar"}
+               {updateUser.isPending ? "Actualizando" : "Actualizar"}
             </button>
          </form>
       </div>
-    )
+   )
 }

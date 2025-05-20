@@ -34,11 +34,11 @@ export default function Root() {
             id="main"
             className="flex bg-gray-900"
          >
-            <Sidebar />
+            <Sidebar/>
             <div
                id="detail"
                className=" w-full bg-gray-100  min-h-screen">
-               <Outlet />
+               <Outlet/>
             </div>
          </div>
 

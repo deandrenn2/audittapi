@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ButtonPlus } from "../../../shared/components/Buttons/ButtonMas";
-import { ButtonPlay } from "../../../shared/components/Buttons/ButtonPlay";
 import { LinkSettings } from "../../Dashboard/LinkSenttings";
 import { useScales } from "./useScales";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
@@ -10,12 +9,21 @@ import { Equivalence } from "./Equivalence/Equivalence";
 import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { EquivalenceCreate } from "./Equivalence/EquivalenceCreate";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
+import { ButtonPlays } from "../../../shared/components/Buttons/ButtonPlays";
 
 export const Scales = () => {
     const { scales, createScale, queryScale, deleteScale } = useScales();
     const refForm = useRef<HTMLFormElement>(null);
     const [visible, setVisible] = useState(false);
     const [scaleId, setScaleId] = useState(0);
+    const [openScale, setOpenScale] = useState<Set<number>>(new Set());
+
+    useEffect(() =>{
+        if(scales){
+            const allScaleId = new Set(scales.map(scale => scale.id ?? 0));
+            setOpenScale(allScaleId);
+        }
+    }, [scales])
 
     const handleEdit = (id: number) => {
         setVisible(true);
@@ -56,9 +64,19 @@ export const Scales = () => {
             }
         })
     }
+    const toggleScale = (scaleId: number) => {
+    setOpenScale(prev => {
+        const newSet = new Set(prev);
+        if(newSet.has(scaleId)){
+            newSet.delete(scaleId);
+        }else {
+            newSet.add(scaleId);
+        }
+        return newSet;
+    })};
 
     if (queryScale.isLoading)
-        return <Bar />
+        return <Bar/>
 
     return (
         <div className="p-6">
@@ -83,12 +101,12 @@ export const Scales = () => {
                 <div key={scale.id} className="w-96 p-4 mb-4 border rounded-lg shadow">
                     <div className="flex items-center mb-2 mr-2">
                         <div className="flex items-center ">
-                            <ButtonPlay url={""}/>
+                            <ButtonPlays xClick={() => toggleScale(scale.id ?? 0)}
+                                isOpen={scale.id !== undefined && openScale.has(scale.id)}/>
                             <input
                                 value={scale.name}
                                 readOnly
-                                className="border rounded px-2 py-1 mr-2 "
-                            />
+                                className="border rounded px-2 py-1 mr-2"/>
                         </div>
                         <div onClick={() => handleEdit(scale.id ?? 0)}>
                             <ButtonPlus />
@@ -97,9 +115,14 @@ export const Scales = () => {
                             <ButtonDelete id={scale.id} onDelete={handleDelete} />
                         )}
                     </div>
+                   {
+                    scale.id !== undefined && openScale.has(scale.id) &&  (
+
                     <div className="mb-4">
-                        <Equivalence />
+                        <Equivalence/>
                     </div>
+                    )
+                   }
                 </div>
             ))}
             <OffCanvas titlePrincipal='Crear Equivalencia' visible={visible} xClose={handleClose} position={Direction.Right}  >

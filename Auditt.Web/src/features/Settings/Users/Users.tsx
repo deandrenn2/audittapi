@@ -8,6 +8,7 @@ import { UserUpdate } from "./UserUpdate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { UsersResponseModel } from "./UsersModel";
+import { UserStatusLabel } from "./UsersEstado";
 
 export const Users = () => {
     const { users } = useUser();
@@ -57,8 +58,7 @@ export const Users = () => {
                         </div>
 
                         <div className="flex items-center space-x-1">
-                            <div className="w-4 h-4 rounded-full bg-lime-500"></div>
-                            <span className="text-sm font-semibold text-lime-600">activo</span>
+                            <span className="text-sm font-semibold text-lime-600"><UserStatusLabel idEstado={Number(user.idEstado)} /></span>
                         </div>
 
                         <div className="flex items-center space-x-2">
@@ -77,7 +77,7 @@ export const Users = () => {
                 ))}
             </div>
             <OffCanvas titlePrincipal='Crear Usuario' visible={visible} xClose={() => setVisible(false)} position={Direction.Right}  >
-                <UserCreate />
+                <UserCreate/>
             </OffCanvas>
             {
                 user &&

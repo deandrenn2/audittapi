@@ -7,7 +7,6 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
     const [equivalence, setEquivalence] = useState<EquivalenceModel>(data);
 
     useEffect(() => {
-       
         const cleanData = {
             ...data,
             scale: undefined,
@@ -34,7 +33,7 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
     return (
         <div>
             <div className="mb-2">
-                <label>Nombre</label>
+                <label className="block font-medium mb-2">Nombre</label>
                 <input
                     type="text"
                     name="name"
@@ -45,7 +44,7 @@ export const EquivalenceUpdate = ({ data }: { data: EquivalenceModel }) => {
                 />
             </div>
             <div className="mb-2">
-                <label>Valor</label>
+                <label className="block font-medium mb-2">Valor</label>
                 <input
                     type="number"
                     name="value"
