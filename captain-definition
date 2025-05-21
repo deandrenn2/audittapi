@@ -16,7 +16,7 @@
       }
     },
     {
-      "name": "audittapi",
+      "name": "audittweb",
       "dockerfilePath": "./Auditt.Web/Dockerfile.web",
       "dockerfileContext": ".",
       "ports": [
