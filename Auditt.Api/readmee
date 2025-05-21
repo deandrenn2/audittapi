@@ -1,0 +1,7 @@
+# Ejecutar el proyecto en terminal
+
+## Util cuando se intenta ejecutar en Windsurt y no hay compatibilidad con el debugger de .NET
+
+```
+dotnet run --project Auditt.Api/Auditt.Api.csproj --urls "https://localhost:7275"
+```

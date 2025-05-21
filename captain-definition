@@ -1,5 +1,30 @@
 {
-	"schemaVersion": 2,
-	"dockerfilePath": "./Dockerfile",
-	"dockerfileContext": "./Auditt.Api"
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "audittapi",
+      "dockerfilePath": "./Auditt.Api/Dockerfile",
+      "dockerfileContext": ".",
+      "ports": [
+        {
+          "port": 80,
+          "isPublic": true
+        }
+      ],
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    {
+      "name": "audittapi",
+      "dockerfilePath": "./Auditt.Web/Dockerfile.web",
+      "dockerfileContext": ".",
+      "ports": [
+        {
+          "port": 80,
+          "isPublic": true
+        }
+      ]
+    }
+  ]
 }
