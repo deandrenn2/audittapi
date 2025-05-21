@@ -7,6 +7,8 @@ type formData = {
     abbreviation?: string;
     nit?: string;
     city?: string;
+    assistantManager?: string;
+    manager?: string;
 };
 
 export const ClientCreate = () => {
@@ -24,6 +26,8 @@ export const ClientCreate = () => {
             abbreviation: client.abbreviation ?? "",
             nit: client.nit ?? "",
             city: client.city ?? "",
+            manager: client.manager ?? "",
+            assistantManager: client.assistantManager ?? "",
         };
 
         const response = await createClient.mutateAsync(newClient);
@@ -38,38 +42,58 @@ export const ClientCreate = () => {
         <div>
             <form ref={refForm} className="space-y-4" onSubmit={handleSubmit}>
                 <div>
+                    <label className="block text-sm font-medium mb-1">Gerente</label>
+                    <input
+                        type="text"
+                        name="manager"
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium mb-1">SubGerente</label>
+                    <input
+                        type="text"
+                        name="assistantManager"
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                </div>
+
+                <div>
                     <label className="block text-sm font-medium mb-1">Razón Social</label>
                     <input
-                    type="text"
-                    name="name" 
-                    required 
-                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                      hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">Abreviatura</label>
-                    <input 
-                    type="text" 
-                    name="abbreviation" 
-                    required 
-                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    <input
+                        type="text"
+                        name="abbreviation"
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">NIT</label>
-                    <input 
-                    type="text" 
-                    name="nit" 
-                    required 
-                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    <input
+                        type="text"
+                        name="nit"
+                        required
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>
                     <label className="block text-sm font-medium mb-1">Ciudad</label>
-                    <input 
-                    type="text" 
-                    name="city" 
-                    className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
+                    <input
+                        type="text"
+                        name="city"
+                        className="w-full border border-gray-300 rounded px-3 py-2 transition duration-200 hover:border-indigo-500
                     hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400" />
                 </div>
                 <div>

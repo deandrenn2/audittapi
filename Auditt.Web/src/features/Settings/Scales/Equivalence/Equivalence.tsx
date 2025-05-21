@@ -49,7 +49,7 @@ export const Equivalence = () => {
                             <span className="text-red-500 mr-2">Value: {equivalence.value}</span>
                             <ButtonDeletes id={equivalence.id} onDelete={handleDelete} />
                             <div onClick={() => handleOpenEdit(equivalence)}>
-                                <ButtonDetails url={""} />
+                                <ButtonDetails/>
                             </div>
                         </div>
                     ))

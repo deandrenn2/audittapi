@@ -4,6 +4,8 @@ export interface ClientModel {
 	abbreviation: string;
 	nit: string;
 	city: string;
+	manager: string;
+	assistantManager: string;
 }
 
 export interface ClientsResponseModel {

@@ -1,7 +1,6 @@
-import { ButtonPlay } from "../../../shared/components/Buttons/ButtonPlay";
 import { LinkSettings } from "../../Dashboard/LinkSenttings";
 import { useRoles } from "./UseRoles";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bar } from "../../../shared/components/Progress/Bar";
 import Swal from "sweetalert2";
 import ButtonDelete from "../../../shared/components/Buttons/ButtonDelete";
@@ -10,6 +9,7 @@ import OffCanvas from "../../../shared/components/OffCanvas/Index";
 import { Direction } from "../../../shared/components/OffCanvas/Models";
 import { Permission } from "./Permission/Permission";
 import { PermissionCreate } from "./Permission/PermissionCreate";
+import { ButtonPlays } from "../../../shared/components/Buttons/ButtonPlays";
 
 export const Roles = () => {
     const { roles, createRole, queryRoles, deleteRole } = useRoles();
@@ -17,6 +17,13 @@ export const Roles = () => {
     const [visible, setVisible] = useState(false);
     const [rolesId, setRolesId] = useState(0);
     const [openPermissionRoles, setOpenPermissionRoles] = useState<Set<number>>(new Set());
+
+    useEffect(() => {
+     if (roles) {
+        const allRolesIds = new Set(roles.map(role => role.id ?? 0));
+        setOpenPermissionRoles(allRolesIds)
+     }  
+    }, [roles]);
 
     const handleEdit = (id: number) => {
         setVisible(true);
@@ -47,7 +54,7 @@ export const Roles = () => {
     function handleDelete(e: React.MouseEvent<HTMLButtonElement>, id: number): void {
         e.preventDefault();
         Swal.fire({
-            title: '¿Estás seguro de eliminar esta roles?',
+            title: '¿Estás seguro de eliminar este roles?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -60,13 +67,13 @@ export const Roles = () => {
         })
     }
 
-    const togglePermissions = (roleId: number) => {
+    const togglePermissions = (rolesId: number) => {
         setOpenPermissionRoles(prev => {
             const newSet = new Set(prev);
-            if (newSet.has(roleId)) {
-                newSet.delete(roleId);
+            if (newSet.has(rolesId)) {
+                newSet.delete(rolesId);
             } else {
-                newSet.add(roleId);
+                newSet.add(rolesId);
             }
             return newSet;
         });
@@ -88,7 +95,7 @@ export const Roles = () => {
                     type="text"
                     name="name"
                     placeholder="Crear roles"
-                    className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2" />
+                    className="shadow appearance-none border bg-white border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2" />
                 <button
                     type="submit"
                     className="bg-[#392F5A] hover:bg-indigo-900 text-white px-4 py-2 rounded-lg font-semibold cursor-pointer">
@@ -102,7 +109,7 @@ export const Roles = () => {
                         <div key={role.id} className="w-96 p-4 mb-2 border rounded-lg shadow">
                             <div className="flex items-center mb-2 mr-2">
                                 <div className="flex items-center ">
-                                    <ButtonPlay
+                                    <ButtonPlays
                                         xClick={() => togglePermissions(role.id ?? 0)}
                                         isOpen={role.id !== undefined && openPermissionRoles.has(role.id)}/>
                                     <input
@@ -112,15 +119,18 @@ export const Roles = () => {
                                 </div>
                                 
                                 <div onClick={() => handleEdit(role.id ?? 0)}>
-                                    <ButtonPlus />
+                                    <ButtonPlus/>
                                 </div>
-                                {typeof role.id === 'number' && (
-                                    <ButtonDelete id={role.id} onDelete={handleDelete} />
-                                )}
+                                
+                                <div>
+                                    {role.id !== undefined && (
+                                        <ButtonDelete id={role.id} onDelete={handleDelete} />
+                                    )}
+                                </div>
                             </div>
                             {role.id !== undefined && openPermissionRoles.has(role.id) && (
                                 <div className="mb-4">
-                                    <Permission />
+                                    <Permission/>
                                 </div>
                             )}
                         </div>
@@ -128,7 +138,7 @@ export const Roles = () => {
                 </div>
             </div>
             <OffCanvas titlePrincipal='Crear Permisos' visible={visible} xClose={handleClose} position={Direction.Right}  >
-                <PermissionCreate />
+                <PermissionCreate/>
             </OffCanvas>
         </div>
     );

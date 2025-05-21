@@ -38,7 +38,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                         type="text"
                         value={DataCut.name}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                     />
                 </div>
 
@@ -49,7 +49,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                         type="number"
                         value={DataCut.maxHistory}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                     />
                 </div>
 
@@ -60,7 +60,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                         type="date"
                         value={new Date(DataCut.initialDate).toISOString().substring(0, 10)}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                     />
                 </div>
 
@@ -71,7 +71,7 @@ export const DataCutUpdateForm = ({ dataCut }: { dataCut: DataCutModel }) => {
                         type="date"
                         value={new Date(DataCut.finalDate).toISOString().substring(0, 10)}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2"
+                        className="shadow appearance-none border border-gray-300 rounded px-2 py-2 transition duration-200 hover:border-indigo-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2 w-full"
                     />
                 </div>
 

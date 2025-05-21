@@ -48,7 +48,7 @@ export const UserCreate = () => {
             <div>
                <label
                   htmlFor="namesTxt"
-                  className="block text-gray-600 text-sm font-bold mb-2 w-full"
+                  className="block font-medium mb-2 w-full"
                >
                   Nombre
                </label>
@@ -68,7 +68,7 @@ export const UserCreate = () => {
             <div>
                <label
                   htmlFor="lastNameTxt"
-                  className="block text-gray-600 text-sm font-bold mb-2"
+                  className=" block font-medium mb-2"
                >
                   Apellido
                </label>
@@ -85,11 +85,10 @@ export const UserCreate = () => {
                   />
                </div>
             </div>
-
             <div>
                <label
                   htmlFor="email"
-                  className="block text-gray-600 text-sm font-bold mb-2"
+                  className="block font-medium mb-2"
                >
                   Email
                </label>

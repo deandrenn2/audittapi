@@ -42,7 +42,7 @@ export const EquivalenceCreate = ({ scaleId, onCreated }: Props) => {
     return (
         <div>
             <div className="mb-2">
-                <label>Nombre</label>
+                <label className="block font-medium mb-2">Nombre</label>
                 <input
                     type="text"
                     name="name"
@@ -53,7 +53,7 @@ export const EquivalenceCreate = ({ scaleId, onCreated }: Props) => {
                 />
             </div>
             <div className="mb-2">
-                <label>Value</label>
+                <label className="block font-medium mb-2">Value</label>
                 <input
                     type="number"
                     name="value"

@@ -19,7 +19,6 @@ export const GuideDetail = () => {
             <div className="w-full bg-white p-4 rounded-lg">
                 <Questions/>
             </div>
-
         </div>
     )
 }

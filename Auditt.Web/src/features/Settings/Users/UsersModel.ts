@@ -15,6 +15,8 @@ export interface UsersResponseModel {
 	email: string;
 	password?: string;
 	securePharse?: string;
+	 roleName: string;
+	idEstado: Number;
 	idAvatar?: number;
 	urlProfile?: string;
 }
