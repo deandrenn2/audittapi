@@ -18,10 +18,17 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
+# Crear la carpeta App_Data y asegurar los permisos
+RUN mkdir -p /app/App_Data && \
+    chmod 777 /app/App_Data
+
 # Configurar variables de entorno
 ENV ASPNETCORE_ENVIRONMENT=Production \
     ASPNETCORE_URLS=http://+:80 \
-    DOTNET_RUNNING_IN_CONTAINER=true
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    SQLITE_CONN="Data Source=/app/App_Data/audittDb.sqlite" \
+    GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID} \
+    GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET}
 
 # Exponer el puerto 80
 EXPOSE 80

@@ -1,14 +1,21 @@
 {
-  "schemaVersion": 2,
-  "dockerfilePath": "./Auditt.Api/Dockerfile",
-  "dockerfileContext": ".",
-  "ports": [
-    {
-      "port": 80,
-      "isPublic": true
-    }
-  ],
-  "env": {
-    "ASPNETCORE_ENVIRONMENT": "Production"
-  }
+    "schemaVersion": 2,
+    "dockerfilePath": "./Auditt.Api/Dockerfile",
+    "dockerfileContext": ".",
+    "ports": [
+        {
+            "port": 80,
+            "isPublic": true
+        }
+    ],
+    "env": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+    },
+    "volumes": [
+        {
+            "type": "persistent",
+            "source": "audittapi-db",
+            "target": "/app/App_Data"
+        }
+    ]
 }
