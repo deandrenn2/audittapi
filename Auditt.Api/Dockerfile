@@ -26,7 +26,6 @@ RUN mkdir -p /app/App_Data && \
 ENV ASPNETCORE_ENVIRONMENT=Production \
     ASPNETCORE_URLS=http://+:80 \
     DOTNET_RUNNING_IN_CONTAINER=true \
-    SQLITE_CONN="Data Source=/app/App_Data/audittDb.sqlite"
 
 # Exponer el puerto 80
 EXPOSE 80
