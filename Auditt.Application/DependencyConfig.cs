@@ -11,6 +11,7 @@ using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Authentications;
 using Auditt.Infrastructure.Authentications;
 using System.Text;
+using Auditt.Application.Domain.Entities;
 
 namespace Auditt.Application;
 
@@ -52,6 +53,8 @@ public static class DependencyConfig
     {
         builder.Services.AddScoped<IManagerToken, ManagerToken>();
         builder.Services.AddScoped<IFileManager, FileManager>();
+        builder.Services.AddScoped<IExcelImporter<Institution>, InstitutionExcelImporter>();
+
     }
 
     public static IServiceCollection AddApplicationCore(this IServiceCollection services)

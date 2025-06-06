@@ -4,6 +4,7 @@ namespace Auditt.Application.Domain.Entities;
 
 public class Institution : AggregateRoot
 {
+    public Institution() : base(0) { }
     private Institution(int id) : base(id) { }
     public Institution(int id, string name, string abbreviation, string nit, string city, string manager, string assistantManager) : base(id)
     {

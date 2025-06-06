@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Features.Roles;
 
@@ -36,7 +37,7 @@ public class GetRole : ICarterModule
             {
                 return Results.ValidationProblem(result.GetValidationProblems());
             }
-            var role = await context.Roles.FindAsync(request.Id, cancellationToken);
+            var role = await context.Roles.Include(x => x.Permissions).FirstAsync(x => x.Id == request.Id, cancellationToken);
             if (role == null)
             {
                 return Results.NotFound(new { Message = "Rol no encontrado" });
