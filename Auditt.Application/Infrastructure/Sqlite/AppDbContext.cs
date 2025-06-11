@@ -5,6 +5,7 @@ using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite.Configurations;
 
 namespace Auditt.Application.Infrastructure.Sqlite;
+
 public class AppDbContext : DbContext
 {
     private readonly IPublisher _publisher;
@@ -70,6 +71,7 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new DataCutConfiguration());
         modelBuilder.ApplyConfiguration(new RolesConfiguration());
         modelBuilder.ApplyConfiguration(new AssessmentConfiguration());
+        modelBuilder.ApplyConfiguration(new InstitutionConfiguration());
     }
 
 }
