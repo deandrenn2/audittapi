@@ -12,7 +12,7 @@ namespace Auditt.Application.Features.Users.Queries;
 
 public class GetUsers : ICarterModule
 {
-    public record GetUsersResponse(int Id, string? FirstName, string? LastName, int IdEstado, string Email, string? UrlProfile, string? RoleName);
+    public record GetUsersResponse(int Id, string? FirstName, string? LastName, int IdEstado, string Email, int IdRol, string? UrlProfile, string? RoleName);
 
     public record GetUsersQuery() : IRequest<Result>;
 
@@ -39,6 +39,7 @@ public class GetUsers : ICarterModule
                 x.LastName,
                 x.StatusId,
                 x.Email,
+                x.RoleId,
                 x.UrlProfile,
                 x.Role.Name
                 )).ToList();
