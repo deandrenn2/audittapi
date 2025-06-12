@@ -9,7 +9,7 @@ using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
 
-namespace Auditt.Application.Features.Institutions.Commands;
+namespace Auditt.Application.Features.Institutions;
 
 public class UpdateInstitucion : ICarterModule
 {

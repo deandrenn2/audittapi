@@ -39,6 +39,7 @@ public class User : AggregateRoot
     public int StatusId { get; private set; } = 1;
     public int IdAvatar { get; private set; } = NumberRandom.Random(1, 20);
     public string UrlProfile { get; private set; }
+    public List<Institution> Institutions { get; private set; } = new List<Institution>();
 
     public static User Create(int id,
     string firstName,
@@ -101,6 +102,11 @@ public class User : AggregateRoot
     public void SetAvatar(int id)
     {
         IdAvatar = id;
+    }
+
+    public void AddInstitution(Institution institution)
+    {
+        Institutions.Add(institution);
     }
 
     public void SetProfileUrl(string url)

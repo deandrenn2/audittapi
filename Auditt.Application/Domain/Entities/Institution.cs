@@ -21,6 +21,7 @@ public class Institution : AggregateRoot
     public string City { get; private set; }
     public string Manager { get; private set; }
     public string AssistantManager { get; private set; }
+    public int StatusId { get; private set; } = 1;
     public List<User> Users { get; private set; } = new List<User>();
     public List<DataCut> DataCuts { get; private set; } = new List<DataCut>();
 
@@ -36,6 +37,11 @@ public class Institution : AggregateRoot
         City = city;
         Manager = manager;
         AssistantManager = assistantManager;
+    }
+
+    public void ChangeStatus(int statusId)
+    {
+        StatusId = statusId;
     }
 
 }
