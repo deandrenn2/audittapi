@@ -3,6 +3,7 @@ using Auditt.Domain.Shared;
 using Auditt.Reports.Infrastructure.Report;
 using Carter;
 using Carter.ModelBinding;
+using DocumentFormat.OpenXml.Wordprocessing;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +49,9 @@ public class GenerateReportGerencial : ICarterModule
         }
     };
 
+
+    public record ReportFunctionary(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int PercentSuccess, int FunctionaryId, string FunctionaryName);
+
     public record DataQuery
     {
         public int IdDataCut { get; set; }
@@ -55,11 +59,15 @@ public class GenerateReportGerencial : ICarterModule
         public int IdInstitution { get; set; }
         public int IdGuide { get; set; }
         public string GuideName { get; set; } = string.Empty;
+        public string GuideDescription { get; set; } = string.Empty;
         public string InstitutionName { get; set; } = string.Empty;
         public int CountHistories { get; set; }
         public string GlobalAdherence { get; set; } = string.Empty;
         public string StrictAdherence { get; set; } = string.Empty;
+        public string ManagerName { get; set; } = string.Empty;
+        public string AssistantManagerName { get; set; } = string.Empty;
         public List<QuestionAdherenceModel> QuestionAdherence { get; set; } = new List<QuestionAdherenceModel>();
+        public List<ReportFunctionary> Functionaries { get; set; } = new List<ReportFunctionary>();
 
     }
 
@@ -73,12 +81,14 @@ public class GenerateReportGerencial : ICarterModule
                 return Results.Ok(Result<IResult>.Failure(Results.ValidationProblem(result.GetValidationProblems()), new Error("Assessment.ErrorValidation", "Se presentaron errores de validación")));
             }
 
+            /* Reporte general */
+
             var assessments = await context.Assessments
                 .Include(x => x.Valuations)
                 .Include(x => x.Guide)
                 .Include(x => x.Institution)
                 .Include(x => x.DataCut)
-                .Include(x => x.Patient)
+                .Include(x => x.Functionary)
                 .Where(x =>
              x.DataCutId == request.IdDataCut
             && x.InstitutionId == request.IdInstitution
@@ -143,6 +153,41 @@ public class GenerateReportGerencial : ICarterModule
                  (x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess)).ToString() + '%'
             )).ToList();
 
+            /* Reporte por Funcionarios */
+            var AdherenceFunctionaries = assessments.SelectMany(z => z.Valuations).GroupBy(x => new
+            {
+                x.Assessment.FunctionaryId,
+                x.Assessment.Functionary.LastName,
+                x.Assessment.Functionary.FirstName,
+                x.IdQuestion,
+                x.Text
+            }).Select(d => new
+            {
+                CountSuccess = d.Count(x => x.EquivalenceId == idSuccess),
+                CountNoApply = d.Count(x => x.EquivalenceId == idNoApply),
+                CountNoSuccess = d.Count(x => x.EquivalenceId == idNoSuccess),
+                ValuationsCount = d.Count(),
+                d.Key.IdQuestion,
+                d.Key.Text,
+                d.Key.FunctionaryId,
+                d.Key.LastName,
+                d.Key.FirstName
+
+            }).ToList();
+
+            var AdherenceQuestionPercentFunctionaries = AdherenceFunctionaries.Select(x => new
+           ReportFunctionary(
+                x.CountNoApply,
+                x.CountSuccess,
+                x.CountNoSuccess,
+                x.ValuationsCount,
+                x.IdQuestion,
+                x.Text,
+                x.FunctionaryId,
+                x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess),
+                x.LastName + " " + x.FirstName
+            )).ToList();
+
             var res = new DataQuery
             {
                 QuestionAdherence = AdherenceQuestionPercent,
@@ -155,6 +200,10 @@ public class GenerateReportGerencial : ICarterModule
                 IdGuide = request.IdGuide,
                 GuideName = assessments.First()?.Guide?.Name ?? "",
                 InstitutionName = assessments.First()?.Institution?.Name ?? "",
+                GuideDescription = assessments.First()?.Guide?.Description ?? "",
+                ManagerName = assessments.First()?.Institution?.Manager ?? "",
+                AssistantManagerName = assessments.First()?.Institution?.AssistantManager ?? "",
+                Functionaries = AdherenceQuestionPercentFunctionaries
             };
 
             var resArray = reportManager.GenerateReportAsync("ReportGerencial", res);

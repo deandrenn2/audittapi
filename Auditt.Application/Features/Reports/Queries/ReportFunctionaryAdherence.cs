@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Auditt.Application.Features.Reports;
+
 public class ReportFunctionaryAdherence : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -26,7 +27,7 @@ public class ReportFunctionaryAdherence : ICarterModule
         .Produces<List<ReportFunctionaryAdherenceResponse>>(StatusCodes.Status200OK);
     }
     public record ReportFunctionaryAdherenceQuery(int IdDataCut, int idFunctionary, int IdInstitution, int IdGuide) : IRequest<IResult>;
-    public record ReportFunctionaryAdherenceResponse(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int percentSuccess);
+    public record ReportFunctionaryAdherenceResponse(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int PercentSuccess);
     public class ReportFunctionaryAdherenceHandler(AppDbContext context, IValidator<ReportFunctionaryAdherenceQuery> validator) : IRequestHandler<ReportFunctionaryAdherenceQuery, IResult>
     {
         public async Task<IResult> Handle(ReportFunctionaryAdherenceQuery request, CancellationToken cancellationToken)
@@ -56,7 +57,7 @@ public class ReportFunctionaryAdherence : ICarterModule
             var idNoSuccess = scale?.Equivalences.Find(x => x.Name == "No Cumple")?.Id ?? 0;
 
 
-            var AdherencePatients = assessments.SelectMany(z => z.Valuations).GroupBy(x => new
+            var AdherenceFunctionaries = assessments.SelectMany(z => z.Valuations).GroupBy(x => new
             {
                 x.Assessment.FunctionaryId,
                 x.IdQuestion,
@@ -71,7 +72,7 @@ public class ReportFunctionaryAdherence : ICarterModule
                 d.Key.Text,
             }).ToList();
 
-            var AdherenceQuestionPercent = AdherencePatients.Select(x => new
+            var AdherenceQuestionPercent = AdherenceFunctionaries.Select(x => new
            ReportFunctionaryAdherenceResponse(
                 x.CountNoApply,
                 x.CountSuccess,
