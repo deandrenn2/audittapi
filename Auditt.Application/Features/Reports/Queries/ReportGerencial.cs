@@ -49,8 +49,8 @@ public class GenerateReportGerencial : ICarterModule
         }
     };
 
-
-    public record ReportFunctionary(int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, int? IdQuestion, string Text, int PercentSuccess, int FunctionaryId, string FunctionaryName);
+    public record ReportFunctionaryQuestion(int? IdQuestion, string Text, int CountSuccess, int CountNoApply, int CountNoSuccess, int ValorationsCount, string PercentSuccess);
+    public record ReportFunctionaryGrouped(int FunctionaryId, string FunctionaryName, List<ReportFunctionaryQuestion> Questions);
 
     public record DataQuery
     {
@@ -67,7 +67,7 @@ public class GenerateReportGerencial : ICarterModule
         public string ManagerName { get; set; } = string.Empty;
         public string AssistantManagerName { get; set; } = string.Empty;
         public List<QuestionAdherenceModel> QuestionAdherence { get; set; } = new List<QuestionAdherenceModel>();
-        public List<ReportFunctionary> Functionaries { get; set; } = new List<ReportFunctionary>();
+        public List<ReportFunctionaryGrouped> Functionaries { get; set; } = new List<ReportFunctionaryGrouped>();
 
     }
 
@@ -172,21 +172,23 @@ public class GenerateReportGerencial : ICarterModule
                 d.Key.FunctionaryId,
                 d.Key.LastName,
                 d.Key.FirstName
-
             }).ToList();
 
-            var AdherenceQuestionPercentFunctionaries = AdherenceFunctionaries.Select(x => new
-           ReportFunctionary(
-                x.CountNoApply,
-                x.CountSuccess,
-                x.CountNoSuccess,
-                x.ValuationsCount,
-                x.IdQuestion,
-                x.Text,
-                x.FunctionaryId,
-                x.CountNoSuccess + x.CountSuccess == 0 ? 0 : x.CountSuccess * 100 / (x.CountNoSuccess + x.CountSuccess),
-                x.LastName + " " + x.FirstName
-            )).ToList();
+            var groupedFunctionaries = AdherenceFunctionaries
+                .GroupBy(x => new { x.FunctionaryId, FunctionaryName = x.LastName + " " + x.FirstName })
+                .Select(g => new ReportFunctionaryGrouped(
+                    g.Key.FunctionaryId,
+                    g.Key.FunctionaryName,
+                    g.Select(q => new ReportFunctionaryQuestion(
+                        q.IdQuestion,
+                        q.Text,
+                        q.CountSuccess,
+                        q.CountNoApply,
+                        q.CountNoSuccess,
+                        q.ValuationsCount,
+                        (q.CountNoSuccess + q.CountSuccess == 0 ? 0 : q.CountSuccess * 100 / (q.CountNoSuccess + q.CountSuccess)).ToString() + '%'
+                    )).ToList()
+                )).ToList();
 
             var res = new DataQuery
             {
@@ -203,7 +205,7 @@ public class GenerateReportGerencial : ICarterModule
                 GuideDescription = assessments.First()?.Guide?.Description ?? "",
                 ManagerName = assessments.First()?.Institution?.Manager ?? "",
                 AssistantManagerName = assessments.First()?.Institution?.AssistantManager ?? "",
-                Functionaries = AdherenceQuestionPercentFunctionaries
+                Functionaries = groupedFunctionaries
             };
 
             var resArray = reportManager.GenerateReportAsync("ReportGerencial", res);

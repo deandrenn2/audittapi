@@ -44,7 +44,7 @@ public class GetInstitutions : ICarterModule
                     return Results.NotFound(Result.Failure(new Error("User.ErrorData", "El id de usuario no existe")));
                 }
 
-                institutions = user.Institutions.ToList();
+                institutions = user.Institutions.Where(x => x.StatusId == 1).ToList();
             }
             else
             {
