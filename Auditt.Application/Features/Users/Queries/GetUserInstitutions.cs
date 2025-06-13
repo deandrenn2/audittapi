@@ -13,7 +13,7 @@ namespace Auditt.Application.Features.Users.Queries;
 
 public class GetUserInstitutions : ICarterModule
 {
-    public record UserInstitutionsResponse(int Id, string Name, string Nit);
+    public record UserInstitutionsResponse(int Id, string Name, string Nit, int IdState);
 
     public record GetUserInstitutionsQuery(int Id) : IRequest<Result>;
 
@@ -41,7 +41,7 @@ public class GetUserInstitutions : ICarterModule
                 return Result.Failure(new Error("User.ErrorData", "El id de usuario no existe"));
             }
 
-            var institutions = user.Institutions.Select(i => new UserInstitutionsResponse(i.Id, i.Name, i.Nit)).ToList();
+            var institutions = user.Institutions.Select(i => new UserInstitutionsResponse(i.Id, i.Name, i.Nit, i.StatusId)).ToList();
 
             return Result<List<UserInstitutionsResponse>>.Success(institutions, "Datos de las instituciones del usuario");
         }

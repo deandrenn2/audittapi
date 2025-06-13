@@ -17,28 +17,45 @@ public class GetInstitutions : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("api/institutions", async (IMediator mediator) =>
+        app.MapGet("api/institutions", async (IMediator mediator, int? idUser) =>
         {
-            return await mediator.Send(new GetInstitutionsQuery());
+            return await mediator.Send(new GetInstitutionsQuery(idUser));
         })
         .WithName(nameof(GetInstitutions))
         .WithTags(nameof(Institution))
         .ProducesValidationProblem()
-        .Produces<GetInstitutionsResponse>(StatusCodes.Status200OK);
+        .Produces<List<GetInstitutionsResponse>>(StatusCodes.Status200OK);
     }
-    public record GetInstitutionsQuery() : IRequest<IResult>;
-    public record GetInstitutionsResponse(string Name, string Abbreviation, string Nit, string City);
+    public record GetInstitutionsQuery(int? IdUser) : IRequest<IResult>;
+    public record GetInstitutionsResponse(int Id, string Name, string Abbreviation, string Nit, string City, int IdState);
     public class GetInstitutionsHandler(AppDbContext context) : IRequestHandler<GetInstitutionsQuery, IResult>
     {
         public async Task<IResult> Handle(GetInstitutionsQuery request, CancellationToken cancellationToken)
         {
-            var institutions = await context.Institutions.ToListAsync();
+            var institutions = new List<Institution>();
+            if (request.IdUser.HasValue)
+            {
+                var user = await context.Users
+                    .Include(u => u.Institutions)
+                    .FirstOrDefaultAsync(x => x.Id == request.IdUser.Value);
+
+                if (user == null)
+                {
+                    return Results.NotFound(Result.Failure(new Error("User.ErrorData", "El id de usuario no existe")));
+                }
+
+                institutions = user.Institutions.ToList();
+            }
+            else
+            {
+                institutions = await context.Institutions.ToListAsync();
+            }
             if (institutions == null || !institutions.Any())
             {
                 return Results.Ok(Result.Failure(new Error("Login.ErrorGetInstitucion", "Error al obtener la institución")));
             }
-            var resModel = institutions.Select(i => new GetInstitutionsResponse(i.Name, i.Abbreviation, i.Nit, i.City)).ToList();
-            return Results.Ok(Result<List<Institution>>.Success(institutions, "Institución obtenida correctamente"));
+            var resModel = institutions.Select(i => new GetInstitutionsResponse(i.Id, i.Name, i.Abbreviation, i.Nit, i.City, i.StatusId)).ToList();
+            return Results.Ok(Result<List<GetInstitutionsResponse>>.Success(resModel, "Institución obtenida correctamente"));
         }
     }
-}   
+}

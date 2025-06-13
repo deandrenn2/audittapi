@@ -14,7 +14,13 @@ namespace Auditt.Application.Features.Users;
 
 public class GetCurrentUser : ICarterModule
 {
-    public record GetCurrentUserResponse(int Id, string? FirstName, string? LastName, string? Email, int? IdAvatar, string UrlProfile);
+    public record GetCurrentUserResponse(int Id, string? FirstName, string? LastName, string? Email, int? IdAvatar, string UrlProfile, int IdRol, string RoleName)
+    {
+        public GetCurrentUserResponse(int id, string? firstName, string? lastName, string? email, int? idAvatar, string urlProfile)
+            : this(id, firstName, lastName, email, idAvatar, urlProfile, 0, "Usuario")
+        {
+        }
+    };
     public record GetCurrentUserQuery(string Token) : IRequest<IResult>;
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -38,7 +44,7 @@ public class GetCurrentUser : ICarterModule
             if (idUser == null) return Results.Unauthorized();
 
 
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(idUser), cancellationToken);
+            var user = await context.Users.Include(u => u.Role).FirstOrDefaultAsync(x => x.Id == Convert.ToInt32(idUser), cancellationToken);
             if (user == null)
             {
                 return Results.Ok(Result.Failure(new Error("User.GetCurrent", "No se encontró el usuario actual")));
@@ -49,7 +55,9 @@ public class GetCurrentUser : ICarterModule
                 user.LastName,
                 user.Email,
                 user.IdAvatar,
-                user.UrlProfile
+                user.UrlProfile,
+                user.RoleId,
+                user.Role?.Name ?? "ESTANDAR" // Default role name if null
             );
             return Results.Ok(Result<GetCurrentUserResponse>.Success(currentUser, "Usuario actual"));
         }

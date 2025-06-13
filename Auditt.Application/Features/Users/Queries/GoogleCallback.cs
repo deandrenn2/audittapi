@@ -73,14 +73,17 @@ public class GoogleCallbackEndPoint : ICarterModule
             var firstName = userRes.GetProperty("given_name").GetString() ?? "";
             var lastName = userRes.GetProperty("family_name").GetString() ?? "";
             var urlProfile = userRes.GetProperty("picture").GetString();
+            var usersCount = await context.Users.CountAsync(ct);
+            var idRol = usersCount == 0 ? 1 : 2; // Si es el primer usuario, asigna el rol de administrador
 
             var user = await context.Users.Where(x => x.Email == email).FirstOrDefaultAsync(ct);
+
             var guidPass = Guid.NewGuid().ToString();
             if (user is null)
             {
                 if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(email))
                 {
-                    user = User.Create(0, firstName, lastName, email, guidPass, "Auth Google", 1);
+                    user = User.Create(0, firstName, lastName, email, guidPass, "Auth Google", idRol);
                     user.SetProfileUrl(urlProfile ?? "");
                     context.Add(user);
                     var resCount = await context.SaveChangesAsync(ct);
@@ -93,6 +96,14 @@ public class GoogleCallbackEndPoint : ICarterModule
                 else
                 {
                     return Results.BadRequest("No se pudo obtener el nombre o el correo electrónico del usuario.");
+                }
+            }
+
+            if (user is not null)
+            {
+                if (user.StatusId != 1)
+                {
+                    return Results.Redirect($"{webSiteConfig["Url"]}/login?error=UserNotActive");
                 }
             }
 
