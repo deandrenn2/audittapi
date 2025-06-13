@@ -61,7 +61,10 @@ public class AddInstitution : ICarterModule
             var resCount = await context.SaveChangesAsync(cancellationToken);
             if (resCount > 0)
             {
-                return Results.Ok(new AddInstitutionResponse(institution.Id, institution.Name, institution.Abbreviation, institution.Nit, institution.City));
+                return Results.Ok(Result<AddInstitutionResponse>.Success(
+                    new AddInstitutionResponse(institution.Id, institution.Name, institution.Abbreviation, institution.Nit, institution.City),
+                    "Institución creada y asociada al usuario"
+                ));
             }
             return Results.Ok(Result.Failure(new Error("Institution.ErrorCreate", "Error al crear la institución")));
         }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Features.Institutions;
 
@@ -42,7 +43,7 @@ public class RemoveInstitution : ICarterModule
                 ));
             }
 
-            var user = await context.Users.FindAsync(request.IdUser);
+            var user = await context.Users.Include(u => u.Institutions).FirstOrDefaultAsync(u => u.Id == request.IdUser);
             if (user == null)
             {
                 return Results.Ok(Result.Failure(new Error("User.ErrorNotFound", "Usuario no encontrado")));
@@ -60,7 +61,7 @@ public class RemoveInstitution : ICarterModule
             var resCount = await context.SaveChangesAsync(cancellationToken);
             if (resCount > 0)
             {
-                return Results.Ok(new RemoveInstitutionResponse(institution.Id));
+                return Results.Ok(Result.Success("Institución eliminada correctamente"));
             }
             return Results.Ok(Result.Failure(new Error("Institution.ErrorDelete", "Error al eliminar la institución")));
         }

@@ -12,6 +12,7 @@ using Auditt.Domain.Shared;
 using SNET.Framework.Domain.Authentications.Jwt;
 
 namespace Auditt.Application.Features.Users.Commands;
+
 public class LoginUser : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
@@ -67,7 +68,7 @@ public class LoginUser : ICarterModule
 
             if (user == null)
             {
-                return Results.Ok(Result.Failure(new Error("Autentication.NotUserMatch", "Credenciales de acceso no validas")));
+                return Results.Ok(Result.Failure(new Error("Autentication.NotUserMatch", "No se ha podido identificar el usuario con el email proporcionado")));
             }
 
             var resLogin = user.Login(request.Password);
