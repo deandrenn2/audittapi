@@ -43,8 +43,15 @@ public class GetInstitutions : ICarterModule
                 {
                     return Results.NotFound(Result.Failure(new Error("User.ErrorData", "El id de usuario no existe")));
                 }
+                if (user.RoleId == 1) // Assuming 1 is the role ID for admin
+                {
+                    institutions = user.Institutions.ToList();
+                }
+                else
+                {
 
-                institutions = user.Institutions.Where(x => x.StatusId == 1).ToList();
+                    institutions = user.Institutions.Where(x => x.StatusId == 1).ToList();
+                }
             }
             else
             {
