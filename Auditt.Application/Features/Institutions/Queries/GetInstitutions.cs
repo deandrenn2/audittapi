@@ -9,6 +9,7 @@ using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 
 namespace Auditt.Application.Features.Institutions;
@@ -41,25 +42,21 @@ public class GetInstitutions : ICarterModule
 
                 if (user == null)
                 {
-                    return Results.NotFound(Result.Failure(new Error("User.ErrorData", "El id de usuario no existe")));
+                    return Results.NotFound(Result.Failure(new Error("Institution.ErrorData", "El id de usuario no existe")));
                 }
                 if (user.RoleId == 1) // Assuming 1 is the role ID for admin
                 {
-                    institutions = user.Institutions.ToList();
+                    institutions = await context.Institutions.ToListAsync(cancellationToken); // Fetch all institutions for admin
                 }
                 else
                 {
 
-                    institutions = user.Institutions.Where(x => x.StatusId == 1).ToList();
+                    institutions = [.. user.Institutions.Where(x => x.StatusId == 1)];
                 }
             }
-            else
+            if (institutions == null || institutions.Count == 0)
             {
-                institutions = await context.Institutions.ToListAsync();
-            }
-            if (institutions == null || !institutions.Any())
-            {
-                return Results.Ok(Result.Failure(new Error("Login.ErrorGetInstitucion", "Error al obtener la institución")));
+                return Results.Ok(Result.Failure(new Error("Institution.ErrorGetInstitucion", "Error al obtener la institución")));
             }
             var resModel = institutions.Select(i => new GetInstitutionsResponse(i.Id, i.Name, i.Abbreviation, i.Nit, i.City, i.StatusId)).ToList();
             return Results.Ok(Result<List<GetInstitutionsResponse>>.Success(resModel, "Institución obtenida correctamente"));

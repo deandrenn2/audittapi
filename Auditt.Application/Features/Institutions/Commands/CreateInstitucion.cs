@@ -52,15 +52,23 @@ public class CreateInstitucion : ICarterModule
             }
             var newInstitucion = Institution.Create(0, request.Name, request.Abbreviation, request.Nit, request.City, request.Manager, request.AssistantManager);
             context.Add(newInstitucion);
-            var resCount = await context.SaveChangesAsync(cancellationToken);
+            var resCount = 0;
+            try
+            {
+                resCount = await context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                return Results.Ok(Result.Failure(new Error("Institution.ErrorCreateInstitucion", $"Error al crear la institución: {ex.Message}")));
+            }
             if (resCount > 0)
             {
                 var resModel = new CreateInstitucionResponse(newInstitucion.Name, newInstitucion.Abbreviation, newInstitucion.Nit, newInstitucion.City);
-                return Results.Ok(Result<Institution>.Success(newInstitucion, "Institución creada correctamente"));
+                return Results.Ok(Result<CreateInstitucionResponse>.Success(resModel, "Institución creada correctamente"));
             }
             else
             {
-                return Results.Ok(Result.Failure(new Error("Login.ErrorCreateInstitucion", "Error al crear la institución")));
+                return Results.Ok(Result.Failure(new Error("Institution.ErrorCreateInstitucion", "Error al crear la institución")));
             }
         }
     }
