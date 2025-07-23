@@ -1,4 +1,5 @@
 using Auditt.Application.Domain.Entities;
+using Auditt.Application.Infrastructure.Sqlite;
 using ClosedXML.Excel;
 
 namespace Auditt.Application.Infrastructure.Files;
@@ -14,7 +15,7 @@ public class PatientExcelImporter : ExcelImporter<Patient>
         "Eps"
     };
 
-    protected override Patient CreateEntityFromRow(IXLRow row)
+    protected override Patient? CreateEntityFromRow(IXLRow row)
     {
         var firstName = row.Cell(1).GetString();
         if (string.IsNullOrWhiteSpace(firstName)) return null; // Skip empty rows
@@ -28,6 +29,13 @@ public class PatientExcelImporter : ExcelImporter<Patient>
             eps: row.Cell(5).GetString()
         );
     }
+
+    protected override bool EntityExists(Patient entity, AppDbContext dbContext)
+    {
+        // Check if a patient with the same Identification already exists
+        return dbContext.Patients.Any(p => p.Identification == entity.Identification);
+    }
+
     protected override void FormatTemplate(IXLWorksheet worksheet)
     {
         // We can add specific formatting for Patient template here

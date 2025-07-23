@@ -72,6 +72,8 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new RolesConfiguration());
         modelBuilder.ApplyConfiguration(new AssessmentConfiguration());
         modelBuilder.ApplyConfiguration(new InstitutionConfiguration());
+        modelBuilder.ApplyConfiguration(new FunctionaryConfiguration());
+        modelBuilder.ApplyConfiguration(new PatientConfiguration());
     }
 
 }

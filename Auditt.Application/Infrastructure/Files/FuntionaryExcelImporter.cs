@@ -1,4 +1,5 @@
 using Auditt.Application.Domain.Entities;
+using Auditt.Application.Infrastructure.Sqlite;
 using ClosedXML.Excel;
 
 namespace Auditt.Application.Infrastructure.Files;
@@ -11,7 +12,8 @@ public class FunctionaryExcelImporter : ExcelImporter<Functionary>
         "LastName",
         "Identification",
     };
-    protected override Functionary CreateEntityFromRow(IXLRow row)
+
+    protected override Functionary? CreateEntityFromRow(IXLRow row)
     {
         var firstName = row.Cell(1).GetString();
         if (string.IsNullOrWhiteSpace(firstName)) return null; // Skip empty rows
@@ -22,6 +24,12 @@ public class FunctionaryExcelImporter : ExcelImporter<Functionary>
             lastName: row.Cell(2).GetString(),
             identification: row.Cell(3).GetString()
         );
+    }
+
+    protected override bool EntityExists(Functionary entity, AppDbContext dbContext)
+    {
+        // Check if a functionary with the same Identification already exists
+        return dbContext.Functionaries.Any(f => f.Identification == entity.Identification);
     }
 
     protected override void FormatTemplate(IXLWorksheet worksheet)

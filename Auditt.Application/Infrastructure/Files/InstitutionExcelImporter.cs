@@ -1,4 +1,5 @@
 using Auditt.Application.Domain.Entities;
+using Auditt.Application.Infrastructure.Sqlite;
 using ClosedXML.Excel;
 
 namespace Auditt.Application.Infrastructure.Files;
@@ -15,7 +16,7 @@ public class InstitutionExcelImporter : ExcelImporter<Institution>
         "AssistantManager"
     };
 
-    protected override Institution CreateEntityFromRow(IXLRow row)
+    protected override Institution? CreateEntityFromRow(IXLRow row)
     {
         var name = row.Cell(1).GetString();
         if (string.IsNullOrWhiteSpace(name)) return null; // Skip empty rows
@@ -29,6 +30,12 @@ public class InstitutionExcelImporter : ExcelImporter<Institution>
             manager: row.Cell(5).GetString(),
             assistantManager: row.Cell(6).GetString()
         );
+    }
+
+    protected override bool EntityExists(Institution entity, AppDbContext dbContext)
+    {
+        // Check if an institution with the same Nit already exists
+        return dbContext.Institutions.Any(i => i.Nit == entity.Nit);
     }
 
     protected override void FormatTemplate(IXLWorksheet worksheet)
