@@ -87,22 +87,22 @@ public abstract class ExcelImporter<T> : IExcelImporter<T>
                 }
             }
 
-            var summary = $"Import completed. Successfully imported: {entities.Count}";
+            var summary = $"Importación terminada. Correctamente importados: {entities.Count}";
             if (duplicateRows.Count > 0)
             {
-                summary += $", Duplicates skipped: {duplicateRows.Count}";
+                summary += $", Duplicados omitidos: {duplicateRows.Count}";
             }
             if (errorRows.Count > 0)
             {
-                summary += $", Errors: {errorRows.Count}";
+                summary += $", Errores: {errorRows.Count}";
             }
 
             return new ImportResult<T>(entities, duplicateRows, errorRows, totalProcessed, summary);
         }
         catch (Exception ex)
         {
-            errorRows.Add($"General error: {ex.Message}");
-            return new ImportResult<T>(entities, duplicateRows, errorRows, totalProcessed, $"Import failed: {ex.Message}");
+            errorRows.Add($"Error general: {ex.Message}");
+            return new ImportResult<T>(entities, duplicateRows, errorRows, totalProcessed, $"Importación fallida: {ex.Message}");
         }
     }
 
