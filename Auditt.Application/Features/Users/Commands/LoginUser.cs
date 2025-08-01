@@ -64,7 +64,9 @@ public class LoginUser : ICarterModule
             }
 
 
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+            var user = await _context.Users
+                .Include(u => u.Role) // Incluir el rol para el token
+                .FirstOrDefaultAsync(x => x.Email == request.Email);
 
             if (user == null)
             {

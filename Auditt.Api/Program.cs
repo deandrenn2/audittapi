@@ -49,6 +49,7 @@ app.UseReDoc(settings =>
     settings.DocumentPath = "/swagger/v1/swagger.json";
 });
 app.UseCors("AllowSpecificOrigin");
+app.UseMiddleware<JwtCookieMiddleware>(); // Procesar token de cookies ANTES de autenticación
 app.UseAuthentication();
 app.UseMiddleware<RoleAuthorizationMiddleware>(); // Agregar middleware de validación de roles
 app.UseAuthorization();

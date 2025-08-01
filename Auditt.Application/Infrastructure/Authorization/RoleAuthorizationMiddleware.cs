@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Auditt.Application.Infrastructure.Sqlite;
-using Microsoft.EntityFrameworkCore;
 
 namespace Auditt.Application.Infrastructure.Authorization;
 
@@ -21,8 +20,7 @@ public class RoleAuthorizationMiddleware
 
         if (requireRole != null)
         {
-            // Verificar si el usuario está autenticado
-            if (!context.User.Identity?.IsAuthenticated ?? true)
+            if (context.User?.Identity?.IsAuthenticated != true)
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("No autorizado");
@@ -30,20 +28,14 @@ public class RoleAuthorizationMiddleware
             }
 
             var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = context.User.FindFirst(ClaimTypes.Role)?.Value;
 
-            if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out var userIdInt))
+            if (string.IsNullOrEmpty(userId))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Usuario no válido");
                 return;
             }
-
-            // Obtener el rol del usuario desde la base de datos
-            var userRole = await dbContext.Users
-                .Where(u => u.Id == userIdInt)
-                .Include(u => u.Role)
-                .Select(u => u.Role.Name)
-                .FirstOrDefaultAsync();
 
             if (string.IsNullOrEmpty(userRole))
             {
@@ -59,6 +51,7 @@ public class RoleAuthorizationMiddleware
                 await context.Response.WriteAsync($"Acceso denegado. Se requiere rol: {string.Join(", ", requireRole.Roles)}");
                 return;
             }
+
         }
 
         await _next(context);

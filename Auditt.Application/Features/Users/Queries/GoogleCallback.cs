@@ -76,7 +76,10 @@ public class GoogleCallbackEndPoint : ICarterModule
             var usersCount = await context.Users.CountAsync(ct);
             var idRol = usersCount == 0 ? 1 : 2; // Si es el primer usuario, asigna el rol de administrador
 
-            var user = await context.Users.Where(x => x.Email == email).FirstOrDefaultAsync(ct);
+            var user = await context.Users
+                .Include(u => u.Role) // Incluir el rol para el token
+                .Where(x => x.Email == email)
+                .FirstOrDefaultAsync(ct);
 
             var guidPass = Guid.NewGuid().ToString();
             if (user is null)
@@ -92,6 +95,11 @@ public class GoogleCallbackEndPoint : ICarterModule
                     {
                         return Results.BadRequest("No se pudo crear el usuario.");
                     }
+
+                    // Recargar el usuario con el rol incluido después de crearlo
+                    user = await context.Users
+                        .Include(u => u.Role)
+                        .FirstOrDefaultAsync(u => u.Email == email, ct);
                 }
                 else
                 {
@@ -99,12 +107,14 @@ public class GoogleCallbackEndPoint : ICarterModule
                 }
             }
 
-            if (user is not null)
+            if (user is null)
             {
-                if (user.StatusId != 1)
-                {
-                    return Results.Redirect($"{webSiteConfig["Url"]}/login?error=UserNotActive");
-                }
+                return Results.BadRequest("Error al procesar el usuario.");
+            }
+
+            if (user.StatusId != 1)
+            {
+                return Results.Redirect($"{webSiteConfig["Url"]}/login?error=UserNotActive");
             }
 
             var jwt = _jwt.GenerateToken(user);

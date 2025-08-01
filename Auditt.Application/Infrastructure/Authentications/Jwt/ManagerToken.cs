@@ -22,11 +22,11 @@ public class ManagerToken : IManagerToken
         var jwtSettings = _configuration.GetSection("JwtSettings");
 
         var claims = new List<Claim>
-        {            
+        {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.RoleId.ToString())
+                new Claim(ClaimTypes.Role, user.Role?.Name ?? "ESTANDAR") // Usar el nombre del rol
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? ""));

@@ -44,8 +44,6 @@ public class GuideExcelImporter : ExcelImporter<QuestionImportModel>
         worksheet.Cell(2, 2).Value = "Nombre de la Guía";
         worksheet.Cell(3, 1).Value = "Description:";
         worksheet.Cell(3, 2).Value = "Descripción de la guía";
-        worksheet.Cell(4, 1).Value = "ScaleName:";
-        worksheet.Cell(4, 2).Value = "Nombre de la Escala";
 
         // Espacio vacío
         worksheet.Cell(6, 1).Value = "Questions";
@@ -92,7 +90,7 @@ public class GuideExcelImporter : ExcelImporter<QuestionImportModel>
             // Leer información de la guía desde las primeras filas
             var guideName = worksheet.Cell(2, 2).GetString();
             var guideDescription = worksheet.Cell(3, 2).GetString();
-            var scaleName = worksheet.Cell(4, 2).GetString();
+            var scaleName = "General";
 
             // Validar datos de la guía
             if (string.IsNullOrWhiteSpace(guideName))
@@ -116,7 +114,7 @@ public class GuideExcelImporter : ExcelImporter<QuestionImportModel>
             }
 
             // Verificar si la escala existe
-            var scale = await dbContext.Scales.FirstOrDefaultAsync(s => s.Name == scaleName);
+            var scale = await dbContext.Scales.FirstOrDefaultAsync(s => s.Name.ToUpper().Contains(scaleName.ToUpper()));
             if (scale == null)
             {
                 errorRows.Add($"Scale '{scaleName}' not found");
@@ -125,7 +123,7 @@ public class GuideExcelImporter : ExcelImporter<QuestionImportModel>
 
             // Leer preguntas desde la fila 8 en adelante
             var questions = new List<QuestionImportModel>();
-            var rowCount = worksheet.RowsUsed().Count();
+            var rowCount = worksheet.RowsUsed().Count() + 2; // +2 to account of espace in template
 
             for (int row = 8; row <= rowCount; row++) // Start from 8 (questions section)
             {
