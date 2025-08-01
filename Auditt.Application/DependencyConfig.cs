@@ -56,6 +56,7 @@ public static class DependencyConfig
         builder.Services.AddScoped<IExcelImporter<Institution>, InstitutionExcelImporter>();
         builder.Services.AddScoped<IExcelImporter<Patient>, PatientExcelImporter>();
         builder.Services.AddScoped<IExcelImporter<Functionary>, FunctionaryExcelImporter>();
+        builder.Services.AddScoped<GuideExcelImporter>();
     }
 
     public static IServiceCollection AddApplicationCore(this IServiceCollection services)
