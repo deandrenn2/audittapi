@@ -7,7 +7,7 @@ public static class EndpointExtensions
     /// <summary>
     /// Requiere que el usuario tenga uno de los roles especificados
     /// </summary>
-    public static TBuilder RequireRole<TBuilder>(this TBuilder builder, params string[] roles) 
+    public static TBuilder RequireRole<TBuilder>(this TBuilder builder, params string[] roles)
         where TBuilder : IEndpointConventionBuilder
     {
         return builder.WithMetadata(new RequireRoleAttribute(roles));
@@ -16,7 +16,7 @@ public static class EndpointExtensions
     /// <summary>
     /// Solo permite acceso a usuarios con rol ADMIN
     /// </summary>
-    public static TBuilder RequireAdmin<TBuilder>(this TBuilder builder) 
+    public static TBuilder RequireAdmin<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
         return builder.RequireRole("ADMIN");
@@ -25,7 +25,7 @@ public static class EndpointExtensions
     /// <summary>
     /// Permite acceso a ADMIN y ESTANDAR
     /// </summary>
-    public static TBuilder RequireStandardOrAdmin<TBuilder>(this TBuilder builder) 
+    public static TBuilder RequireStandardOrAdmin<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
         return builder.RequireRole("ADMIN", "ESTANDAR");
@@ -34,7 +34,7 @@ public static class EndpointExtensions
     /// <summary>
     /// Solo permite acceso a usuarios con rol ESTANDAR
     /// </summary>
-    public static TBuilder RequireStandard<TBuilder>(this TBuilder builder) 
+    public static TBuilder RequireStandard<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
         return builder.RequireRole("ESTANDAR");

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Auditt.Application.Infrastructure.Authorization;
 
 namespace Auditt.Application.Features.Roles;
 
@@ -22,6 +23,7 @@ public class GetRoles : ICarterModule
         })
         .WithName(nameof(GetRoles))
         .WithTags(nameof(Role))
+        .RequireStandardOrAdmin() // ADMIN y ESTANDAR pueden ver roles
         .ProducesValidationProblem()
         .Produces<List<GetRolesResponse>>(StatusCodes.Status200OK);
     }

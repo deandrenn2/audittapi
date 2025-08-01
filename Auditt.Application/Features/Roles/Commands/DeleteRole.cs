@@ -22,6 +22,7 @@ public class DeleteRole : ICarterModule
         })
         .WithName(nameof(DeleteRole))
         .WithTags(nameof(Role))
+        .RequireAdmin() // Solo ADMIN puede eliminar roles
         .ProducesValidationProblem()
         .Produces<DeleteRoleResponse>(StatusCodes.Status200OK);
     }

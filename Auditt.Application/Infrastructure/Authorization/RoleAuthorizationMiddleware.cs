@@ -30,7 +30,7 @@ public class RoleAuthorizationMiddleware
             }
 
             var userId = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            
+
             if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out var userIdInt))
             {
                 context.Response.StatusCode = 401;

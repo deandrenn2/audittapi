@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Auditt.Application.Domain.Entities;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Domain.Shared;
+using Auditt.Application.Infrastructure.Authorization;
 
 namespace Auditt.Application.Features.Users.Commands;
 
@@ -21,6 +22,7 @@ public class CreateUser : ICarterModule
         })
         .WithName(nameof(CreateUser))
         .WithTags(nameof(User))
+        .RequireAdmin() // Solo ADMIN puede crear usuarios
         .ProducesValidationProblem()
         .Produces(StatusCodes.Status201Created);
     }
@@ -47,15 +49,15 @@ public class CreateUser : ICarterModule
 
             var newUser = User.Create(0, request.FirstName, request.LastName, request.Email, request.Password, request.SecurePharse, request.IdRol);
 
-            context.Add(newUser);    
+            context.Add(newUser);
 
             var resCount = await context.SaveChangesAsync();
 
             if (resCount > 0)
             {
-               return Result<User>.Success(newUser, "Usuario creado correctamente");
-            } 
-                else
+                return Result<User>.Success(newUser, "Usuario creado correctamente");
+            }
+            else
             {
                 return Result.Failure(new Error("Login.ErrorCreateUser", "Error al crear el usuario"));
             }
