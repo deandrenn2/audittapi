@@ -2,6 +2,7 @@
 using Carter;
 using Auditt.Application.Infrastructure.Sqlite;
 using Auditt.Reports;
+using Auditt.Application.Infrastructure.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,7 @@ app.UseReDoc(settings =>
 });
 app.UseCors("AllowSpecificOrigin");
 app.UseAuthentication();
+app.UseMiddleware<RoleAuthorizationMiddleware>(); // Agregar middleware de validación de roles
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapFallbackToFile("index.html");

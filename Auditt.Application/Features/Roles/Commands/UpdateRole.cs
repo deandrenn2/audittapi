@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Auditt.Application.Infrastructure.Authorization;
 
 namespace Auditt.Application.Features.Roles;
 
@@ -21,6 +22,7 @@ public class UpdateRole : ICarterModule
         })
         .WithName(nameof(UpdateRole))
         .WithTags(nameof(Role))
+        .RequireAdmin() // Solo ADMIN puede actualizar roles
         .ProducesValidationProblem()
         .Produces<UpdateRoleResponse>(StatusCodes.Status200OK);
     }

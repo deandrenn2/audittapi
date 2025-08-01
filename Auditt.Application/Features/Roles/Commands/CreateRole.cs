@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Auditt.Application.Infrastructure.Authorization;
 
 namespace Auditt.Application.Features.Roles;
 
@@ -22,6 +23,7 @@ public class CreateRole : ICarterModule
         })
         .WithName(nameof(CreateRole))
         .WithTags(nameof(Role))
+        .RequireAdmin() // Solo ADMIN puede crear roles
         .ProducesValidationProblem()
         .Produces<CreateRoleResponse>(StatusCodes.Status200OK);
     }

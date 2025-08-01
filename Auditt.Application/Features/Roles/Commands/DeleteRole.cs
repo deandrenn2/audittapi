@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Auditt.Application.Infrastructure.Authorization;
 
 namespace Auditt.Application.Features.Roles;
 
