@@ -74,7 +74,7 @@ public class GoogleCallbackEndPoint : ICarterModule
             var lastName = userRes.GetProperty("family_name").GetString() ?? "";
             var urlProfile = userRes.GetProperty("picture").GetString();
             var usersCount = await context.Users.CountAsync(ct);
-            var idRol = usersCount == 0 ? 1 : 2; // Si es el primer usuario, asigna el rol de administrador
+            var idRol = usersCount == 0 ? 1 : 3; // Si es el primer usuario, asigna el rol de administrador
 
             var user = await context.Users
                 .Include(u => u.Role) // Incluir el rol para el token

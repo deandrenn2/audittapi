@@ -23,7 +23,6 @@ public class GetRoles : ICarterModule
         })
         .WithName(nameof(GetRoles))
         .WithTags(nameof(Role))
-        .RequireStandardOrAdmin() // ADMIN y ESTANDAR pueden ver roles
         .ProducesValidationProblem()
         .Produces<List<GetRolesResponse>>(StatusCodes.Status200OK);
     }

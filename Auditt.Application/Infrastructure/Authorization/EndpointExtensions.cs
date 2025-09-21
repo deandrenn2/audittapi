@@ -23,20 +23,20 @@ public static class EndpointExtensions
     }
 
     /// <summary>
-    /// Permite acceso a ADMIN y ESTANDAR
+    /// Permite acceso a ADMIN y AUDITOR INTERNO
     /// </summary>
-    public static TBuilder RequireStandardOrAdmin<TBuilder>(this TBuilder builder)
+    public static TBuilder RequireAdminOrInterno<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
-        return builder.RequireRole("ADMIN", "ESTANDAR");
+        return builder.RequireRole("ADMIN", "AUDITOR INTERNO");
     }
 
     /// <summary>
-    /// Solo permite acceso a usuarios con rol ESTANDAR
+    /// Solo permite acceso a usuarios con rol AUDITOR INTERNO
     /// </summary>
-    public static TBuilder RequireStandard<TBuilder>(this TBuilder builder)
+    public static TBuilder RequireInterno<TBuilder>(this TBuilder builder)
         where TBuilder : IEndpointConventionBuilder
     {
-        return builder.RequireRole("ESTANDAR");
+        return builder.RequireRole("AUDITOR INTERNO");
     }
 }
