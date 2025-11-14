@@ -9,9 +9,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
-      - ConnectionStrings__SqliteConn=Data Source=/app/App_Data/opticDb_prod.sqlite
-      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID:-}
-      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET:-}
     volumes:
       - audittapi-db:/app/App_Data
     restart: unless-stopped

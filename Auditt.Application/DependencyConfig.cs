@@ -25,10 +25,28 @@ public static class DependencyConfig
         // Agrega el servicio de autorización
         builder.Services.AddAuthorization();
 
-        // Optener JwtSettings desde appsettings.json
-        var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+        // Obtener JwtSettings desde configuración (appsettings.json o variables de entorno)
+        var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
+        var jwtAudience = builder.Configuration["JwtSettings:Audience"];
+        var jwtSecretKey = builder.Configuration["JwtSettings:SecretKey"];
 
-        // Congiguración del servicio de autenticación JWT
+        // Validar que las configuraciones JWT estén presentes
+        if (string.IsNullOrEmpty(jwtSecretKey))
+        {
+            throw new InvalidOperationException("JWT SecretKey is not configured. Please set JwtSettings:SecretKey in appsettings.json or JwtSettings__SecretKey as environment variable.");
+        }
+
+        if (string.IsNullOrEmpty(jwtIssuer))
+        {
+            throw new InvalidOperationException("JWT Issuer is not configured. Please set JwtSettings:Issuer in appsettings.json or JwtSettings__Issuer as environment variable.");
+        }
+
+        if (string.IsNullOrEmpty(jwtAudience))
+        {
+            throw new InvalidOperationException("JWT Audience is not configured. Please set JwtSettings:Audience in appsettings.json or JwtSettings__Audience as environment variable.");
+        }
+
+        // Configuración del servicio de autenticación JWT
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -42,9 +60,9 @@ public static class DependencyConfig
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtSettings["Issuer"],
-                ValidAudience = jwtSettings["Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"] ?? ""))
+                ValidIssuer = jwtIssuer,
+                ValidAudience = jwtAudience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
             };
         });
     }
