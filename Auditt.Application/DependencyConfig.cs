@@ -25,10 +25,28 @@ public static class DependencyConfig
         // Agrega el servicio de autorización
         builder.Services.AddAuthorization();
 
-        // Obtener JwtSettings desde configuración (appsettings.json o variables de entorno)
-        var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
-        var jwtAudience = builder.Configuration["JwtSettings:Audience"];
-        var jwtSecretKey = builder.Configuration["JwtSettings:SecretKey"];
+        // Obtener JwtSettings desde configuración con múltiples métodos de lectura
+        var jwtIssuer = builder.Configuration["JwtSettings:Issuer"]
+                       ?? builder.Configuration["JwtSettings__Issuer"]
+                       ?? Environment.GetEnvironmentVariable("JwtSettings__Issuer");
+
+        var jwtAudience = builder.Configuration["JwtSettings:Audience"]
+                         ?? builder.Configuration["JwtSettings__Audience"]
+                         ?? Environment.GetEnvironmentVariable("JwtSettings__Audience");
+
+        var jwtSecretKey = builder.Configuration["JwtSettings:SecretKey"]
+                          ?? builder.Configuration["JwtSettings__SecretKey"]
+                          ?? Environment.GetEnvironmentVariable("JwtSettings__SecretKey");
+
+        // Debug: Imprimir todas las variables de entorno JWT disponibles
+        Console.WriteLine("=== JWT Configuration Debug ===");
+        Console.WriteLine($"ENV JwtSettings__Issuer: '{Environment.GetEnvironmentVariable("JwtSettings__Issuer")}'");
+        Console.WriteLine($"ENV JwtSettings__Audience: '{Environment.GetEnvironmentVariable("JwtSettings__Audience")}'");
+        Console.WriteLine($"ENV JwtSettings__SecretKey length: {Environment.GetEnvironmentVariable("JwtSettings__SecretKey")?.Length ?? 0}");
+        Console.WriteLine($"Config JwtSettings:Issuer: '{builder.Configuration["JwtSettings:Issuer"]}'");
+        Console.WriteLine($"Config JwtSettings:SecretKey length: {builder.Configuration["JwtSettings:SecretKey"]?.Length ?? 0}");
+        Console.WriteLine($"Final - Issuer: '{jwtIssuer}', Audience: '{jwtAudience}', SecretKey length: {jwtSecretKey?.Length ?? 0}");
+        Console.WriteLine("=== End JWT Debug ===");
 
         // Validar que las configuraciones JWT estén presentes
         if (string.IsNullOrEmpty(jwtSecretKey))

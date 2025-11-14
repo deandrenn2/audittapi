@@ -10,12 +10,21 @@ ConnectionStrings__SqliteConn=Data Source=/app/App_Data/opticDb_prod.sqlite
 
 ## 🔐 Configuración JWT (REQUERIDA)
 
+⚠️ **IMPORTANTE**: Usa exactamente estos nombres con doble underscore `__`
+
 ```
-JwtSettings__Issuer=TU_ISSUER_AQUI
-JwtSettings__Audience=TU_AUDIENCE_AQUI
+JwtSettings__Issuer=AUDITT-GPC
+JwtSettings__Audience=AUDITT-GPC-API
 JwtSettings__SecretKey=TU_SECRET_KEY_SEGURO_AQUI
 JwtSettings__ExpirationMinutes=120
 ```
+
+### 🔍 Para Verificar la Configuración:
+
+1. Después del deploy, revisa los logs de la aplicación
+2. Busca la sección "=== JWT Configuration Debug ==="
+3. Verifica que las variables aparezcan correctamente
+4. Si alguna variable está vacía, ajusta la configuración en Dokploy
 
 ## 🌐 Configuración OAuth Google
 
