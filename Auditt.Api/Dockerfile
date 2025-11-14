@@ -16,9 +16,20 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app .
 
+# Crear directorio App_Data con permisos
+RUN mkdir -p /app/App_Data && \
+    chown -R app:app /app/App_Data && \
+    chmod -R 755 /app/App_Data
+
 # Configurar variables de entorno
 ENV ASPNETCORE_ENVIRONMENT=Production \
     ASPNETCORE_URLS=http://+:80 \
     DOTNET_RUNNING_IN_CONTAINER=true
+
+# Exponer el puerto
+EXPOSE 80
+
+# Usar usuario no root para seguridad
+USER app
 
 ENTRYPOINT ["dotnet", "Auditt.Api.dll"]

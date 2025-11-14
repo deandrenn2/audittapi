@@ -11,7 +11,7 @@
 	},
 	"domains": [
 		{
-			"host": "auditt-api.tu-dominio.com",
+			"host": "api.auditoriamedica.net",
 			"path": "/",
 			"https": true
 		}
