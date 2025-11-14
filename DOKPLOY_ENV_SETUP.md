@@ -29,8 +29,20 @@ JwtSettings__ExpirationMinutes=120
 ## 🌐 Configuración OAuth Google
 
 ```
-GOOGLE_OAUTH_CLIENT_ID=tu_client_id_real
-GOOGLE_OAUTH_CLIENT_SECRET=tu_client_secret_real
+GoogleOAuth__ClientId=TU_CLIENT_ID_AQUI
+GoogleOAuth__ClientSecret=TU_CLIENT_SECRET_AQUI
+GoogleOAuth__RedirectUri=/api/auth/google-callback
+GoogleOAuth__Url=https://oauth2.googleapis.com
+GoogleOAuth__UrlAccount=https://accounts.google.com
+GoogleOAuth__UrlApi=https://www.googleapis.com
+```
+
+## 🌍 Configuración de Website y API
+
+```
+WebSite__Url=TU_WEBSITE_URL_AQUI
+WebSite__LoginUri=/login
+WebApi__Url=TU_API_URL_AQUI
 ```
 
 ## ⚙️ Configuración del Sistema

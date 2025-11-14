@@ -9,6 +9,24 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
+      # Database Configuration
+      - ConnectionStrings__SqliteConn=${ConnectionStrings__SqliteConn:-Data Source=/app/App_Data/opticDb_prod.sqlite}
+      # JWT Configuration
+      - JwtSettings__Issuer=${JwtSettings__Issuer}
+      - JwtSettings__Audience=${JwtSettings__Audience}
+      - JwtSettings__SecretKey=${JwtSettings__SecretKey}
+      - JwtSettings__ExpirationMinutes=${JwtSettings__ExpirationMinutes:-120}
+      # Google OAuth Configuration
+      - GoogleOAuth__ClientId=${GoogleOAuth__ClientId}
+      - GoogleOAuth__ClientSecret=${GoogleOAuth__ClientSecret}
+      - GoogleOAuth__RedirectUri=${GoogleOAuth__RedirectUri:-/api/auth/google-callback}
+      - GoogleOAuth__Url=${GoogleOAuth__Url:-https://oauth2.googleapis.com}
+      - GoogleOAuth__UrlAccount=${GoogleOAuth__UrlAccount:-https://accounts.google.com}
+      - GoogleOAuth__UrlApi=${GoogleOAuth__UrlApi:-https://www.googleapis.com}
+      # Website Configuration
+      - WebSite__Url=${WebSite__Url}
+      - WebSite__LoginUri=${WebSite__LoginUri:-/login}
+      - WebApi__Url=${WebApi__Url}
     volumes:
       - audittapi-db:/app/App_Data
     restart: unless-stopped
