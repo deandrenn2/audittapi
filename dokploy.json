@@ -3,7 +3,7 @@
 	"type": "docker",
 	"dockerfile": "./Auditt.Api/Dockerfile",
 	"buildContext": ".",
-	"port": 80,
+	"port": 8080,
 	"env": {
 		"ASPNETCORE_ENVIRONMENT": "Production",
 		"ASPNETCORE_URLS": "http://+:80",

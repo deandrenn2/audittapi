@@ -1,18 +1,16 @@
-version: "3.8"
-
 services:
   auditt-api:
     build:
       context: .
       dockerfile: ./Auditt.Api/Dockerfile
     ports:
-      - "80:80"
+      - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
-      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID}
-      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET}
+      - GOOGLE_OAUTH_CLIENT_ID=${GOOGLE_OAUTH_CLIENT_ID:-}
+      - GOOGLE_OAUTH_CLIENT_SECRET=${GOOGLE_OAUTH_CLIENT_SECRET:-}
     volumes:
       - audittapi-db:/app/App_Data
     restart: unless-stopped
@@ -22,13 +20,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - dokploy-network
-
 volumes:
   audittapi-db:
     driver: local
-
-networks:
-  dokploy-network:
-    external: true
