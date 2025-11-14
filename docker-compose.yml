@@ -4,10 +4,10 @@ services:
       context: .
       dockerfile: ./Auditt.Api/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
+      #- ASPNETCORE_URLS=http://+:80
       - DOTNET_RUNNING_IN_CONTAINER=true
       # Database Configuration
       - ConnectionStrings__SqliteConn=${ConnectionStrings__SqliteConn:-Data Source=/app/App_Data/opticDb_prod.sqlite}
