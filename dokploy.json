@@ -1,0 +1,37 @@
+{
+	"name": "auditt-api",
+	"type": "docker",
+	"dockerfile": "./Auditt.Api/Dockerfile",
+	"buildContext": ".",
+	"port": 80,
+	"env": {
+		"ASPNETCORE_ENVIRONMENT": "Production",
+		"ASPNETCORE_URLS": "http://+:80",
+		"DOTNET_RUNNING_IN_CONTAINER": "true"
+	},
+	"domains": [
+		{
+			"host": "auditt-api.tu-dominio.com",
+			"path": "/",
+			"https": true
+		}
+	],
+	"volumes": [
+		{
+			"type": "persistent",
+			"source": "audittapi-db",
+			"target": "/app/App_Data"
+		}
+	],
+	"resources": {
+		"memory": "1Gi",
+		"cpu": "500m"
+	},
+	"healthCheck": {
+		"enabled": true,
+		"path": "/health",
+		"interval": "30s",
+		"timeout": "10s",
+		"retries": 3
+	}
+}

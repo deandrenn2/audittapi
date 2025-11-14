@@ -434,3 +434,4 @@ TODOs.md
 /Auditt.Web/.env
 /Auditt.Api/appsettings.Development.json
 /Auditt.Api/appsettings.json
+.env.production
