@@ -23,12 +23,11 @@ RUN mkdir -p /app/App_Data && \
 
 # Configurar variables de entorno
 ENV ASPNETCORE_ENVIRONMENT=Production \
-    ASPNETCORE_URLS=http://+:80 \
+    ASPNETCORE_URLS=http://+:8080 \
     DOTNET_RUNNING_IN_CONTAINER=true
 
 # Exponer el puerto
-EXPOSE 80
-
+EXPOSE 8080
 # Usar usuario no root para seguridad
 USER app
 
