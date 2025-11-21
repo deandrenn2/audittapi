@@ -40,7 +40,18 @@ public class ImportAssessments : ICarterModule
                 userId = parsedUserId;
             }
 
-            return await mediator.Send(new ImportAssessmentsCommand(file, userId));
+            // Obtener los parámetros de contexto desde el formulario
+            if (!int.TryParse(form["institutionId"], out var institutionId) ||
+                !int.TryParse(form["dataCutId"], out var dataCutId) ||
+                !int.TryParse(form["guideId"], out var guideId))
+            {
+                return Results.ValidationProblem(new Dictionary<string, string[]>
+                {
+                    { "Context", new[] { "Debe proporcionar institutionId, dataCutId y guideId." } }
+                });
+            }
+
+            return await mediator.Send(new ImportAssessmentsCommand(file, userId, institutionId, dataCutId, guideId));
         })
         .WithName(nameof(ImportAssessments))
         .WithTags(nameof(Assessment))
@@ -50,7 +61,7 @@ public class ImportAssessments : ICarterModule
         .RequireAuthorization();
     }
 
-    public record ImportAssessmentsCommand(IFormFile File, int UserId) : IRequest<IResult>;
+    public record ImportAssessmentsCommand(IFormFile File, int UserId, int InstitutionId, int DataCutId, int GuideId) : IRequest<IResult>;
 
     public record ImportAssessmentsResponse(
         int SuccessCount,
@@ -96,7 +107,13 @@ public class ImportAssessments : ICarterModule
 
             try
             {
-                var result = await importer.ImportAssessmentsAsync(request.File, dbContext, request.UserId);
+                var result = await importer.ImportAssessmentsWithContextAsync(
+                    request.File,
+                    dbContext,
+                    request.UserId,
+                    request.InstitutionId,
+                    request.DataCutId,
+                    request.GuideId);
 
                 var response = new ImportAssessmentsResponse(
                     SuccessCount: result.SuccessfulEntities.Count,
@@ -149,6 +166,15 @@ public class ImportAssessments : ICarterModule
 
             RuleFor(x => x.UserId)
                 .GreaterThan(0).WithMessage("El ID de usuario es requerido.");
+
+            RuleFor(x => x.InstitutionId)
+                .GreaterThan(0).WithMessage("El ID de institución es requerido.");
+
+            RuleFor(x => x.DataCutId)
+                .GreaterThan(0).WithMessage("El ID de corte de datos es requerido.");
+
+            RuleFor(x => x.GuideId)
+                .GreaterThan(0).WithMessage("El ID de guía es requerido.");
         }
     }
 }

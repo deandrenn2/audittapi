@@ -16,9 +16,10 @@ public class GenerateTemplateImportAssessment : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("api/assessments/template-import", async (IMediator mediator) =>
+        app.MapPost("api/assessments/template-import", async (IMediator mediator, int institutionId, int dataCutId, int guideId) =>
         {
-            return await mediator.Send(new GenerateTemplateImportAssessmentCommand());
+            var command = new GenerateTemplateImportAssessmentCommand(institutionId, dataCutId, guideId);
+            return await mediator.Send(command);
         })
         .WithName(nameof(GenerateTemplateImportAssessment))
         .WithTags(nameof(Assessment))
@@ -26,13 +27,17 @@ public class GenerateTemplateImportAssessment : ICarterModule
     }
 
     public record GenerateTemplateImportAssessmentResponse(byte[] Template, string FileName);
-    public record GenerateTemplateImportAssessmentCommand : IRequest<IResult>;
+    public record GenerateTemplateImportAssessmentCommand(int InstitutionId, int DataCutId, int GuideId) : IRequest<IResult>;
 
     public class GenerateTemplateImportAssessmentHandler(AssessmentExcelImporter importer, AppDbContext dbContext) : IRequestHandler<GenerateTemplateImportAssessmentCommand, IResult>
     {
         public async Task<IResult> Handle(GenerateTemplateImportAssessmentCommand request, CancellationToken cancellationToken)
         {
-            var template = importer.CreateTemplateWithData(dbContext);
+            var template = await importer.CreateTemplateWithContextAsync(
+                dbContext,
+                request.InstitutionId,
+                request.DataCutId,
+                request.GuideId);
 
             using var stream = new MemoryStream();
             template.SaveAs(stream);
