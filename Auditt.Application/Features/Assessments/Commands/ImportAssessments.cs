@@ -32,14 +32,6 @@ public class ImportAssessments : ICarterModule
                 });
             }
 
-            // Obtener el ID del usuario autenticado
-            var userId = 0;
-            var userIdClaim = req.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim != null && int.TryParse(userIdClaim.Value, out var parsedUserId))
-            {
-                userId = parsedUserId;
-            }
-
             // Obtener los parámetros de contexto desde el formulario
             if (!int.TryParse(form["institutionId"], out var institutionId) ||
                 !int.TryParse(form["dataCutId"], out var dataCutId) ||
@@ -51,7 +43,7 @@ public class ImportAssessments : ICarterModule
                 });
             }
 
-            return await mediator.Send(new ImportAssessmentsCommand(file, userId, institutionId, dataCutId, guideId));
+            return await mediator.Send(new ImportAssessmentsCommand(file, institutionId, dataCutId, guideId));
         })
         .WithName(nameof(ImportAssessments))
         .WithTags(nameof(Assessment))
@@ -61,7 +53,7 @@ public class ImportAssessments : ICarterModule
         .RequireAuthorization();
     }
 
-    public record ImportAssessmentsCommand(IFormFile File, int UserId, int InstitutionId, int DataCutId, int GuideId) : IRequest<IResult>;
+    public record ImportAssessmentsCommand(IFormFile File, int InstitutionId, int DataCutId, int GuideId) : IRequest<IResult>;
 
     public record ImportAssessmentsResponse(
         int SuccessCount,
@@ -75,10 +67,24 @@ public class ImportAssessments : ICarterModule
 
     public class ImportAssessmentsHandler(
         AssessmentExcelImporter importer,
+        IHttpContextAccessor httpContextAccessor,
         AppDbContext dbContext) : IRequestHandler<ImportAssessmentsCommand, IResult>
     {
         public async Task<IResult> Handle(ImportAssessmentsCommand request, CancellationToken cancellationToken)
         {
+
+            // Obtener el ID del usuario autenticado
+            var userId = httpContextAccessor.HttpContext?.User
+           .FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userId, out var parsedUserId))
+            {
+                return Results.ValidationProblem(new Dictionary<string, string[]>
+                {
+                    { "UserId", new[] { "Usuario no autenticado o inválido." } }
+                });
+            }
+
             if (request.File == null || request.File.Length == 0)
             {
                 return Results.ValidationProblem(new Dictionary<string, string[]>
@@ -87,7 +93,7 @@ public class ImportAssessments : ICarterModule
                 });
             }
 
-            if (request.UserId <= 0)
+            if (parsedUserId <= 0)
             {
                 return Results.ValidationProblem(new Dictionary<string, string[]>
                 {
@@ -110,7 +116,7 @@ public class ImportAssessments : ICarterModule
                 var result = await importer.ImportAssessmentsWithContextAsync(
                     request.File,
                     dbContext,
-                    request.UserId,
+                    parsedUserId,
                     request.InstitutionId,
                     request.DataCutId,
                     request.GuideId);
@@ -163,9 +169,6 @@ public class ImportAssessments : ICarterModule
         {
             RuleFor(x => x.File)
                 .NotEmpty().WithMessage("Debe proporcionar un archivo para importar.");
-
-            RuleFor(x => x.UserId)
-                .GreaterThan(0).WithMessage("El ID de usuario es requerido.");
 
             RuleFor(x => x.InstitutionId)
                 .GreaterThan(0).WithMessage("El ID de institución es requerido.");
