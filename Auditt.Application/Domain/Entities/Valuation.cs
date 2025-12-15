@@ -46,6 +46,11 @@ public class Valuation : AggregateRoot
         UpdateDate = new DateTime();
     }
 
+    public void AddAssignment(Assessment assessment)
+    {
+        Assessment = assessment;
+        AssessmentId = assessment.Id;
+    }
     public void UpdateEqui(int idEquivalence)
     {
         EquivalenceId = idEquivalence;

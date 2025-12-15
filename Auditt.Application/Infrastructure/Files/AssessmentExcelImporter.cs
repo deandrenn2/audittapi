@@ -561,9 +561,9 @@ public class AssessmentExcelImporter : ExcelImporter<AssessmentImportModel>
             var worksheet = workbook.Worksheet(1);
 
             // Leer los IDs de contexto de las filas ocultas
-            var contextInstitutionId = Convert.ToInt32(worksheet.Cell(1, 2).Value);
-            var contextDataCutId = Convert.ToInt32(worksheet.Cell(2, 2).Value);
-            var contextGuideId = Convert.ToInt32(worksheet.Cell(3, 2).Value);
+            var contextInstitutionId = worksheet.Cell(1, 2).GetValue<int>();
+            var contextDataCutId = worksheet.Cell(2, 2).GetValue<int>();
+            var contextGuideId = worksheet.Cell(3, 2).GetValue<int>();
 
             // Validar que los IDs de contexto coincidan con los parámetros
             if (contextInstitutionId != institutionId || contextDataCutId != dataCutId || contextGuideId != guideId)
@@ -585,7 +585,7 @@ public class AssessmentExcelImporter : ExcelImporter<AssessmentImportModel>
                 return new ImportResult<Assessment>(importedAssessments, duplicateRows, errorRows, 0, "Guía no encontrada");
             }
 
-            var rowCount = worksheet.RowsUsed().Count();
+            var rowCount = worksheet.RowsUsed().Count() + 4; // +4 to account of espace in template
 
             // Comenzar desde la fila 20 (después de las instrucciones y headers)
             for (int row = 20; row <= rowCount; row++)
@@ -766,7 +766,8 @@ public class AssessmentExcelImporter : ExcelImporter<AssessmentImportModel>
                     idQuestion: questionId
                 );
 
-                dbContext.Valuations.Add(newValuation);
+                assessment.Valuations.Add(newValuation);
+
                 order++;
             }
         }
@@ -807,10 +808,10 @@ public class AssessmentExcelImporter : ExcelImporter<AssessmentImportModel>
             }
 
             // 4. Validar que la fecha de evaluación esté dentro del rango del corte de datos
-            if (model.AssessmentDate < dataCut.InitialDate || model.AssessmentDate > dataCut.FinalDate)
-            {
-                return AssessmentValidationResult.Error($"Fila {rowNumber}: La fecha de evaluación {model.AssessmentDate:dd/MM/yyyy} está fuera del rango del corte de datos ({dataCut.InitialDate:dd/MM/yyyy} - {dataCut.FinalDate:dd/MM/yyyy})");
-            }
+            // if (model.AssessmentDate < dataCut.InitialDate || model.AssessmentDate > dataCut.FinalDate)
+            // {
+            //     return AssessmentValidationResult.Error($"Fila {rowNumber}: La fecha de evaluación {model.AssessmentDate:dd/MM/yyyy} está fuera del rango del corte de datos ({dataCut.InitialDate:dd/MM/yyyy} - {dataCut.FinalDate:dd/MM/yyyy})");
+            // }
 
             // 5. Verificar que no exista una evaluación duplicada
             var existingAssessment = await dbContext.Assessments
