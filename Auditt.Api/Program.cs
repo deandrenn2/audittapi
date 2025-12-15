@@ -38,7 +38,7 @@ var app = builder.Build();
 // 🔄 Aplica las migraciones automáticamente si no estás en desarrollo
 //if (!app.Environment.IsDevelopment())
 //{
-await app.MigrateDatabaseAsync(); // <- Esta línea es clave
+//await app.MigrateDatabaseAsync(); // <- Esta línea es clave
 //}
 app.UseHttpsRedirection();
 app.UseOpenApi();
