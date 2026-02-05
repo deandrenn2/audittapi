@@ -838,6 +838,9 @@ public class AssessmentExcelImporter : ExcelImporter<AssessmentImportModel>
                 idGuide: guideId
             );
 
+            assessment.AddPatient(patient);
+            assessment.AddFunctionary(functionary);
+
             dbContext.Assessments.Add(assessment);
 
             return AssessmentValidationResult.Success(assessment);

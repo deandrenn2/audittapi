@@ -54,6 +54,16 @@ public class Assessment : AggregateRoot
         Valuations.Add(valuation);
     }
 
+    public void AddPatient(Patient patient)
+    {
+        Patient = patient;
+    }
+
+    public void AddFunctionary(Functionary functionary)
+    {
+        Functionary = functionary;
+    }
+
     public void Update(int idInstitucion, int idDataCut, int idFunctionary, DateTime date, string eps, string yearOld, int idUser, int idGuide)
     {
         InstitutionId = idInstitucion;
@@ -75,4 +85,5 @@ public class Assessment : AggregateRoot
         IdUserUpdate = idUser;
         UpdateDate = DateTime.Now;
     }
+
 }
